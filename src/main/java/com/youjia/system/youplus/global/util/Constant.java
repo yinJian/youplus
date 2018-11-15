@@ -11,7 +11,16 @@ public interface Constant {
      * 正常态
      */
     int STATE_NORMAL = 0;
-    int STATE_DELETE = -1;
+    /**
+     * 待审核
+     */
+    int STATE_CONFIRM = -1;
+    /**
+     * 被拒绝
+     */
+    int STATE_REFUSE = -2;
+
+    String REASON_NEW_CREATE = "新建";
 
     int STATE_FAIL = 2;
 
@@ -22,9 +31,6 @@ public interface Constant {
     int FAILURE = 0;
 
     String ROLE_ADMIN = "admin";
-    //String ROLE_MANAGER = "manager";
-    //String ROLE_LEADER = "leader";
-    //String ROLE_USER = "user";
 
     Long MANAGER_COMPANY_ID = 0L;
 

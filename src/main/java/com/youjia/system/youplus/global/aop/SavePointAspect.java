@@ -2,8 +2,9 @@ package com.youjia.system.youplus.global.aop;
 
 import com.xiaoleilu.hutool.json.JSONUtil;
 import com.youjia.system.youplus.core.base.BaseEntity;
-import com.youjia.system.youplus.core.operation.OperationLogEntity;
+import com.youjia.system.youplus.core.operation.OperationLog;
 import com.youjia.system.youplus.core.operation.OperationLogManager;
+import com.youjia.system.youplus.global.util.CommonUtil;
 import com.youjia.system.youplus.global.util.Constant;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -31,13 +32,16 @@ public class SavePointAspect {
     @Around("@within(service) && !within(com.youjia.system.youplus.core.operation.OperationLogManager)")
     public Object around(ProceedingJoinPoint joinPoint, Service service) throws Throwable {
         String className = joinPoint.getSignature().getDeclaringTypeName();
+        String method = joinPoint.getSignature().getName();
+        if (method.contains("find") || method.contains("query")) {
+            return joinPoint.proceed();
+        }
         // 接收到请求，记录请求内容
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        String userId = request.getHeader(Constant.USERID);
-        String method = joinPoint.getSignature().getName();
+        Long userId = Long.valueOf(request.getHeader(Constant.USERID));
         Object[] obj = joinPoint.getArgs();
-        Date date = new Date();
+        Date date = CommonUtil.getNow();
         for (Object o : obj) {
             if (!(o instanceof BaseEntity)) {
                 continue;
@@ -45,43 +49,43 @@ public class SavePointAspect {
             BaseEntity baseEntity = (BaseEntity) o;
 
             //添加系统日志
-            OperationLogEntity operationLogEntity = new OperationLogEntity();
+            OperationLog operationLog = new OperationLog();
             if (!method.contains("add") && !method.contains("update") && !method.contains("delete")) {
                 continue;
             }
 
             if (method.contains("add")) {
-                operationLogEntity.setOperationType("add");
+                operationLog.setOperationType("add");
             } else if (method.contains("update")) {
-                operationLogEntity.setOperationType("update");
+                operationLog.setOperationType("update");
             } else if (method.contains("delete")) {
-                operationLogEntity.setOperationType("delete");
+                operationLog.setOperationType("delete");
             }
 
-            baseEntity.setUserId(userId);
+            baseEntity.setOperatorId(userId);
             baseEntity.setCreateTime(date);
             baseEntity.setUpdateTime(date);
 
             String jsonContent = JSONUtil.toJsonStr(o);
-            operationLogEntity.setContent(jsonContent);
-            operationLogEntity.setSucceed(true);
-            operationLogEntity.setTitle(className.replace("com.youjia.system.youplus.core.", "") + "." + method);
-            operationLogEntity.setUserId(userId + "");
-            operationLogEntity.setCreateTime(date);
-            operationLogEntity.setUpdateTime(date);
+            operationLog.setContent(jsonContent);
+            operationLog.setSucceed(true);
+            operationLog.setTitle(className.replace("com.youjia.system.youplus.core.", "") + "." + method);
+            operationLog.setOperatorId(userId);
+            operationLog.setCreateTime(date);
+            operationLog.setUpdateTime(date);
 
             try {
                 Object o1 = joinPoint.proceed();
                 
-                operationLogEntity.setKeyword("Id:" + baseEntity.getId());
-                operationLogManager.operationLog(operationLogEntity);
+                operationLog.setKeyword("Id:" + baseEntity.getId());
+                operationLogManager.operationLog(operationLog);
                 return o1;
             } catch (Throwable throwable) {
-                operationLogEntity.setSucceed(false);
-                operationLogManager.operationLog(operationLogEntity);
+                operationLog.setSucceed(false);
+                operationLogManager.operationLog(operationLog);
                 throw throwable;
             }
         }
-        return null;
+        return joinPoint.proceed();
     }
 }

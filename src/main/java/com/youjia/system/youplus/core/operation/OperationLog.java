@@ -9,7 +9,7 @@ import javax.persistence.Entity;
  * @author wuweifeng wrote on 2018/11/1.
  */
 @Entity
-public class OperationLogEntity extends BaseEntity {
+public class OperationLog extends BaseEntity {
     private String operationType;
     private String keyword;
     private String title;

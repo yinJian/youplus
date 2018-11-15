@@ -13,8 +13,8 @@ public class OperationLogManager {
     @Resource
     private OperationLogRepository operationLogRepository;
 
-    public OperationLogEntity operationLog(OperationLogEntity mOperationLogEntity) {
-        return operationLogRepository.save(mOperationLogEntity);
+    public OperationLog operationLog(OperationLog mOperationLog) {
+        return operationLogRepository.save(mOperationLog);
     }
 
 }
