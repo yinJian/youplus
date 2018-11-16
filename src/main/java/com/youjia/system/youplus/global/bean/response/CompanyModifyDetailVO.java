@@ -16,14 +16,14 @@ public class CompanyModifyDetailVO {
     /**
      * 修改人
      */
-    private String modifyName;
+    private String operatorName;
 
     @Override
     public String toString() {
         return "CompanyModifyDetailVO{" +
                 "orignal=" + orignal +
                 ", modified=" + modified +
-                ", modifyName='" + modifyName + '\'' +
+                ", operatorName='" + operatorName + '\'' +
                 '}';
     }
 
@@ -43,11 +43,11 @@ public class CompanyModifyDetailVO {
         this.modified = modified;
     }
 
-    public String getModifyName() {
-        return modifyName;
+    public String getOperatorName() {
+        return operatorName;
     }
 
-    public void setModifyName(String modifyName) {
-        this.modifyName = modifyName;
+    public void setOperatorName(String operatorName) {
+        this.operatorName = operatorName;
     }
 }

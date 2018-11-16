@@ -2,6 +2,7 @@ package com.youjia.system.youplus.core.company.company;
 
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
+import com.youjia.system.youplus.global.bean.request.CompanyConfirmListQueryModel;
 import com.youjia.system.youplus.global.bean.request.CompanyListQueryModel;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,15 +17,30 @@ public class CompanyController {
     @Resource
     private CompanyService companyService;
 
-
     @GetMapping("")
     public BaseData list(CompanyListQueryModel companyListQueryModel) {
         return ResultGenerator.genSuccessResult(companyService.find(companyListQueryModel));
     }
 
+    @GetMapping("/confirmList")
+    public BaseData confirm(CompanyConfirmListQueryModel companyConfirmListQueryModel) {
+        return ResultGenerator.genSuccessResult(companyService.find(companyConfirmListQueryModel));
+    }
+
     @GetMapping("/{id}")
     public BaseData one(@PathVariable Long id) {
         return ResultGenerator.genSuccessResult(companyService.findOne(id));
+    }
+
+    @GetMapping("/{id}/detail")
+    public BaseData detail(@PathVariable Long id) {
+        return ResultGenerator.genSuccessResult(companyService.findDetail(id));
+    }
+
+    @PostMapping("/{id}/detail/confirm")
+    public BaseData confirm(@PathVariable Long id, Boolean confirm) {
+        companyService.confirm(id, confirm);
+        return ResultGenerator.genSuccessResult("操作成功");
     }
 
     @PostMapping("")

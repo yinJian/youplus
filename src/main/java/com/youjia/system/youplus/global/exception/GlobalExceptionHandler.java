@@ -69,3 +69,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         logger.error("************************异常结束*******************************");
     }
 }
+                                  

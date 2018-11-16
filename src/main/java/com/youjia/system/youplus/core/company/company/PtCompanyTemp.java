@@ -39,7 +39,7 @@ public class PtCompanyTemp extends BaseEntity {
      */
     private String type;
     /**
-     * 公司状态（0正常，1欠费，-1产品故障等等）
+     * 公司状态（-1待审核，0正常，-2被拒绝）
      */
     private Integer status;
     /**

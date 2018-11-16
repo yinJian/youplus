@@ -30,12 +30,20 @@ public class PtCompanyManager {
         return save(ptCompany);
     }
 
+    public PtCompanyTemp updateTemp(PtCompanyTemp ptCompany) {
+        return saveTemp(ptCompany);
+    }
+
     public PtCompanyTemp save(PtCompanyTemp ptCompanyTemp) {
         return ptCompanyTempRepository.save(ptCompanyTemp);
     }
 
     public PtCompanyTemp findTempByCompanyId(Long companyId) {
         return ptCompanyTempRepository.findFirstByCompanyIdOrderByIdDesc(companyId);
+    }
+
+    public PtCompanyTemp findOneTemp(Long id) {
+        return ptCompanyTempRepository.getOne(id);
     }
 
     private PtCompany save(PtCompany ptCompany) {
@@ -75,4 +83,7 @@ public class PtCompanyManager {
         return ptCompanyRepository.findAll(var1, var2);
     }
 
+    public Page<PtCompanyTemp> findAllTemp(Specification<PtCompanyTemp> var1, Pageable var2) {
+        return ptCompanyTempRepository.findAll(var1, var2);
+    }
 }

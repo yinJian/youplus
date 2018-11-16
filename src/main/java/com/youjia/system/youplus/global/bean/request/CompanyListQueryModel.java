@@ -4,6 +4,9 @@ package com.youjia.system.youplus.global.bean.request;
  * @author wuweifeng wrote on 2018/11/15.
  */
 public class CompanyListQueryModel extends BaseModel {
+    /**
+     * 公司名
+     */
     private String name;
     /**
      * 公司类型，group=7

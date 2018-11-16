@@ -33,9 +33,13 @@ public class PtUserManager {
     }
 
     public PtUser findById(Long id) {
-        System.out.println(1);
         return userRepository.getOne(id);
     }
+
+    public String findNameById(Long id) {
+        return findById(id).getName();
+    }
+
 
 
     public PtUser update(PtUser ptUser) {
