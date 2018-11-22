@@ -1,9 +1,8 @@
 package com.youjia.system.youplus.core.company.goods;
 
 import com.youjia.system.youplus.global.bean.BaseData;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.youjia.system.youplus.global.bean.ResultGenerator;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -17,7 +16,17 @@ public class GoodsPlanController {
     private GoodsPlanService goodsPlanService;
 
     @GetMapping("")
-    public BaseData list() {
-        return null;
+    public BaseData list(Long companyId) {
+        return ResultGenerator.genSuccessResult(goodsPlanService.findByCompanyId(companyId));
+    }
+
+    @PostMapping("")
+    public BaseData add(PtGoodsPlan ptGoodsPlan) {
+        return ResultGenerator.genSuccessResult(goodsPlanService.add(ptGoodsPlan));
+    }
+
+    @PutMapping("")
+    public BaseData update(PtGoodsPlan ptGoodsPlan) {
+        return ResultGenerator.genSuccessResult(goodsPlanService.update(ptGoodsPlan));
     }
 }

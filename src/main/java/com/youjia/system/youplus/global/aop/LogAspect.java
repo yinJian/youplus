@@ -44,7 +44,7 @@ public class LogAspect {
         logger.info("URL : " + request.getRequestURL().toString());
         logger.info("HTTP_METHOD : " + request.getMethod());
         //如果是表单，参数值是普通键值对。如果是application/json，则request.getParameter是取不到的。
-        logger.info("HTTP_HEAD Type : " + request.getHeader("content-type"));
+        logger.info("Content-type : " + request.getHeader("content-type"));
         logger.info("IP : " + request.getRemoteAddr());
         logger.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint
                 .getSignature().getName());

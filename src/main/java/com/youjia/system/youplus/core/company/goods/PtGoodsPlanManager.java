@@ -15,8 +15,19 @@ public class PtGoodsPlanManager {
     @Resource
     private PtGoodsPlanRepository ptGoodsPlanRepository;
 
-    public List<PtGoodsPlan> findAll() {
-        return ptGoodsPlanRepository.findByDeleteFlagFalse();
+    public List<PtGoodsPlan> findByCompanyId(Long companyId) {
+        return ptGoodsPlanRepository.findByCompanyIdAndDeleteFlagFalse(companyId);
+    }
+
+    public String findNameById(Long id) {
+        if (id == null || findOne(id) == null) {
+            return "无";
+        }
+        return findOne(id).getName();
+    }
+
+    public PtGoodsPlan findOne(Long id) {
+        return ptGoodsPlanRepository.getOne(id);
     }
 
     public PtGoodsPlan add(PtGoodsPlan ptGoodsPlan) {

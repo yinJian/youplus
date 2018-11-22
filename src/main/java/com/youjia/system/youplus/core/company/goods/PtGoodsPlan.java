@@ -2,11 +2,8 @@ package com.youjia.system.youplus.core.company.goods;
 
 import com.youjia.system.youplus.core.base.BaseDeleteEntity;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.List;
 
 /**
  * 商品计划
@@ -20,12 +17,6 @@ public class PtGoodsPlan extends BaseDeleteEntity {
      */
     private String name;
     /**
-     * 计划内的商品
-     */
-    @ElementCollection
-    @CollectionTable
-    private List<String> goods;
-    /**
      * 属于哪个企业
      */
     private Long companyId;
@@ -34,7 +25,6 @@ public class PtGoodsPlan extends BaseDeleteEntity {
     public String toString() {
         return "PtGoodsPlan{" +
                 "name='" + name + '\'' +
-                ", goods=" + goods +
                 ", companyId=" + companyId +
                 '}';
     }
@@ -53,13 +43,5 @@ public class PtGoodsPlan extends BaseDeleteEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<String> getGoods() {
-        return goods;
-    }
-
-    public void setGoods(List<String> goods) {
-        this.goods = goods;
     }
 }

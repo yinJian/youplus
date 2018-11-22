@@ -33,7 +33,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
                                                              HttpStatus status, WebRequest request) {
-        return new ResponseEntity<>(ResultGenerator.genFailResult(PARAMETER_ERROR, "GET、POST方法错误或参数有错误"),
+        log(ex);
+        return new ResponseEntity<>(ResultGenerator.genFailResult(PARAMETER_ERROR, "GET、POST方法错误或参数类型有错误"),
                 NOT_EXTENDED);
     }
 

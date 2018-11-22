@@ -7,7 +7,7 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public class BaseDeleteEntity extends BaseEntity {
-    private boolean deleteFlag;
+    private boolean deleteFlag = true;
 
     public boolean isDeleteFlag() {
         return deleteFlag;

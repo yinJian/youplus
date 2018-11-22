@@ -1,5 +1,6 @@
 package com.youjia.system.youplus.core.company.goods;
 
+import com.youjia.system.youplus.global.util.Constant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author wuweifeng wrote on 2018/11/16.
@@ -23,39 +25,57 @@ public class PtGoodsManager {
         return save(ptGoods);
     }
 
-    /**
-     * 提交更新时，修改原来的状态为"待审核"，将新的属性全部存到temp中
-     *
-     * @param ptGoods
-     *         ptGoods
-     * @return ptGoods
-     */
-    public PtGoods update(PtGoods ptGoods) {
-        return save(ptGoods);
+    public PtGoodsTemp addTemp(PtGoodsTemp ptGoods) {
+        return ptGoodsTempRepository.save(ptGoods);
     }
 
     public PtGoodsTemp updateTemp(PtGoodsTemp ptGoodsTemp) {
-        return saveTemp(ptGoodsTemp);
+        return save(ptGoodsTemp);
     }
 
-    public PtGoodsTemp save(PtGoodsTemp ptGoodsTemp) {
-        return ptGoodsTempRepository.save(ptGoodsTemp);
-    }
-
-    public PtGoodsTemp findTempByCompanyId(Long companyId) {
-        return ptGoodsTempRepository.findFirstByGoodsIdOrderByIdDesc(companyId);
-    }
-
-    public PtGoodsTemp findOneTemp(Long id) {
-        return ptGoodsTempRepository.getOne(id);
+    public PtGoods update(PtGoods ptGoods) {
+        return save(ptGoods);
     }
 
     private PtGoods save(PtGoods ptGoods) {
         return ptGoodsRepository.save(ptGoods);
     }
 
-    private PtGoodsTemp saveTemp(PtGoodsTemp ptGoods) {
-        return ptGoodsTempRepository.save(ptGoods);
+    private PtGoodsTemp save(PtGoodsTemp ptGoodsTemp) {
+        return ptGoodsTempRepository.save(ptGoodsTemp);
+    }
+
+    /**
+     * 商品下架
+     */
+    public void delete(PtGoods ptGoods) {
+        ptGoods.setDeleteFlag(true);
+        save(ptGoods);
+    }
+
+    /**
+     * 下架商品
+     */
+    public void deleteTemp(PtGoodsTemp ptGoodsTemp) {
+        ptGoodsTemp.setDeleteFlag(true);
+        ptGoodsTemp.setReason(Constant.REASON_DELETE);
+        ptGoodsTemp.setOperatorType(Constant.REASON_DELETE);
+        save(ptGoodsTemp);
+    }
+
+    /**
+     * 根据商品计划查询所有temp
+     */
+    public List<PtGoodsTemp> findByPlanId(Long planId) {
+        return ptGoodsTempRepository.findByPtGoodsPlanId(planId);
+    }
+
+    public PtGoodsTemp findOneTemp(Long id) {
+        return ptGoodsTempRepository.getOne(id);
+    }
+
+    public PtGoodsTemp findOneTempByGoodsId(Long goodsId) {
+        return ptGoodsTempRepository.findFirstByGoodsIdOrderByIdDesc(goodsId);
     }
 
     public PtGoods findOne(Long id) {
@@ -74,6 +94,13 @@ public class PtGoodsManager {
      */
     public Page<PtGoods> findAll(Specification<PtGoods> var1, Pageable var2) {
         return ptGoodsRepository.findAll(var1, var2);
+    }
+
+    /**
+     * 根据公司id查询
+     */
+    public Page<PtGoods> findByCompanyId(Long companyId, Pageable var2) {
+        return ptGoodsRepository.findByCompanyIdAndDeleteFlagFalse(companyId, var2);
     }
 
     public Page<PtGoodsTemp> findAllTemp(Specification<PtGoodsTemp> var1, Pageable var2) {
