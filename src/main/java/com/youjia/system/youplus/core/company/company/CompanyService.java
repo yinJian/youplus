@@ -24,13 +24,13 @@ import java.util.stream.Collectors;
  * @author wuweifeng wrote on 2018/11/15.
  */
 @Component
+@Transactional(rollbackFor = Exception.class)
 public class CompanyService {
     @Resource
     private PtCompanyManager ptCompanyManager;
     @Resource
     private PtUserManager ptUserManager;
 
-    @Transactional(rollbackFor = Exception.class)
     public PtCompany add(PtCompany ptCompany) {
         ptCompany.setStatus(Constant.STATE_CONFIRM);
         ptCompany = ptCompanyManager.add(ptCompany);
@@ -40,11 +40,10 @@ public class CompanyService {
         BeanUtil.copyProperties(ptCompany, ptCompanyTemp, "id");
         ptCompanyTemp.setReason(Constant.REASON_NEW_CREATE);
         ptCompanyTemp.setCompanyId(ptCompany.getId());
-        ptCompanyManager.save(ptCompanyTemp);
+        ptCompanyManager.addTemp(ptCompanyTemp);
         return ptCompany;
     }
 
-    @Transactional(rollbackFor = Exception.class)
     public PtCompanyTemp update(PtCompany ptCompany, String reason) {
         //待审核
         //ptCompany.setStatus(Constant.STATE_CONFIRM);

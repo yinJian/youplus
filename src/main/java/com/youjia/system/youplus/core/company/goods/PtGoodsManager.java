@@ -45,6 +45,37 @@ public class PtGoodsManager {
         return ptGoodsTempRepository.save(ptGoodsTemp);
     }
 
+    public String youServers(Long id) {
+        return youServers(findOne(id));
+    }
+
+    public String youServers(PtGoods ptGoods) {
+        String you = "";
+        //优加服务
+        if (ptGoods.getYouCashPrePayId() == 0) {
+            you += "押金垫付,";
+        }
+        if (ptGoods.getYouPhoneDoctorId() == 0) {
+            you += "电话医生,";
+        }
+        if (ptGoods.getYouBodyCheck() == 0) {
+            you += "youBodyCheck,";
+        }
+        if (ptGoods.getYouOutpatient() == 0) {
+            you += "门诊绿通,";
+        }
+        if (ptGoods.getYouHospital() == 0) {
+            you += "住院绿通,";
+        }
+        if (ptGoods.getYouOperation() == 0) {
+            you += "手术绿通,";
+        }
+        if (ptGoods.getYouSecondMed() == 0) {
+            you += "二次诊疗";
+        }
+        return you;
+    }
+
     /**
      * 商品下架
      */
@@ -82,6 +113,10 @@ public class PtGoodsManager {
         return ptGoodsRepository.getOne(id);
     }
 
+    public String findNameById(Long id) {
+        PtGoods ptGoods = findOne(id);
+        return ptGoods.getName();
+    }
 
     /**
      * 分页查找

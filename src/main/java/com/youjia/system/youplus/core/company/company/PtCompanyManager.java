@@ -21,6 +21,10 @@ public class PtCompanyManager {
         return save(ptCompany);
     }
 
+    public PtCompanyTemp addTemp(PtCompanyTemp ptCompany) {
+        return save(ptCompany);
+    }
+
     /**
      * 提交更新时，修改原来的状态为"待审核"，将新的属性全部存到temp中
      * @param ptCompany  ptCompany
@@ -68,6 +72,10 @@ public class PtCompanyManager {
     public boolean isStatusError(Long companyId) {
         PtCompany ptCompany = ptCompanyRepository.getOne(companyId);
         return ptCompany != null && ptCompany.getStatus() != 0;
+    }
+
+    public String findNameById(Long id) {
+        return findOne(id).getName();
     }
 
     /**
