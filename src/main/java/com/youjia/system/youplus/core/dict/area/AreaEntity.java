@@ -29,7 +29,7 @@ public class AreaEntity {
      */
     private String cityCode;
     /**
-     * 城市中心点（即：经纬度坐标
+     * 城市中心点（即：经纬度坐标）
      */
     private String center;
     /**
