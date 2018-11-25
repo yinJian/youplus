@@ -99,12 +99,13 @@ public class OrderService {
      */
     public SimplePage<OrderListVO> find(OrderListQueryModel companyListQueryModel) {
         Criteria<PtOrder> criteria = new Criteria<>();
+        criteria.add(Restrictions.eq("companyId", companyListQueryModel.getCompanyId(), true));
+        criteria.add(Restrictions.eq("status", Constant.STATE_NORMAL, true));
         criteria.add(Restrictions.like("userName", companyListQueryModel.getUserName(), true));
         criteria.add(Restrictions.like("cardNum", companyListQueryModel.getCardNum(), true));
         criteria.add(Restrictions.like("mobile", companyListQueryModel.getMobile(), true));
         criteria.add(Restrictions.like("paper", companyListQueryModel.getPaper(), true));
-        criteria.add(Restrictions.eq("companyId", companyListQueryModel.getCompanyId(), true));
-        criteria.add(Restrictions.eq("status", Constant.STATE_NORMAL, true));
+        criteria.add(Restrictions.eq("deleteFlag", false, true));
 
         Pageable pageable = PageRequest.of(companyListQueryModel.getPage(), companyListQueryModel.getSize());
         Page<PtOrder> page = ptOrderManager.findAll(criteria, pageable);
@@ -118,10 +119,10 @@ public class OrderService {
      */
     public SimplePage<OrderTempListVO> findTemp(OrderListQueryModel orderListQueryModel) {
         Criteria<PtOrderTemp> criteria = new Criteria<>();
-        criteria.add(Restrictions.like("userName", orderListQueryModel.getUserName(), true));
-        criteria.add(Restrictions.like("mobile", orderListQueryModel.getMobile(), true));
         criteria.add(Restrictions.eq("status", orderListQueryModel.getStatus(), true));
         criteria.add(Restrictions.eq("operatorId", orderListQueryModel.getOperatorId(), true));
+        criteria.add(Restrictions.like("userName", orderListQueryModel.getUserName(), true));
+        criteria.add(Restrictions.like("mobile", orderListQueryModel.getMobile(), true));
 
         Pageable pageable = PageRequest.of(orderListQueryModel.getPage(), orderListQueryModel.getSize());
         Page<PtOrderTemp> page = ptOrderManager.findAllTemp(criteria, pageable);
