@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 /**
+ * 分院管理
  * @author wuweifeng wrote on 2018/11/12.
  */
 @RestController
@@ -25,7 +26,6 @@ public class PhysicalChildController {
     public BaseData one(@PathVariable Long id) {
         return ResultGenerator.genSuccessResult(physicalChildService.find(id));
     }
-
 
     @PostMapping("")
     public BaseData add(PtPhysicalChild ptPhysicalChild) {

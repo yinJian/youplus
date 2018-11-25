@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class PtPhysicalChildManager {
@@ -14,6 +15,20 @@ public class PtPhysicalChildManager {
 
     public Page<PtPhysicalChild> findAll(Specification<PtPhysicalChild> var1, Pageable var2) {
         return ptPhysicalChildRepository.findAll(var1, var2);
+    }
+
+    public List<PtPhysicalChild> findAll(Specification<PtPhysicalChild> var1) {
+        return ptPhysicalChildRepository.findAll(var1);
+    }
+
+    /**
+     * 统计分院数量
+     *
+     * @param physicalId physicalId
+     * @return Integer
+     */
+    public Integer countByPhysicalId(Long physicalId) {
+        return ptPhysicalChildRepository.countByDeleteFlagAndPhysicalId(false, physicalId).intValue();
     }
 
     public PtPhysicalChild find(Long id) {
@@ -33,7 +48,7 @@ public class PtPhysicalChildManager {
         update(ptPhysical);
     }
 
-    private PtPhysicalChild save(PtPhysicalChild ptPhysical)  {
+    private PtPhysicalChild save(PtPhysicalChild ptPhysical) {
         return ptPhysicalChildRepository.save(ptPhysical);
     }
 

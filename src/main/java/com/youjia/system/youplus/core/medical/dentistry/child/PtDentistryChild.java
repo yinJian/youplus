@@ -1,4 +1,4 @@
-package com.youjia.system.youplus.core.medical.physical.child;
+package com.youjia.system.youplus.core.medical.dentistry.child;
 
 import com.youjia.system.youplus.core.base.BaseDeleteEntity;
 
@@ -6,9 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "pt_physical_child")
-public class PtPhysicalChild extends BaseDeleteEntity {
-    private Long physicalId;
+@Table(name = "pt_dentistry_child")
+public class PtDentistryChild extends BaseDeleteEntity {
+    private Long dentistryId;
 
     private String name;
     /**
@@ -27,8 +27,8 @@ public class PtPhysicalChild extends BaseDeleteEntity {
 
     @Override
     public String toString() {
-        return "PtPhysicalChild{" +
-                "physicalId=" + physicalId +
+        return "PtDentistryChild{" +
+                "dentistryId=" + dentistryId +
                 ", name='" + name + '\'' +
                 ", contactPerson='" + contactPerson + '\'' +
                 ", province='" + province + '\'' +
@@ -48,12 +48,12 @@ public class PtPhysicalChild extends BaseDeleteEntity {
         this.contactPerson = contactPerson;
     }
 
-    public Long getPhysicalId() {
-        return physicalId;
+    public Long getDentistryId() {
+        return dentistryId;
     }
 
-    public void setPhysicalId(Long physicalId) {
-        this.physicalId = physicalId;
+    public void setDentistryId(Long dentistryId) {
+        this.dentistryId = dentistryId;
     }
 
     public String getName() {

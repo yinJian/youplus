@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Component
 public class PhysicalChildService {
@@ -33,12 +34,33 @@ public class PhysicalChildService {
         ptPhysicalChildManager.delete(ptPhysicalChildManager.find(id));
     }
 
+    /**
+     * 总院被删，则删所有子院
+     */
+    public void deleteByPhysicalId(Long physicalId) {
+        Criteria<PtPhysicalChild> criteria = new Criteria<>();
+        criteria.add(Restrictions.eq("physicalId", physicalId, true));
+        criteria.add(Restrictions.eq("deleteFlag", false, true));
+        List<PtPhysicalChild> list = ptPhysicalChildManager.findAll(criteria);
+        for (PtPhysicalChild ptPhysicalChild : list) {
+            delete(ptPhysicalChild.getId());
+        }
+    }
+
+    public List<PtPhysicalChild> findByNameLike(String name) {
+        Criteria<PtPhysicalChild> criteria = new Criteria<>();
+        criteria.add(Restrictions.like("name", name, true));
+        criteria.add(Restrictions.eq("deleteFlag", false, true));
+        return ptPhysicalChildManager.findAll(criteria);
+    }
+
     public SimplePage<PtPhysicalChild> find(PhysicalChildListQueryModel physicalChildListQueryModel) {
         Criteria<PtPhysicalChild> criteria = new Criteria<>();
-        criteria.add(Restrictions.like("physicalId", physicalChildListQueryModel.getName(), true));
+        criteria.add(Restrictions.eq("physicalId", physicalChildListQueryModel.getPhysicalId(), true));
         criteria.add(Restrictions.eq("province", physicalChildListQueryModel.getProvince(), true));
         criteria.add(Restrictions.eq("city", physicalChildListQueryModel.getCity(), true));
         criteria.add(Restrictions.eq("country", physicalChildListQueryModel.getCountry(), true));
+        criteria.add(Restrictions.like("name", physicalChildListQueryModel.getName(), true));
         criteria.add(Restrictions.eq("deleteFlag", false, true));
 
         Pageable pageable = PageRequest.of(physicalChildListQueryModel.getPage(),
