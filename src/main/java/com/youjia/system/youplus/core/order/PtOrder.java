@@ -13,10 +13,10 @@ import java.util.Date;
  * @author wuweifeng wrote on 2018/11/16.
  */
 @Entity
-@Table(name = "pt_order", indexes = {@Index(name = "userName", columnList =
-        "user_name"), @Index(name = "companyId", columnList =
-        "company_id"), @Index(name = "goodsId", columnList =
-        "goods_id")})
+@Table(name = "pt_order", indexes = {@Index(name = "user_name", columnList =
+        "userName"), @Index(name = "company_id", columnList =
+        "companyId"), @Index(name = "pt_goods_id", columnList =
+        "ptGoodsId")})
 public class PtOrder extends BaseDeleteEntity {
     /**
      * 用户名称

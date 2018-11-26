@@ -1,5 +1,6 @@
 package com.youjia.system.youplus.core.order;
 
+import com.youjia.system.youplus.global.util.Constant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -45,6 +46,28 @@ public class PtOrderManager {
     }
 
     public PtOrderTemp findTempByOrderId(Long orderId) {
+        return ptOrderTempRepository.findFirstByOrderIdOrderByIdDesc(orderId);
+    }
+
+    /**
+     * 商品下架
+     */
+    public void delete(PtOrder ptOrder) {
+        ptOrder.setDeleteFlag(true);
+        save(ptOrder);
+    }
+
+    /**
+     * 下架商品
+     */
+    public void deleteTemp(PtOrderTemp ptOrderTemp) {
+        ptOrderTemp.setDeleteFlag(true);
+        ptOrderTemp.setReason(Constant.REASON_DELETE);
+        ptOrderTemp.setOperatorType(Constant.REASON_DELETE);
+        save(ptOrderTemp);
+    }
+
+    public PtOrderTemp findOneTempByOrderId(Long orderId) {
         return ptOrderTempRepository.findFirstByOrderIdOrderByIdDesc(orderId);
     }
 

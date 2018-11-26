@@ -12,8 +12,8 @@ import javax.persistence.Table;
  * @author wuweifeng wrote on 2018/11/16.
  */
 @Entity
-@Table(name = "pt_order_relation", indexes = {@Index(name = "orderId", columnList =
-        "order_id")})
+@Table(name = "pt_order_relation", indexes = {@Index(name = "order_id", columnList =
+        "orderId")})
 public class PtOrderRelation extends BaseEntity {
     /**
      * 用户名称

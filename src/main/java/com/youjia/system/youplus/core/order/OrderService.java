@@ -8,7 +8,9 @@ import com.youjia.system.youplus.core.user.user.PtUserManager;
 import com.youjia.system.youplus.global.bean.SimplePage;
 import com.youjia.system.youplus.global.bean.request.OrderAddUpdateModel;
 import com.youjia.system.youplus.global.bean.request.OrderListQueryModel;
+import com.youjia.system.youplus.global.bean.request.OrderTempListQueryModel;
 import com.youjia.system.youplus.global.bean.response.OrderListVO;
+import com.youjia.system.youplus.global.bean.response.OrderModifyDetailVO;
 import com.youjia.system.youplus.global.bean.response.OrderTempListVO;
 import com.youjia.system.youplus.global.specify.Criteria;
 import com.youjia.system.youplus.global.specify.Restrictions;
@@ -16,6 +18,7 @@ import com.youjia.system.youplus.global.util.Constant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -80,16 +83,43 @@ public class OrderService {
         return ptOrderManager.findOne(id);
     }
 
-    public PtOrderTemp update(PtOrder ptOrder, String reason) {
+    /**
+     * 下架某个服务单，则先操作temp表，该表不动
+     *
+     * @param id
+     *         id
+     */
+    public void deleteById(Long id) {
+        PtOrderTemp temp = ptOrderManager.findOneTempByOrderId(id);
+        temp.setStatus(Constant.STATE_CONFIRM);
+        ptOrderManager.deleteTemp(temp);
+    }
+
+    /**
+     * 包含被修改的详情
+     */
+    public OrderModifyDetailVO findDetail(Long id) {
+        PtOrderTemp orderTemp = ptOrderManager.findOneTemp(id);
+        PtOrder ptGoods = ptOrderManager.findOne(orderTemp.getOrderId());
+
+        OrderModifyDetailVO orderModifyDetailVO = new OrderModifyDetailVO();
+        orderModifyDetailVO.setOperatorName(ptUserManager.findNameById(orderTemp.getOperatorId()));
+        orderModifyDetailVO.setOrignal(ptGoods);
+        orderModifyDetailVO.setModified(orderTemp);
+
+        return orderModifyDetailVO;
+    }
+
+    public PtOrderTemp update(OrderAddUpdateModel orderAddUpdateModel) {
         //看有没有在修改中的，有则取，无则新建
-        PtOrderTemp ptOrderTemp = ptOrderManager.findTempByOrderId(ptOrder.getId());
+        PtOrderTemp ptOrderTemp = ptOrderManager.findTempByOrderId(orderAddUpdateModel.getId());
         if (ptOrderTemp == null) {
             ptOrderTemp = new PtOrderTemp();
-            ptOrderTemp.setOrderId(ptOrder.getId());
+            ptOrderTemp.setOrderId(orderAddUpdateModel.getId());
         }
-        BeanUtil.copyProperties(ptOrder, ptOrderTemp, "id");
+        BeanUtil.copyProperties(orderAddUpdateModel, ptOrderTemp, "id");
         ptOrderTemp.setStatus(Constant.STATE_CONFIRM);
-        ptOrderTemp.setReason(reason);
+        ptOrderTemp.setReason(orderAddUpdateModel.getReason());
         ptOrderTemp.setOperatorType(Constant.REASON_UPDATE);
         return ptOrderManager.updateTemp(ptOrderTemp);
     }
@@ -107,7 +137,8 @@ public class OrderService {
         criteria.add(Restrictions.like("paper", companyListQueryModel.getPaper(), true));
         criteria.add(Restrictions.eq("deleteFlag", false, true));
 
-        Pageable pageable = PageRequest.of(companyListQueryModel.getPage(), companyListQueryModel.getSize());
+        Pageable pageable = PageRequest.of(companyListQueryModel.getPage(), companyListQueryModel.getSize(), Sort
+                .Direction.DESC, "id");
         Page<PtOrder> page = ptOrderManager.findAll(criteria, pageable);
 
         return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent().stream().map
@@ -117,18 +148,55 @@ public class OrderService {
     /**
      * 查待确认的，所有的
      */
-    public SimplePage<OrderTempListVO> findTemp(OrderListQueryModel orderListQueryModel) {
+    public SimplePage<OrderTempListVO> findTemp(OrderTempListQueryModel orderTempListQueryModel) {
         Criteria<PtOrderTemp> criteria = new Criteria<>();
-        criteria.add(Restrictions.eq("status", orderListQueryModel.getStatus(), true));
-        criteria.add(Restrictions.eq("operatorId", orderListQueryModel.getOperatorId(), true));
-        criteria.add(Restrictions.like("userName", orderListQueryModel.getUserName(), true));
-        criteria.add(Restrictions.like("mobile", orderListQueryModel.getMobile(), true));
+        criteria.add(Restrictions.eq("status", orderTempListQueryModel.getStatus(), true));
+        criteria.add(Restrictions.eq("operatorId", orderTempListQueryModel.getOperatorId(), true));
+        criteria.add(Restrictions.like("userName", orderTempListQueryModel.getUserName(), true));
+        criteria.add(Restrictions.like("mobile", orderTempListQueryModel.getMobile(), true));
 
-        Pageable pageable = PageRequest.of(orderListQueryModel.getPage(), orderListQueryModel.getSize());
+        Pageable pageable = PageRequest.of(orderTempListQueryModel.getPage(), orderTempListQueryModel.getSize(),
+                Sort.Direction.DESC, "updateTime");
         Page<PtOrderTemp> page = ptOrderManager.findAllTemp(criteria, pageable);
 
         return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent().stream().map
                 (this::parseTemp).collect(Collectors.toList()));
+    }
+
+    /**
+     * 审核服务单，是否同意
+     *
+     * @param id
+     *         tempId
+     * @param confirm
+     *         confirm
+     */
+    public void confirm(Long id, Boolean confirm) {
+        if (confirm == null) {
+            return;
+        }
+        PtOrderTemp oneTemp = ptOrderManager.findOneTemp(id);
+        PtOrder ptOrder = ptOrderManager.findOne(oneTemp.getOrderId());
+        //如果是下架
+        if (Constant.REASON_DELETE.equals(oneTemp.getOperatorType())) {
+            if (confirm) {
+                //确认下架，将deleteFlag置为true
+                ptOrderManager.delete(ptOrder);
+                oneTemp.setStatus(Constant.STATE_NORMAL);
+            } else {
+                oneTemp.setStatus(Constant.STATE_REFUSE);
+            }
+        } else { //新建、修改相关的
+            if (confirm) {
+                oneTemp.setStatus(Constant.STATE_NORMAL);
+                //将更新后的覆盖到原来的里面
+                BeanUtil.copyProperties(oneTemp, ptOrder, "id");
+                ptOrderManager.update(ptOrder);
+            } else {
+                oneTemp.setStatus(Constant.STATE_REFUSE);
+            }
+        }
+        ptOrderManager.updateTemp(oneTemp);
     }
 
     private OrderListVO parse(PtOrder ptOrder) {
