@@ -29,6 +29,10 @@ public class PtDictManager {
         ptDictRepository.delete(ptDict);
     }
 
+    public PtDict find(Long id) {
+        return ptDictRepository.getOne(id);
+    }
+
     public PtDict save(PtDict ptDict) {
         return ptDictRepository.save(ptDict);
     }
