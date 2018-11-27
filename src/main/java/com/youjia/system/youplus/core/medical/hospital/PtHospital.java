@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "pt_company")
+@Table(name = "pt_hospital")
 public class PtHospital extends BaseDeleteEntity {
     private String name;
     /**

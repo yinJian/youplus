@@ -1,7 +1,7 @@
 package com.youjia.system.youplus.core.company.company;
 
 
-import com.youjia.system.youplus.core.base.BaseEntity;
+import com.youjia.system.youplus.core.base.BaseDeleteEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -12,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pt_company")
-public class PtCompany extends BaseEntity {
+public class PtCompany extends BaseDeleteEntity {
     /**
      * 公司名称
      */

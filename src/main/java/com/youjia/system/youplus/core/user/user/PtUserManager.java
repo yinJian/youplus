@@ -1,6 +1,7 @@
 package com.youjia.system.youplus.core.user.user;
 
 import com.xiaoleilu.hutool.util.StrUtil;
+import com.youjia.system.youplus.global.util.Constant;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,6 +17,10 @@ import static com.youjia.system.youplus.global.util.Constant.STATE_NORMAL;
 public class PtUserManager {
     @Resource
     private PtUserRepository userRepository;
+
+    public List<PtUser> find() {
+        return userRepository.findByState(Constant.STATE_NORMAL);
+    }
 
     public Long findCompanyIdByUserId(Long id) {
         return findById(id).getCompanyId();

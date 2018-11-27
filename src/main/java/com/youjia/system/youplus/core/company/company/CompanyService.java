@@ -69,6 +69,7 @@ public class CompanyService {
         criteria.add(Restrictions.like("name", companyListQueryModel.getName(), true));
         criteria.add(Restrictions.eq("type", companyListQueryModel.getType(), true));
         criteria.add(Restrictions.eq("status", Constant.STATE_NORMAL, true));
+        criteria.add(Restrictions.eq("deleteFlag", false, true));
 
         Pageable pageable = PageRequest.of(companyListQueryModel.getPage(), companyListQueryModel.getSize());
         Page<PtCompany> page = ptCompanyManager.findAll(criteria, pageable);
