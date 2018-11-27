@@ -16,8 +16,11 @@ public class DictController {
     private PtDictManager ptDictManager;
 
     @GetMapping("")
-    public BaseData query() {
-         return ResultGenerator.genSuccessResult(ptDictManager.findAll());
+    public BaseData query(Integer groupId) {
+        if (groupId == null) {
+            return ResultGenerator.genSuccessResult(ptDictManager.findAll());
+        }
+        return ResultGenerator.genSuccessResult(ptDictManager.findByGroupId(groupId));
     }
 
     @PostMapping("")
@@ -30,8 +33,8 @@ public class DictController {
         return ResultGenerator.genSuccessResult(ptDictManager.update(ptDict));
     }
 
-    @DeleteMapping("")
-    public BaseData delete(Long id) {
+    @DeleteMapping("/{id}")
+    public BaseData delete(@PathVariable Long id) {
         ptDictManager.delete(ptDictManager.find(id));
         return ResultGenerator.genSuccessResult("删除成功");
     }

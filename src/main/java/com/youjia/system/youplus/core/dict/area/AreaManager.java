@@ -3,6 +3,7 @@ package com.youjia.system.youplus.core.dict.area;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author wuweifeng wrote on 2018/11/15.
@@ -11,6 +12,25 @@ import javax.annotation.Resource;
 public class AreaManager {
     @Resource
     private AreaRepository areaRepository;
+
+    public List<AreaEntity> findByParentId(Long parentId) {
+        if (parentId == null || parentId <= 0) {
+            parentId = -1L;
+        }
+        return areaRepository.findByParentId(parentId);
+    }
+
+    public AreaEntity add(AreaEntity areaEntity) {
+        return areaRepository.save(areaEntity);
+    }
+
+    public AreaEntity update(AreaEntity areaEntity) {
+        return areaRepository.save(areaEntity);
+    }
+
+    public void delete(Long id) {
+        areaRepository.deleteById(id);
+    }
 
     /**
      * 查询完整地址

@@ -13,6 +13,10 @@ public class PtDictManager {
     @Resource
     private PtDictRepository ptDictRepository;
 
+    public List<PtDict> findByGroupId(Integer groupId) {
+        return ptDictRepository.findByGroupId(groupId);
+    }
+
     public List<PtDict> findAll() {
         return ptDictRepository.findAll();
     }
