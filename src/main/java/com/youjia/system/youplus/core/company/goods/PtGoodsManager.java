@@ -118,6 +118,15 @@ public class PtGoodsManager {
         return ptGoods.getName();
     }
 
+    public String findNameByPlanId(Long planId) {
+        List<PtGoods> ptGoods = ptGoodsRepository.findByPtGoodsPlanIdAndDeleteFlagFalse(planId);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (PtGoods goods : ptGoods) {
+            stringBuilder.append(goods.getName()).append("  ");
+        }
+        return stringBuilder.toString();
+    }
+
     /**
      * 分页查找
      *

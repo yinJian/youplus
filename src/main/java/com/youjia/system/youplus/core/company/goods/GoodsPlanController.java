@@ -22,11 +22,23 @@ public class GoodsPlanController {
 
     @PostMapping("")
     public BaseData add(PtGoodsPlan ptGoodsPlan) {
+        if (-1 == goodsPlanService.check(ptGoodsPlan.getCompanyId())) {
+            return ResultGenerator.genFailResult("公司不存在");
+        }
         return ResultGenerator.genSuccessResult(goodsPlanService.add(ptGoodsPlan));
     }
 
     @PutMapping("")
     public BaseData update(PtGoodsPlan ptGoodsPlan) {
+        if (-1 == goodsPlanService.check(ptGoodsPlan.getCompanyId())) {
+            return ResultGenerator.genFailResult("公司不存在");
+        }
         return ResultGenerator.genSuccessResult(goodsPlanService.update(ptGoodsPlan));
+    }
+
+    @DeleteMapping("/{id}")
+    public BaseData delete(@PathVariable Long id) {
+        goodsPlanService.delete(id);
+        return ResultGenerator.genSuccessResult();
     }
 }

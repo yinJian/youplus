@@ -1,16 +1,16 @@
 package com.youjia.system.youplus.core.company.youserver;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.youjia.system.youplus.core.base.BaseEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
  * 优加服务，电话医生
  * @author wuweifeng wrote on 2018/11/16.
  */
 @Entity
-@Table(name = "pt_goods")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class PtPhoneDoctor extends BaseEntity {
     /**
      * 城市code的集合，用逗号分隔。如果不限，里面传-1

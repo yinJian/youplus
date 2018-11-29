@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 /**
  * @author wuweifeng wrote on 2017/10/26.
  */
@@ -21,4 +23,7 @@ public interface PtGoodsRepository extends JpaRepository<PtGoods, Long>,
      * 分页查询某公司的所有商品
      */
     Page<PtGoods> findByCompanyIdAndDeleteFlagFalse(Long companyId, Pageable pageable);
+
+
+    List<PtGoods> findByPtGoodsPlanIdAndDeleteFlagFalse(Long goodsPlanId);
 }

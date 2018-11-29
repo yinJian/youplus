@@ -40,23 +40,23 @@ public class GoodsAddUpdateModel {
     /**
      * 体检服务
      */
-    private Integer youBodyCheck;
+    private Integer youBodyCheck = 0;
     /**
      * 门诊绿通
      */
-    private Integer youOutpatient;
+    private Integer youOutpatient = 0;
     /**
      * 住院绿通
      */
-    private Integer youHospital;
+    private Integer youHospital = 0;
     /**
      * 手术绿通
      */
-    private Integer youOperation;
+    private Integer youOperation = 0;
     /**
      * 二次诊疗
      */
-    private Integer youSecondMed;
+    private Integer youSecondMed = 0;
 
 
     @Override

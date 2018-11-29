@@ -62,6 +62,10 @@ public class PtCompanyManager {
         return ptCompanyRepository.getOne(id);
     }
 
+    public boolean exist(Long id) {
+        return ptCompanyRepository.existsById(id);
+    }
+
     /**
      * 判断该公司状态是否异常(status不为0，或者对应的product的state为-1)
      *

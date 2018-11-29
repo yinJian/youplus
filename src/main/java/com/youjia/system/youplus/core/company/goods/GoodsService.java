@@ -92,8 +92,6 @@ public class GoodsService {
             cashPrePay.setGoodsId(goodsAddMode.getId());
             cashPrePay = ptCashPrePayManager.add(cashPrePay);
             ptGoodsTemp.setYouCashPrePayId(cashPrePay.getId());
-        } else {
-            ptGoodsTemp.setYouCashPrePayId(0L);
         }
 
         PtPhoneDoctor ptPhoneDoctor = goodsAddMode.getPtPhoneDoctor();
@@ -101,8 +99,6 @@ public class GoodsService {
             ptPhoneDoctor.setGoodsId(goodsAddMode.getId());
             ptPhoneDoctor = ptPhoneDoctorManager.add(ptPhoneDoctor);
             ptGoodsTemp.setYouPhoneDoctorId(ptPhoneDoctor.getId());
-        } else {
-            ptGoodsTemp.setYouPhoneDoctorId(0L);
         }
 
         BeanUtil.copyProperties(goodsAddMode, ptGoodsTemp, "id");
