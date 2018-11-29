@@ -14,6 +14,7 @@ import com.youjia.system.youplus.global.util.Constant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,7 +72,8 @@ public class CompanyService {
         criteria.add(Restrictions.eq("status", Constant.STATE_NORMAL, true));
         criteria.add(Restrictions.eq("deleteFlag", false, true));
 
-        Pageable pageable = PageRequest.of(companyListQueryModel.getPage(), companyListQueryModel.getSize());
+        Pageable pageable = PageRequest.of(companyListQueryModel.getPage(), companyListQueryModel.getSize(), Sort
+                .Direction.DESC, "id");
         Page<PtCompany> page = ptCompanyManager.findAll(criteria, pageable);
 
         return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent().stream().map
@@ -87,7 +89,8 @@ public class CompanyService {
         criteria.add(Restrictions.eq("status", companyTempListQueryModel.getStatus(), true));
         criteria.add(Restrictions.eq("operatorId", companyTempListQueryModel.getOperatorId(), true));
 
-        Pageable pageable = PageRequest.of(companyTempListQueryModel.getPage(), companyTempListQueryModel.getSize());
+        Pageable pageable = PageRequest.of(companyTempListQueryModel.getPage(), companyTempListQueryModel.getSize(), Sort
+                .Direction.DESC, "updateTime");
         Page<PtCompanyTemp> page = ptCompanyManager.findAllTemp(criteria, pageable);
 
         return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent().stream().map

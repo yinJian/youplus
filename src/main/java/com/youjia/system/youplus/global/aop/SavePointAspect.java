@@ -5,7 +5,6 @@ import com.youjia.system.youplus.core.operation.OperationLog;
 import com.youjia.system.youplus.core.operation.OperationLogManager;
 import com.youjia.system.youplus.global.util.CommonUtil;
 import com.youjia.system.youplus.global.util.Constant;
-import com.youjia.system.youplus.global.util.FastJsonUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -66,7 +65,8 @@ public class SavePointAspect {
             baseEntity.setCreateTime(date);
             baseEntity.setUpdateTime(date);
 
-            String jsonContent = FastJsonUtils.convertObjectToJSON(o);
+            String jsonContent = o.toString();
+            //String jsonContent = FastJsonUtils.convertObjectToJSON(o);
             operationLog.setContent(jsonContent);
             operationLog.setSucceed(true);
             operationLog.setTitle(className.replace("com.youjia.system.youplus.core.", "") + "." + method);
