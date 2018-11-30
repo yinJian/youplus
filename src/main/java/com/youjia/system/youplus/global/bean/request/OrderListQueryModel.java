@@ -24,12 +24,11 @@ public class OrderListQueryModel extends BaseModel {
      * 公司ID
      */
     private Long companyId;
+    private String province;
+    private String city;
+    private String country;
     /**
-     * 操作人ID
-     */
-    private Long operatorId;
-    /**
-     * -1待审核，-2被拒绝，0正常
+     * 0正常，1中止，2终止，3失效
      */
     private Integer status;
 
@@ -41,17 +40,35 @@ public class OrderListQueryModel extends BaseModel {
                 ", mobile='" + mobile + '\'' +
                 ", paper='" + paper + '\'' +
                 ", companyId=" + companyId +
-                ", operatorId=" + operatorId +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
                 ", status=" + status +
                 '}';
     }
 
-    public Long getOperatorId() {
-        return operatorId;
+    public String getProvince() {
+        return province;
     }
 
-    public void setOperatorId(Long operatorId) {
-        this.operatorId = operatorId;
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public Integer getStatus() {

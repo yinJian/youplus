@@ -62,7 +62,6 @@ public class PtOrderManager {
      */
     public void deleteTemp(PtOrderTemp ptOrderTemp) {
         ptOrderTemp.setDeleteFlag(true);
-        ptOrderTemp.setReason(Constant.REASON_DELETE);
         ptOrderTemp.setOperatorType(Constant.REASON_DELETE);
         save(ptOrderTemp);
     }

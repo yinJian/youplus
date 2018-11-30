@@ -18,6 +18,7 @@ import com.youjia.system.youplus.global.util.Constant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -182,7 +183,7 @@ public class GoodsService {
         criteria.add(Restrictions.eq("operatorId", goodsTempListQueryModel.getOperatorId(), true));
 
         Pageable pageable = PageRequest.of(goodsTempListQueryModel.getPage(), goodsTempListQueryModel
-                .getSize());
+                .getSize(), Sort.Direction.DESC, "id");
         Page<PtGoodsTemp> page = ptGoodsManager.findAllTemp(criteria, pageable);
 
         return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent().stream().map

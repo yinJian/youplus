@@ -43,10 +43,9 @@ public class OrderListVO {
      * 保单时间
      */
     private Date endTime;
-    /**
-     * 地区，省市县 TODO
-     */
-    private String area;
+    private String province;
+    private String city;
+    private String country;
     /**
      * 状态（0正常，1中止，2终止，3失效）
      */
@@ -65,17 +64,35 @@ public class OrderListVO {
                 ", youServers='" + youServers + '\'' +
                 ", beginTime=" + beginTime +
                 ", endTime=" + endTime +
-                ", area='" + area + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
                 ", status=" + status +
                 '}';
     }
 
-    public String getArea() {
-        return area;
+    public String getProvince() {
+        return province;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public Long getId() {

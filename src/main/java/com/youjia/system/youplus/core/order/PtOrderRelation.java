@@ -26,7 +26,7 @@ public class PtOrderRelation extends BaseEntity {
     /**
      * 男1女0
      */
-    private Byte sex;
+    private Integer sex;
     /**
      * 证件类型，group=9
      */
@@ -78,7 +78,7 @@ public class PtOrderRelation extends BaseEntity {
         this.orderId = orderId;
     }
 
-    public Byte getSex() {
+    public Integer getSex() {
         return sex;
     }
 
@@ -98,7 +98,7 @@ public class PtOrderRelation extends BaseEntity {
         this.relationType = relationType;
     }
 
-    public void setSex(Byte sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 

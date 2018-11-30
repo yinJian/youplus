@@ -17,8 +17,8 @@ public class HospitalController {
     private HospitalService hospitalService;
 
     @GetMapping("")
-    public BaseData list(HospitalListQueryModel HospitalListQueryModel) {
-        return ResultGenerator.genSuccessResult(hospitalService.find(HospitalListQueryModel));
+    public BaseData list(HospitalListQueryModel hospitalListQueryModel) {
+        return ResultGenerator.genSuccessResult(hospitalService.find(hospitalListQueryModel));
     }
 
     @GetMapping("/{id}")

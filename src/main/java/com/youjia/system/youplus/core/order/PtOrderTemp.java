@@ -1,5 +1,6 @@
 package com.youjia.system.youplus.core.order;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.youjia.system.youplus.core.base.BaseDeleteEntity;
 
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import java.util.Date;
         "userName"), @Index(name = "company_id", columnList =
         "companyId"), @Index(name = "pt_goods_id", columnList =
         "ptGoodsId")})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class PtOrderTemp extends BaseDeleteEntity {
     /**
      * 对应PtOrder的主键
@@ -43,7 +45,7 @@ public class PtOrderTemp extends BaseDeleteEntity {
     /**
      * 男1女0
      */
-    private Byte sex;
+    private Integer sex;
     /**
      * 证件类型，group=9
      */
@@ -64,6 +66,9 @@ public class PtOrderTemp extends BaseDeleteEntity {
      * 邮箱
      */
     private String email;
+    private String province;
+    private String city;
+    private String country;
     /**
      * 保单生效时间
      */
@@ -93,11 +98,38 @@ public class PtOrderTemp extends BaseDeleteEntity {
                 ", mobile='" + mobile + '\'' +
                 ", cardNum='" + cardNum + '\'' +
                 ", email='" + email + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
                 ", beginTime=" + beginTime +
                 ", endTime=" + endTime +
                 ", remark='" + remark + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public Long getCompanyId() {
@@ -132,11 +164,11 @@ public class PtOrderTemp extends BaseDeleteEntity {
         this.ptGoodsId = ptGoodsId;
     }
 
-    public byte getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(byte sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -202,10 +234,6 @@ public class PtOrderTemp extends BaseDeleteEntity {
 
     public void setOperatorType(String operatorType) {
         this.operatorType = operatorType;
-    }
-
-    public void setSex(Byte sex) {
-        this.sex = sex;
     }
 
     public Date getBeginTime() {

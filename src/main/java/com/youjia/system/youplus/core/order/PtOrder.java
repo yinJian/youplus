@@ -1,5 +1,6 @@
 package com.youjia.system.youplus.core.order;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.youjia.system.youplus.core.base.BaseDeleteEntity;
 
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import java.util.Date;
         "userName"), @Index(name = "company_id", columnList =
         "companyId"), @Index(name = "pt_goods_id", columnList =
         "ptGoodsId")})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class PtOrder extends BaseDeleteEntity {
     /**
      * 用户名称
@@ -30,7 +32,7 @@ public class PtOrder extends BaseDeleteEntity {
     /**
      * 男1女0
      */
-    private Byte sex;
+    private Integer sex;
     /**
      * 证件类型，group=9
      */
@@ -51,10 +53,9 @@ public class PtOrder extends BaseDeleteEntity {
      * 邮箱
      */
     private String email;
-    /**
-     * 地区编码
-     */
-    private String areaCode;
+    private String province;
+    private String city;
+    private String country;
     /**
      * 保单生效时间
      */
@@ -81,7 +82,9 @@ public class PtOrder extends BaseDeleteEntity {
                 ", mobile='" + mobile + '\'' +
                 ", cardNum='" + cardNum + '\'' +
                 ", email='" + email + '\'' +
-                ", areaCode='" + areaCode + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
                 ", beginTime=" + beginTime +
                 ", endTime=" + endTime +
                 ", remark='" + remark + '\'' +
@@ -89,16 +92,36 @@ public class PtOrder extends BaseDeleteEntity {
                 '}';
     }
 
-    public void setSex(Byte sex) {
+    public Integer getSex() {
+        return sex;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setSex(Integer sex) {
         this.sex = sex;
-    }
-
-    public String getAreaCode() {
-        return areaCode;
-    }
-
-    public void setAreaCode(String areaCode) {
-        this.areaCode = areaCode;
     }
 
     public Long getCompanyId() {

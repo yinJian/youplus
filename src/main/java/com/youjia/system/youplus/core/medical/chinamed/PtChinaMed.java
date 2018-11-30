@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * 体检机构
+ * 中医
  */
 @Entity
 @Table(name = "pt_china_med")

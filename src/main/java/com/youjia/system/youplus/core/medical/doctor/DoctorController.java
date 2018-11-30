@@ -11,7 +11,7 @@ import javax.annotation.Resource;
  * @author wuweifeng wrote on 2018/11/12.
  */
 @RestController
-@RequestMapping("Doctor")
+@RequestMapping("doctor")
 public class DoctorController {
     @Resource
     private DoctorService doctorService;

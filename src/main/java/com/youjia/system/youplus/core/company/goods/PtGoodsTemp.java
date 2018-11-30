@@ -1,5 +1,6 @@
 package com.youjia.system.youplus.core.company.goods;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.youjia.system.youplus.core.base.BaseDeleteEntity;
 
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "pt_goods_temp")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class PtGoodsTemp extends BaseDeleteEntity {
     /**
      * 对应compnay的主键

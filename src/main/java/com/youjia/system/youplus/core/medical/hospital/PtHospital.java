@@ -14,11 +14,11 @@ public class PtHospital extends BaseDeleteEntity {
      */
     private String otherName;
     /**
-     * 医院类型（公立、私立）
+     * 医院类型（公立、私立）group=10
      */
     private String type;
     /**
-     * 三甲二甲
+     * 三甲二甲group=3
      */
     private String level;
     private String province;

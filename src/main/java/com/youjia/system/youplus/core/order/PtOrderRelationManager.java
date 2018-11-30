@@ -16,6 +16,9 @@ public class PtOrderRelationManager {
         return save(ptOrderRelation);
     }
 
+    public PtOrderRelation update(PtOrderRelation ptOrderRelation) {
+        return save(ptOrderRelation);
+    }
 
     private PtOrderRelation save(PtOrderRelation ptOrderRelation) {
         return ptOrderRelationRepository.save(ptOrderRelation);

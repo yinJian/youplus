@@ -66,8 +66,10 @@ public class OrderService {
         ptOrderManager.addTemp(ptOrderTemp);
 
         PtOrderRelation ptOrderRelation = orderAddUpdateModel.getOrderRelation();
-        ptOrderRelation.setOrderId(ptOrder.getId());
-        ptOrderRelationManager.add(ptOrderRelation);
+        if (ptOrderRelation != null) {
+            ptOrderRelation.setOrderId(ptOrder.getId());
+            ptOrderRelationManager.add(ptOrderRelation);
+        }
 
         return ptOrder;
     }
@@ -89,9 +91,10 @@ public class OrderService {
      * @param id
      *         id
      */
-    public void deleteById(Long id) {
+    public void deleteById(Long id, String reason) {
         PtOrderTemp temp = ptOrderManager.findOneTempByOrderId(id);
         temp.setStatus(Constant.STATE_CONFIRM);
+        temp.setReason(reason);
         ptOrderManager.deleteTemp(temp);
     }
 
@@ -121,6 +124,11 @@ public class OrderService {
         ptOrderTemp.setStatus(Constant.STATE_CONFIRM);
         ptOrderTemp.setReason(orderAddUpdateModel.getReason());
         ptOrderTemp.setOperatorType(Constant.REASON_UPDATE);
+
+        PtOrderRelation ptOrderRelation = orderAddUpdateModel.getOrderRelation();
+        if (ptOrderRelation != null) {
+            ptOrderRelationManager.update(ptOrderRelation);
+        }
         return ptOrderManager.updateTemp(ptOrderTemp);
     }
 
@@ -135,6 +143,9 @@ public class OrderService {
         criteria.add(Restrictions.like("cardNum", companyListQueryModel.getCardNum(), true));
         criteria.add(Restrictions.like("mobile", companyListQueryModel.getMobile(), true));
         criteria.add(Restrictions.like("paper", companyListQueryModel.getPaper(), true));
+        criteria.add(Restrictions.eq("province", companyListQueryModel.getProvince(), true));
+        criteria.add(Restrictions.eq("city", companyListQueryModel.getCity(), true));
+        criteria.add(Restrictions.eq("country", companyListQueryModel.getCountry(), true));
         criteria.add(Restrictions.eq("deleteFlag", false, true));
 
         Pageable pageable = PageRequest.of(companyListQueryModel.getPage(), companyListQueryModel.getSize(), Sort
@@ -205,7 +216,9 @@ public class OrderService {
         orderListVO.setGoodsName(ptGoodsManager.findNameById(ptOrder.getPtGoodsId()));
         orderListVO.setYouServers(ptGoodsManager.youServers(ptOrder.getPtGoodsId()));
         orderListVO.setCompanyName(ptCompanyManager.findNameById(ptOrder.getCompanyId()));
-        orderListVO.setArea(areaManager.findFull(ptOrder.getAreaCode()));
+        orderListVO.setProvince(ptOrder.getProvince());
+        orderListVO.setCity(ptOrder.getCity());
+        orderListVO.setCountry(ptOrder.getCountry());
         return orderListVO;
     }
 

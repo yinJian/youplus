@@ -58,11 +58,11 @@ public class OrderController {
     }
 
     /**
-     * 下架操作
+     * 删除
      */
     @DeleteMapping("/{id}")
-    public BaseData delete(@PathVariable Long id) {
-        orderService.deleteById(id);
+    public BaseData delete(@PathVariable Long id, String reason) {
+        orderService.deleteById(id, reason);
         return ResultGenerator.genSuccessResult("操作成功，请等待审核");
     }
 }

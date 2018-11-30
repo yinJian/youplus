@@ -24,7 +24,7 @@ public class OrderAddUpdateModel {
     /**
      * 男1女0
      */
-    private Byte sex;
+    private Integer sex;
     /**
      * 证件类型，group=9
      */
@@ -130,11 +130,11 @@ public class OrderAddUpdateModel {
         this.companyId = companyId;
     }
 
-    public Byte getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(Byte sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
