@@ -24,9 +24,12 @@ public class CustomerController {
         return ResultGenerator.genSuccessResult(orderService.find(orderListQueryModel));
     }
 
+    /**
+     * 查询某用户的保单列表
+     */
     @GetMapping("/{id}")
     public BaseData one(@PathVariable Long id) {
-        return ResultGenerator.genSuccessResult(orderService.findOne(id));
+        return ResultGenerator.genSuccessResult(orderService.findListByUserPaper(id));
     }
 
 

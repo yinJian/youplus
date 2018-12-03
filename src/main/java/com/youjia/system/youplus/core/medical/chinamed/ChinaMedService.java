@@ -33,7 +33,7 @@ public class ChinaMedService {
     }
 
     public PtChinaMed update(PtChinaMed ptChinaMed) {
-        return ptChinaMedManager.add(ptChinaMed);
+        return ptChinaMedManager.update(ptChinaMed);
     }
 
 

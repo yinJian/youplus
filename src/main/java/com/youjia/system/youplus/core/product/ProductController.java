@@ -1,0 +1,44 @@
+package com.youjia.system.youplus.core.product;
+
+import com.youjia.system.youplus.global.bean.BaseData;
+import com.youjia.system.youplus.global.bean.ResultGenerator;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+
+/**
+ * 产品管理
+ * @author wuweifeng wrote on 2018/11/12.
+ */
+@RestController
+@RequestMapping("product")
+public class ProductController {
+    @Resource
+    private ProductService productService;
+
+    @GetMapping("")
+    public BaseData list() {
+        return ResultGenerator.genSuccessResult(productService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public BaseData one(@PathVariable Long id) {
+        return ResultGenerator.genSuccessResult(productService.find(id));
+    }
+
+    @PostMapping("")
+    public BaseData add(PtProduct ptProduct) {
+        return ResultGenerator.genSuccessResult(productService.add(ptProduct));
+    }
+
+    @PutMapping("")
+    public BaseData update(PtProduct ptProduct) {
+        return ResultGenerator.genSuccessResult(productService.update(ptProduct));
+    }
+
+    @DeleteMapping("/{id}")
+    public BaseData delete(@PathVariable Long id) {
+        productService.delete(id);
+        return ResultGenerator.genSuccessResult("删除成功");
+    }
+}

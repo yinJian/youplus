@@ -25,7 +25,7 @@ public class GroundPersonService {
     }
 
     public PtGroundPerson update(PtGroundPerson ptGroundPerson) {
-        return ptGroundPersonManager.add(ptGroundPerson);
+        return ptGroundPersonManager.update(ptGroundPerson);
     }
 
 

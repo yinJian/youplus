@@ -22,7 +22,7 @@ public class HospitalService {
     }
 
     public PtHospital update(PtHospital ptHospital) {
-        return ptHospitalManager.add(ptHospital);
+        return ptHospitalManager.update(ptHospital);
     }
 
 

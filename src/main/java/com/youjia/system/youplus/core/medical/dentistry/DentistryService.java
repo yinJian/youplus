@@ -33,7 +33,7 @@ public class DentistryService {
     }
 
     public PtDentistry update(PtDentistry ptDentistry) {
-        return ptDentistryManager.add(ptDentistry);
+        return ptDentistryManager.update(ptDentistry);
     }
 
 

@@ -34,7 +34,7 @@ public class PhysicalService {
     }
 
     public PtPhysical update(PtPhysical ptPhysical) {
-        return ptPhysicalManager.add(ptPhysical);
+        return ptPhysicalManager.update(ptPhysical);
     }
 
 

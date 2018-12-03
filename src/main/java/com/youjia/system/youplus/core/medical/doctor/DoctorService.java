@@ -32,7 +32,7 @@ public class DoctorService {
     }
 
     public PtDoctor update(PtDoctor ptDoctor) {
-        return ptDoctorManager.add(ptDoctor);
+        return ptDoctorManager.update(ptDoctor);
     }
 
     public PtDoctor findOne(Long id) {

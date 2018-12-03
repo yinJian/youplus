@@ -1,6 +1,7 @@
 package com.youjia.system.youplus.core.order;
 
 import com.xiaoleilu.hutool.util.BeanUtil;
+import com.xiaoleilu.hutool.util.StrUtil;
 import com.youjia.system.youplus.core.company.company.PtCompanyManager;
 import com.youjia.system.youplus.core.company.goods.PtGoodsManager;
 import com.youjia.system.youplus.core.dict.area.AreaManager;
@@ -22,6 +23,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -83,6 +86,28 @@ public class OrderService {
      */
     public PtOrder findOne(Long id) {
         return ptOrderManager.findOne(id);
+    }
+
+
+    /**
+     * 查询某用户的所有保单列表
+     * @param id id
+     * @return List
+     */
+    public List<OrderListVO> findListByUserPaper(Long id) {
+        PtOrder ptOrder = findOne(id);
+        String paper = ptOrder.getPaper();
+        if (StrUtil.isEmpty(paper)) {
+            return new ArrayList<>();
+        }
+        Criteria<PtOrder> criteria = new Criteria<>();
+        criteria.add(Restrictions.eq("status", Constant.STATE_NORMAL, true));
+        criteria.add(Restrictions.like("paper", paper, true));
+        criteria.add(Restrictions.eq("deleteFlag", false, true));
+        Pageable pageable = PageRequest.of(0, 1000, Sort
+                .Direction.DESC, "id");
+        Page<PtOrder> page = ptOrderManager.findAll(criteria, pageable);
+        return page.getContent().stream().map(this::parse).collect(Collectors.toList());
     }
 
     /**

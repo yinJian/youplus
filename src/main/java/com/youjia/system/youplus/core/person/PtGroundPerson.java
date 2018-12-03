@@ -20,7 +20,7 @@ public class PtGroundPerson extends BaseDeleteEntity {
     /**
      * 男1女0
      */
-    private Byte sex;
+    private Integer sex;
     /**
      * 证件号码
      */
@@ -80,7 +80,7 @@ public class PtGroundPerson extends BaseDeleteEntity {
                 '}';
     }
 
-    public Byte getSex() {
+    public Integer getSex() {
         return sex;
     }
 
@@ -156,7 +156,7 @@ public class PtGroundPerson extends BaseDeleteEntity {
         this.workTimes = workTimes;
     }
 
-    public void setSex(Byte sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
