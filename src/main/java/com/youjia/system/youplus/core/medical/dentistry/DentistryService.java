@@ -56,7 +56,7 @@ public class DentistryService {
         if (StrUtil.isNotEmpty(dentistryListQueryModel.getChildName())) {
             List<PtDentistryChild> children = DentistryChildService.findByNameLike(dentistryListQueryModel.getChildName());
             criteria.add(Restrictions.in("id",
-                    children.stream().map(PtDentistryChild::getDentistryId).collect(Collectors.toSet()), true));
+                    children.stream().map(PtDentistryChild::getDentistryId).collect(Collectors.toSet()), false));
         }
 
         criteria.add(Restrictions.eq("deleteFlag", false, true));

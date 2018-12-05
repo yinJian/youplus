@@ -6,7 +6,6 @@ import com.youjia.system.youplus.core.user.user.PtUserManager;
 import com.youjia.system.youplus.core.user.userrole.PtUserRole;
 import com.youjia.system.youplus.core.user.userrole.PtUserRoleRepository;
 import com.youjia.system.youplus.global.cache.UserRoleCache;
-import com.youjia.system.youplus.global.util.CommonUtil;
 import com.youjia.system.youplus.global.util.Constant;
 import org.springframework.stereotype.Service;
 
@@ -28,21 +27,12 @@ public class PtRoleManager {
     @Resource
     private PtUserManager ptUserManager;
 
-    /**
-     * 查询用户的所有role
-     *
-     * @param userId
-     *         userId
-     * @return 集合
-     */
-    public List<PtRole> findByUserId(Long userId) {
-        List<PtUserRole> userRoles = ptUserRoleRepository.findByUserId(userId);
-        return userRoles.stream().map(userRole -> ptRoleRepository.getOne(userRole.getRoleId())).collect(Collectors
-                .toList());
+    public PtRole find(Long roleId) {
+        return ptRoleRepository.getOne(roleId);
     }
 
-    public PtRole findByRoleId(Long roleId) {
-        return ptRoleRepository.getOne(roleId);
+    public List<PtRole> findAll() {
+        return ptRoleRepository.findByDeleteFlagFalse();
     }
 
     /**
@@ -53,36 +43,39 @@ public class PtRoleManager {
      * @return ptRole
      */
     public PtRole add(PtRole ptRole) {
-        ptRole.setCreateTime(CommonUtil.getNow());
-        ptRole.setUpdateTime(CommonUtil.getNow());
-        return ptRoleRepository.save(ptRole);
+        return save(ptRole);
     }
 
     public PtRole update(PtRole ptRole) {
-        ptRole.setUpdateTime(CommonUtil.getNow());
+        return save(ptRole);
+    }
+
+    private PtRole save(PtRole ptRole) {
         return ptRoleRepository.save(ptRole);
     }
 
     /**
      * 删除角色
      *
-     * @param roleId
-     *         roleId
+     * @param ptRole
+     *         ptRole
      */
-    public void delete(Long roleId) {
-        ptRoleRepository.deleteById(roleId);
+    public void delete(PtRole ptRole) {
+        ptRole.setDeleteFlag(true);
+        update(ptRole);
     }
 
     /**
-     * 判断用户的角色
+     * 查询用户的所有role
      *
-     * @param ptUser
-     *         用户
-     * @return 角色名
+     * @param userId
+     *         userId
+     * @return 集合
      */
-    public List<PtRole> getRolesByUser(PtUser ptUser) {
-        //判断用户角色
-        return findRolesByUser(ptUser);
+    private List<PtRole> findRolesByUserId(Long userId) {
+        List<PtUserRole> userRoles = ptUserRoleRepository.findByUserId(userId);
+        return userRoles.stream().map(userRole -> ptRoleRepository.getOne(userRole.getRoleId())).collect(Collectors
+                .toList());
     }
 
     /**
@@ -92,34 +85,21 @@ public class PtRoleManager {
      *         user
      * @return 角色集合
      */
-    public List<PtRole> findRolesByUser(PtUser user) {
+    private List<PtRole> findRolesByUser(PtUser user) {
         //从缓存获取
-        List<PtRole> roles = userRoleCache.findRolesByUserId(user.getId());
-        if (CollectionUtil.isEmpty(roles)) {
-            roles = findByUserId(user.getId());
+        List<Long> roleIds = userRoleCache.findRolesByUserId(user.getId());
+        if (CollectionUtil.isEmpty(roleIds)) {
+            List<PtRole> roles = findRolesByUserId(user.getId());
             //放入缓存
-            userRoleCache.saveUserRolesByUser(user.getId(), roles);
+            userRoleCache.saveUserRolesByUser(user.getId(), roles.stream().map(PtRole::getId).collect(Collectors
+                    .toList()));
         }
-        return roles;
+        return roleIds.stream().map(id -> ptRoleRepository.getOne(id)).collect(Collectors.toList());
     }
 
-    public List<PtRole> findRolesByUserId(Long userId) {
-        PtUser ptUser = ptUserManager.findById(userId);
+    public List<PtRole> findByUserId(Long userId) {
+        PtUser ptUser = ptUserManager.find(userId);
         return findRolesByUser(ptUser);
-    }
-
-
-    /**
-     * 判断是否是公司管理员
-     *
-     * @param userId
-     *         用户id
-     * @return 是否是管理员
-     */
-    public boolean isManager(Long userId) {
-        List<PtRole> ptRoles = findRolesByUserId(userId);
-        return ptRoles.stream().map(PtRole::getCompanyId).collect(Collectors.toSet()).contains(Constant
-                .MANAGER_COMPANY_ID);
     }
 
     /**
@@ -130,17 +110,11 @@ public class PtRoleManager {
      * @return 是否
      */
     public boolean isAdmin(Long userId) {
-        List<PtRole> ptRoles = findRolesByUserId(userId);
+        List<PtRole> ptRoles = findByUserId(userId);
         return ptRoles.stream().map(PtRole::getName).collect(Collectors.toSet()).contains(Constant.ROLE_ADMIN);
     }
-
-    public Long findIdByName(String name) {
-        return ptRoleRepository.findByName(name).getId();
-    }
-
 
     public boolean exists(Long id) {
         return ptRoleRepository.existsById(id);
     }
-
 }

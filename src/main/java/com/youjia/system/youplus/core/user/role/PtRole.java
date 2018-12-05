@@ -1,7 +1,7 @@
 package com.youjia.system.youplus.core.user.role;
 
 
-import com.youjia.system.youplus.core.base.BaseEntity;
+import com.youjia.system.youplus.core.base.BaseDeleteEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -12,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pt_role")
-public class PtRole extends BaseEntity {
+public class PtRole extends BaseDeleteEntity {
 
     /**
      * 角色名（admin，level1，level2，level3）
@@ -23,9 +23,26 @@ public class PtRole extends BaseEntity {
      */
     private String sign;
     /**
-     * 公司id（为0时代表是超级管理员设置的角色，其他的都是各公司自己设置的角色）
+     * 状态，（0正常，-1停用）
      */
-    private Long companyId;
+    private Integer state;
+
+    @Override
+    public String toString() {
+        return "PtRole{" +
+                "name='" + name + '\'' +
+                ", sign='" + sign + '\'' +
+                ", state=" + state +
+                '}';
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     public String getSign() {
         return sign;
@@ -33,14 +50,6 @@ public class PtRole extends BaseEntity {
 
     public void setSign(String sign) {
         this.sign = sign;
-    }
-
-    public Long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
     }
 
     public String getName() {
@@ -51,40 +60,4 @@ public class PtRole extends BaseEntity {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "PtRole{" +
-                "name='" + name + '\'' +
-                ", sign='" + sign + '\'' +
-                ", companyId=" + companyId +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        PtRole ptRole = (PtRole) o;
-
-        if (name != null ? !name.equals(ptRole.name) : ptRole.name != null) {
-            return false;
-        }
-        if (sign != null ? !sign.equals(ptRole.sign) : ptRole.sign != null) {
-            return false;
-        }
-        return companyId != null ? companyId.equals(ptRole.companyId) : ptRole.companyId == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (sign != null ? sign.hashCode() : 0);
-        result = 31 * result + (companyId != null ? companyId.hashCode() : 0);
-        return result;
-    }
 }

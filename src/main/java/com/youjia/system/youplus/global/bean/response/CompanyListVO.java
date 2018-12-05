@@ -20,9 +20,17 @@ public class CompanyListVO {
      */
     private String property;
     /**
+     * TODO
+     */
+    private String propertyValue;
+    /**
      * 公司类型，"保险公司，互联网公司"，group=7
      */
     private String type;
+    /**
+     * TODO 
+     */
+    private String typeValue;
     /**
      * 是否上市
      */
@@ -35,6 +43,38 @@ public class CompanyListVO {
      * 入驻时间
      */
     private Date createTime;
+
+    @Override
+    public String toString() {
+        return "CompanyListVO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", property='" + property + '\'' +
+                ", propertyValue='" + propertyValue + '\'' +
+                ", type='" + type + '\'' +
+                ", typeValue='" + typeValue + '\'' +
+                ", ipo=" + ipo +
+                ", mobile='" + mobile + '\'' +
+                ", createTime=" + createTime +
+                '}';
+    }
+
+    public String getPropertyValue() {
+        return propertyValue;
+    }
+
+    public void setPropertyValue(String propertyValue) {
+        this.propertyValue = propertyValue;
+    }
+
+    public String getTypeValue() {
+        return typeValue;
+    }
+
+    public void setTypeValue(String typeValue) {
+        this.typeValue = typeValue;
+    }
 
     public Long getId() {
         return id;

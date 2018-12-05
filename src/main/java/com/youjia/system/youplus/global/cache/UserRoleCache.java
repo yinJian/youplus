@@ -1,17 +1,13 @@
 package com.youjia.system.youplus.global.cache;
 
-import com.xiaoleilu.hutool.json.JSONArray;
-import com.xiaoleilu.hutool.json.JSONObject;
-import com.xiaoleilu.hutool.json.JSONUtil;
 import com.xiaoleilu.hutool.util.CollectionUtil;
-import com.youjia.system.youplus.core.user.role.PtRole;
 import com.youjia.system.youplus.global.event.UserRoleChangeEvent;
+import com.youjia.system.youplus.global.util.FastJsonUtils;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import static com.youjia.system.youplus.global.util.CacheConstant.CACHE_USER_ROLE_EXPIE;
 import static com.youjia.system.youplus.global.util.CacheConstant.CACHE_USER_ROLE_KEY;
@@ -31,14 +27,12 @@ public class UserRoleCache extends BaseCache {
      *         userId
      * @return 角色集合
      */
-    public List<PtRole> findRolesByUserId(Long userId) {
+    public List<Long> findRolesByUserId(Long userId) {
         Object object = stringRedisTemplate.opsForValue().get(roleKeyOfUserId(userId));
         if (object == null) {
             return null;
         }
-        JSONArray jsonArray = JSONUtil.parseArray(object.toString());
-        return jsonArray.stream().map(json -> JSONUtil.toBean((JSONObject) json, PtRole.class)).collect(Collectors
-                .toList());
+        return FastJsonUtils.toList(object.toString(), Long.class);
     }
 
     /**
@@ -46,15 +40,14 @@ public class UserRoleCache extends BaseCache {
      *
      * @param userId
      *         userId
-     * @param roles
-     *         角色集合
+     * @param roleIds
+     *         角色ID集合
      */
-    public void saveUserRolesByUser(Long userId, List<PtRole> roles) {
-        if (CollectionUtil.isEmpty(roles)) {
+    public void saveUserRolesByUser(Long userId, List<Long> roleIds) {
+        if (CollectionUtil.isEmpty(roleIds)) {
             return;
         }
-        stringRedisTemplate.opsForValue().set(roleKeyOfUserId(userId), JSONUtil.toJsonStr
-                        (roles),
+        stringRedisTemplate.opsForValue().set(roleKeyOfUserId(userId), FastJsonUtils.convertObjectToJSON(roleIds),
                 CACHE_USER_ROLE_EXPIE, TimeUnit.HOURS);
     }
 

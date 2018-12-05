@@ -1,7 +1,7 @@
 package com.youjia.system.youplus.core.user.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.youjia.system.youplus.core.base.BaseEntity;
+import com.youjia.system.youplus.core.base.BaseDeleteEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Index;
@@ -16,7 +16,7 @@ import javax.persistence.Table;
         "companyId"), @Index(name = "department_id", columnList =
         "departmentId"), @Index(name = "account", columnList =
         "account")})
-public class PtUser extends BaseEntity {
+public class PtUser extends BaseDeleteEntity {
     private String userId;
     /**
      * 用户名称

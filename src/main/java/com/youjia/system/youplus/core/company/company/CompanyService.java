@@ -8,6 +8,7 @@ import com.youjia.system.youplus.global.bean.request.CompanyListQueryModel;
 import com.youjia.system.youplus.global.bean.response.CompanyListVO;
 import com.youjia.system.youplus.global.bean.response.CompanyModifyDetailVO;
 import com.youjia.system.youplus.global.bean.response.CompanyTempListVO;
+import com.youjia.system.youplus.global.cache.DictCache;
 import com.youjia.system.youplus.global.specify.Criteria;
 import com.youjia.system.youplus.global.specify.Restrictions;
 import com.youjia.system.youplus.global.util.Constant;
@@ -31,6 +32,8 @@ public class CompanyService {
     private PtCompanyManager ptCompanyManager;
     @Resource
     private PtUserManager ptUserManager;
+    @Resource
+    private DictCache dictCache;
 
     public PtCompany add(PtCompany ptCompany) {
         ptCompany.setStatus(Constant.STATE_CONFIRM);
@@ -151,6 +154,8 @@ public class CompanyService {
     private CompanyListVO parse(PtCompany ptCompany) {
         CompanyListVO companyListVO = new CompanyListVO();
         BeanUtil.copyProperties(ptCompany, companyListVO);
+        companyListVO.setPropertyValue(dictCache.findByGroupIdAndKey(6, ptCompany.getProperty()));
+        companyListVO.setTypeValue(dictCache.findByGroupIdAndKey(6, ptCompany.getType()));
         return companyListVO;
     }
 

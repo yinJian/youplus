@@ -2,6 +2,7 @@ package com.youjia.system.youplus.core.product;
 
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
+import com.youjia.system.youplus.global.bean.request.ProductAddUpdateModel;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,12 +28,12 @@ public class ProductController {
     }
 
     @PostMapping("")
-    public BaseData add(PtProduct ptProduct) {
+    public BaseData add(@RequestBody ProductAddUpdateModel ptProduct) {
         return ResultGenerator.genSuccessResult(productService.add(ptProduct));
     }
 
     @PutMapping("")
-    public BaseData update(PtProduct ptProduct) {
+    public BaseData update(@RequestBody ProductAddUpdateModel ptProduct) {
         return ResultGenerator.genSuccessResult(productService.update(ptProduct));
     }
 

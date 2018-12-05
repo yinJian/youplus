@@ -1,6 +1,9 @@
 package com.youjia.system.youplus.core.user.user;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -8,7 +11,8 @@ import java.util.List;
 /**
  * @author wuweifeng wrote on 2017/10/26.
  */
-public interface PtUserRepository extends JpaRepository<PtUser, Long> {
+public interface PtUserRepository extends JpaRepository<PtUser, Long>,
+        JpaSpecificationExecutor<PtUser> {
     PtUser findByAccount(String account);
 
     /**
@@ -29,20 +33,11 @@ public interface PtUserRepository extends JpaRepository<PtUser, Long> {
 
     List<PtUser> findByCompanyIdAndState(Long companyId, Integer state);
 
+    Page<PtUser> findByCompanyId(Long companyId, Pageable pageable);
+
     List<PtUser> findByCompanyIdAndStateAndNameLike(Long companyId, Integer state, String name);
 
-    /**
-     * 根据名字模糊查询某个部门的员工
-     *
-     * @param deptId
-     *         部门id
-     * @param state
-     *         员工状态
-     * @param name
-     *         名字
-     * @return 集合
-     */
-    List<PtUser> findByDepartmentIdAndStateAndNameLike(Long deptId, Integer state, String name);
+    List<PtUser> findByDeleteFlagFalse();
 
     /**
      * 根据状态和名字模糊查询

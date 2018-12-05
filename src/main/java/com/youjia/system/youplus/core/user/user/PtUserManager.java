@@ -1,7 +1,9 @@
 package com.youjia.system.youplus.core.user.user;
 
 import com.xiaoleilu.hutool.util.StrUtil;
-import com.youjia.system.youplus.global.util.Constant;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,13 +20,17 @@ public class PtUserManager {
     @Resource
     private PtUserRepository userRepository;
 
-    public List<PtUser> find() {
-        return userRepository.findByState(Constant.STATE_NORMAL);
+    public String findNameById(Long id) {
+        if (id == null) {
+            return "";
+        }
+        PtUser ptUser = find(id);
+        if (ptUser == null) {
+            return "";
+        }
+        return ptUser.getName();
     }
 
-    public Long findCompanyIdByUserId(Long id) {
-        return findById(id).getCompanyId();
-    }
 
     /**
      * 根据account查询User
@@ -37,26 +43,38 @@ public class PtUserManager {
         return userRepository.findByAccount(account);
     }
 
-    public PtUser findById(Long id) {
+    public PtUser find(Long id) {
         return userRepository.getOne(id);
     }
 
-    public String findNameById(Long id) {
-        return findById(id).getName();
+    public void delete(PtUser ptUser) {
+        ptUser.setDeleteFlag(true);
+        update(ptUser);
     }
 
-
+    public PtUser add(PtUser ptUser) {
+        return userRepository.save(ptUser);
+    }
 
     public PtUser update(PtUser ptUser) {
         return userRepository.save(ptUser);
     }
 
-    public List<PtUser> findByCompanyIdAndState(Long companyId, Integer state) {
-        return userRepository.findByCompanyIdAndState(companyId, state);
+    public List<PtUser> findAll() {
+        return userRepository.findByDeleteFlagFalse();
     }
 
-    public List<PtUser> findAll() {
-        return userRepository.findAll();
+    /**
+     * 分页查找
+     *
+     * @param var1
+     *         var1
+     * @param var2
+     *         var2
+     * @return Page
+     */
+    public Page<PtUser> findAll(Specification<PtUser> var1, Pageable var2) {
+        return userRepository.findAll(var1, var2);
     }
 
     /**

@@ -57,7 +57,7 @@ public class PhysicalService {
         if (StrUtil.isNotEmpty(physicalListQueryModel.getChildName())) {
             List<PtPhysicalChild> children = physicalChildService.findByNameLike(physicalListQueryModel.getChildName());
             criteria.add(Restrictions.in("id",
-                    children.stream().map(PtPhysicalChild::getPhysicalId).collect(Collectors.toSet()), true));
+                    children.stream().map(PtPhysicalChild::getPhysicalId).collect(Collectors.toSet()), false));
         }
 
         criteria.add(Restrictions.eq("deleteFlag", false, true));

@@ -56,7 +56,7 @@ public class ChinaMedService {
         if (StrUtil.isNotEmpty(ChinaMedListQueryModel.getChildName())) {
             List<PtChinaMedChild> children = ChinaMedChildService.findByNameLike(ChinaMedListQueryModel.getChildName());
             criteria.add(Restrictions.in("id",
-                    children.stream().map(PtChinaMedChild::getChinaMedId).collect(Collectors.toSet()), true));
+                    children.stream().map(PtChinaMedChild::getChinaMedId).collect(Collectors.toSet()), false));
         }
 
         criteria.add(Restrictions.eq("deleteFlag", false, true));

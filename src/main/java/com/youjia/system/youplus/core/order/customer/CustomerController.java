@@ -1,4 +1,4 @@
-package com.youjia.system.youplus.core.customer;
+package com.youjia.system.youplus.core.order.customer;
 
 import com.youjia.system.youplus.core.order.OrderService;
 import com.youjia.system.youplus.global.bean.BaseData;

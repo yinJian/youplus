@@ -2,43 +2,48 @@ package com.youjia.system.youplus.core.user.user;
 
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
+import com.youjia.system.youplus.global.bean.request.UserAddRequestModel;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 /**
- * 外派人员
- * @author wuweifeng wrote on 2018/11/12.
+ * @author wuweifeng wrote on 2018/11/23.
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
     @Resource
-    private PtUserManager ptUserManager;
+    private UserService userService;
 
     @GetMapping("")
-    public BaseData list() {
-        return ResultGenerator.genSuccessResult(ptUserManager.find());
+    public BaseData find() {
+        return ResultGenerator.genSuccessResult(userService.findAll());
     }
 
-    //@GetMapping("/{id}")
-    //public BaseData one(@PathVariable Long id) {
-    //    return ResultGenerator.genSuccessResult(UserService.find(id));
-    //}
-    //
-    //@PostMapping("")
-    //public BaseData add(PtUser ptUser) {
-    //    return ResultGenerator.genSuccessResult(UserService.add(ptUser));
-    //}
-    //
-    //@PutMapping("")
-    //public BaseData update(PtUser ptUser) {
-    //    return ResultGenerator.genSuccessResult(UserService.update(ptUser));
-    //}
-    //
-    //@DeleteMapping("/{id}")
-    //public BaseData delete(@PathVariable Long id) {
-    //    UserService.delete(id);
-    //    return ResultGenerator.genSuccessResult("删除成功");
-    //}
+    @GetMapping("/{id}")
+    public BaseData one(@PathVariable Long id) {
+        return ResultGenerator.genSuccessResult(userService.find(id));
+    }
+
+    @PutMapping("/password")
+    public BaseData password(String oldPassword, String password) {
+        return userService.updatePassword(oldPassword, password);
+    }
+
+    @PostMapping
+    public BaseData add(UserAddRequestModel userAddRequestModel) {
+        return ResultGenerator.genSuccessResult(userService.add(userAddRequestModel));
+    }
+
+    @PutMapping
+    public BaseData update(UserAddRequestModel userAddRequestModel) {
+        return ResultGenerator.genSuccessResult(userService.update(userAddRequestModel));
+    }
+
+    @DeleteMapping("/{id}")
+    public BaseData delete(@PathVariable Long id) {
+        userService.delete(id);
+        return ResultGenerator.genSuccessResult();
+    }
 }

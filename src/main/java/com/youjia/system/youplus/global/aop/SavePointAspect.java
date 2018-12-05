@@ -32,7 +32,7 @@ public class SavePointAspect {
     public Object around(ProceedingJoinPoint joinPoint, Service service) throws Throwable {
         String className = joinPoint.getSignature().getDeclaringTypeName();
         String method = joinPoint.getSignature().getName();
-        if (method.contains("findByParentId") || method.contains("query")) {
+        if (method.contains("find") || method.contains("query")) {
             return joinPoint.proceed();
         }
         // 接收到请求，记录请求内容
@@ -55,6 +55,7 @@ public class SavePointAspect {
 
             if (method.contains("add")) {
                 operationLog.setOperationType("add");
+                baseEntity.setCreateTime(date);
             } else if (method.contains("update")) {
                 operationLog.setOperationType("update");
             } else if (method.contains("delete")) {
@@ -62,7 +63,6 @@ public class SavePointAspect {
             }
 
             baseEntity.setOperatorId(userId);
-            baseEntity.setCreateTime(date);
             baseEntity.setUpdateTime(date);
 
             String jsonContent = o.toString();
