@@ -3,5 +3,3 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://${EUREKA_SERVER}/eureka/
-logstash:
-  ip: ${LOGSTASH_IP_PORT}

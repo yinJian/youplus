@@ -26,12 +26,12 @@
     <!-- Logstash日志.目前不用这个，用的是kafka -->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <!-- 远程Logstash的IP：PORT -->
-        <destination>47.105.157.52:8080</destination>
+        <remoteHost>${logstash_ip}</remoteHost>
       <!--  <remoteHost>${logstash_ip}</remoteHost>-->
         <!-- encoder必须要有，是logback和logstash的纽带 -->
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
             <!-- 用户自定义Json字符串，用于向logstash提交额外的自定义属性。可在logstash的input里接收该参数 -->
-           <!-- <customFields>{"appname":"youplus"}</customFields>-->
+           <customFields>{"appname":"youplus"}</customFields>
         </encoder>
     </appender>
 
@@ -42,9 +42,9 @@
         <appender-ref ref="MY_FILE"/>
     </root>
 
-   <!-- <springProfile name="local">
+    <!--<springProfile name="prod">
         <logger name="com.youjia.system.youplus" level="INFO">
-            &lt;!&ndash;<appender-ref ref="CONSOLE"/>&ndash;&gt;
+            <appender-ref ref="CONSOLE"/>
             <appender-ref ref="LOGSTASH"/>
         </logger>
     </springProfile>-->
