@@ -98,8 +98,7 @@ public class RoleService {
      */
     public PtRole add(RoleAddRequestModel roleAddRequestModel) {
         PtRole ptRole = new PtRole();
-        ptRole.setName(roleAddRequestModel.getName());
-        ptRole.setSign(roleAddRequestModel.getSign());
+        BeanUtil.copyProperties(roleAddRequestModel, ptRole);
         ptRole = ptRoleManager.add(ptRole);
 
         List<Long> menuIds = roleAddRequestModel.getMenuIds();
@@ -117,7 +116,7 @@ public class RoleService {
         BeanUtil.copyProperties(roleAddRequestModel, ptRole, BeanUtil.CopyOptions.create().setIgnoreNullValue(true));
 
         List<Long> menuIds = roleAddRequestModel.getMenuIds();
-        if (menuIds != null) {
+        if (CollectionUtil.isNotEmpty(menuIds)) {
             ptRoleMenuManager.deleteByRoleId(roleAddRequestModel.getId());
             for (Long menuId : menuIds) {
                 ptRoleMenuManager.add(menuId, ptRole.getId());

@@ -2,6 +2,9 @@ package com.youjia.system.youplus.global.bean.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author wuweifeng wrote on 2018/11/26.
  */
@@ -10,6 +13,7 @@ public class UserAddRequestModel {
     /**
      * 账号
      */
+    @NotEmpty(message = "账号不能为空")
     private String account;
     /**
      * 密码
@@ -27,8 +31,9 @@ public class UserAddRequestModel {
     /**
      * 状态，（0正常，-1被停用）
      */
-    private Integer state;
-
+    private Integer state = 0;
+    
+    @NotNull(message = "角色不能为空")
     private Long roleId;
 
     @Override

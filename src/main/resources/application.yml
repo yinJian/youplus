@@ -20,9 +20,9 @@ spring:
         enable_lazy_load_no_trans: true
   ###############################---redis---##############################
   redis:
-    host: ${REDIS_HOST}
+    host: ${REDIS_HOST:127.0.0.1}
     port: ${REDIS_PORT:6379}
-    password: ${REDIS_PASSWORD}
+    password: ${REDIS_PASSWORD:}
   ###############################---caffeine---##############################
   cache:
     type: caffeine

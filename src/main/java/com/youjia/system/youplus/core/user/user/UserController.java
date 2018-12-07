@@ -3,9 +3,11 @@ package com.youjia.system.youplus.core.user.user;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.request.UserAddRequestModel;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * @author wuweifeng wrote on 2018/11/23.
@@ -32,12 +34,12 @@ public class UserController {
     }
 
     @PostMapping
-    public BaseData add(UserAddRequestModel userAddRequestModel) {
+    public BaseData add(@Valid UserAddRequestModel userAddRequestModel, BindingResult bindingResult) {
         return ResultGenerator.genSuccessResult(userService.add(userAddRequestModel));
     }
 
     @PutMapping
-    public BaseData update(UserAddRequestModel userAddRequestModel) {
+    public BaseData update(@Valid UserAddRequestModel userAddRequestModel, BindingResult bindingResult) {
         return ResultGenerator.genSuccessResult(userService.update(userAddRequestModel));
     }
 

@@ -1,5 +1,6 @@
 package com.youjia.system.youplus.global.bean.request;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,21 +12,26 @@ public class RoleAddRequestModel {
      * 角色名（admin，level1，level2，level3）
      */
     private String name;
-    /**
-     * 角色描述（超级管理员，1级客户，2级客户，3级客户）
-     */
-    private String sign;
+    private Integer state = 0;
 
-    private List<Long> menuIds;
+    private List<Long> menuIds = new ArrayList<>();
 
     @Override
     public String toString() {
         return "RoleAddRequestModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", sign='" + sign + '\'' +
+                ", state=" + state +
                 ", menuIds=" + menuIds +
                 '}';
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public Long getId() {
@@ -42,14 +48,6 @@ public class RoleAddRequestModel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSign() {
-        return sign;
-    }
-
-    public void setSign(String sign) {
-        this.sign = sign;
     }
 
     public List<Long> getMenuIds() {
