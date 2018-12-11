@@ -14,7 +14,7 @@ public class PtOrderFlowSettingManager {
     private PtOrderFlowSettingRepository ptOrderFlowSettingRepository;
 
     public List<PtOrderFlowSetting> findByProductId(Long productId) {
-        return ptOrderFlowSettingRepository.findByProductIdOrderBySortDesc(productId);
+        return ptOrderFlowSettingRepository.findByProductIdOrderBySort(productId);
     }
 
     public PtOrderFlowSetting add(PtOrderFlowSetting ptOrderFlowSetting) {

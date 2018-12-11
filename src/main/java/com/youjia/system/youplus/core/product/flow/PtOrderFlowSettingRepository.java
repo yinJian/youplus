@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface PtOrderFlowSettingRepository extends JpaRepository<PtOrderFlowSetting, Long>,
         JpaSpecificationExecutor<PtOrderFlowSetting> {
-    List<PtOrderFlowSetting> findByProductIdOrderBySortDesc(Long productId);
+    List<PtOrderFlowSetting> findByProductIdOrderBySort(Long productId);
 }

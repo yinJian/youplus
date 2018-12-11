@@ -3,8 +3,8 @@ package com.youjia.system.youplus.core.company.company;
 import com.xiaoleilu.hutool.util.BeanUtil;
 import com.youjia.system.youplus.core.user.user.PtUserManager;
 import com.youjia.system.youplus.global.bean.SimplePage;
-import com.youjia.system.youplus.global.bean.request.CompanyTempListQueryModel;
 import com.youjia.system.youplus.global.bean.request.CompanyListQueryModel;
+import com.youjia.system.youplus.global.bean.request.CompanyTempListQueryModel;
 import com.youjia.system.youplus.global.bean.response.CompanyListVO;
 import com.youjia.system.youplus.global.bean.response.CompanyModifyDetailVO;
 import com.youjia.system.youplus.global.bean.response.CompanyTempListVO;
@@ -12,6 +12,7 @@ import com.youjia.system.youplus.global.cache.DictCache;
 import com.youjia.system.youplus.global.specify.Criteria;
 import com.youjia.system.youplus.global.specify.Restrictions;
 import com.youjia.system.youplus.global.util.Constant;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -139,11 +140,14 @@ public class CompanyService {
             return;
         }
         PtCompanyTemp companyTemp = ptCompanyManager.findOneTemp(id);
+
         PtCompany ptCompany = ptCompanyManager.findOne(companyTemp.getCompanyId());
         if (confirm) {
             companyTemp.setStatus(Constant.STATE_NORMAL);
+            PtCompanyTemp temp = new PtCompanyTemp();
+            BeanUtils.copyProperties(companyTemp, temp);
             //将更新后的覆盖到原来的里面
-            BeanUtil.copyProperties(companyTemp, ptCompany, "id");
+            BeanUtil.copyProperties(temp, ptCompany, "id");
         } else {
             companyTemp.setStatus(Constant.STATE_REFUSE);
         }

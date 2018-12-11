@@ -1,9 +1,7 @@
 package com.youjia.system.youplus.core.product;
 
-import com.xiaoleilu.hutool.util.CollectionUtil;
 import com.youjia.system.youplus.core.product.define.PtProductDefineSetting;
 import com.youjia.system.youplus.core.product.define.PtProductDefineSettingManager;
-import com.youjia.system.youplus.core.product.ordersend.PtOrderSendSetting;
 import com.youjia.system.youplus.core.product.ordersend.PtOrderSendSettingManager;
 import com.youjia.system.youplus.global.bean.request.ProductAddUpdateModel;
 import com.youjia.system.youplus.global.bean.response.ProductVO;
@@ -33,13 +31,13 @@ public class ProductService {
             ptProductDefineSetting.setProductId(ptProduct.getId());
             ptProductDefineSettingManager.add(ptProductDefineSetting);
         }
-        List<PtOrderSendSetting> ptOrderSendSettings = productAddUpdateModel.getOrderSendSettings();
-        if (CollectionUtil.isNotEmpty(ptOrderSendSettings)) {
-            for (PtOrderSendSetting sendSetting : ptOrderSendSettings) {
-                sendSetting.setProductId(ptProduct.getId());
-                ptOrderSendSettingManager.add(sendSetting);
-            }
-        }
+        //List<PtOrderSendSetting> ptOrderSendSettings = productAddUpdateModel.getOrderSendSettings();
+        //if (CollectionUtil.isNotEmpty(ptOrderSendSettings)) {
+        //    for (PtOrderSendSetting sendSetting : ptOrderSendSettings) {
+        //        sendSetting.setProductId(ptProduct.getId());
+        //        ptOrderSendSettingManager.add(sendSetting);
+        //    }
+        //}
 
         return ptProduct;
     }
@@ -54,14 +52,14 @@ public class ProductService {
             ptProductDefineSetting.setProductId(ptProduct.getId());
             ptProductDefineSettingManager.update(ptProductDefineSetting);
         }
-        List<PtOrderSendSetting> ptOrderSendSettings = productAddUpdateModel.getOrderSendSettings();
-        if (CollectionUtil.isNotEmpty(ptOrderSendSettings)) {
-            ptOrderSendSettingManager.deleteByProductId(ptProduct.getId());
-            for (PtOrderSendSetting sendSetting : ptOrderSendSettings) {
-                sendSetting.setProductId(ptProduct.getId());
-                ptOrderSendSettingManager.add(sendSetting);
-            }
-        }
+        //List<PtOrderSendSetting> ptOrderSendSettings = productAddUpdateModel.getOrderSendSettings();
+        //if (CollectionUtil.isNotEmpty(ptOrderSendSettings)) {
+        //    ptOrderSendSettingManager.deleteByProductId(ptProduct.getId());
+        //    for (PtOrderSendSetting sendSetting : ptOrderSendSettings) {
+        //        sendSetting.setProductId(ptProduct.getId());
+        //        ptOrderSendSettingManager.add(sendSetting);
+        //    }
+        //}
 
         return ptProduct;
     }
@@ -70,10 +68,10 @@ public class ProductService {
         ProductVO productVO = new ProductVO();
         PtProduct ptProduct = ptProductManager.find(id);
         PtProductDefineSetting ptProductDefineSetting = ptProductDefineSettingManager.findByProductId(id);
-        List<PtOrderSendSetting> ptOrderSendSetting = ptOrderSendSettingManager.findByProductId(id);
+        //List<PtOrderSendSetting> ptOrderSendSetting = ptOrderSendSettingManager.findByProductId(id);
 
         productVO.setProduct(ptProduct);
-        productVO.setOrderSendSettings(ptOrderSendSetting);
+        //productVO.setOrderSendSettings(ptOrderSendSetting);
         productVO.setProductDefineSetting(ptProductDefineSetting);
         return productVO;
     }

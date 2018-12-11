@@ -225,8 +225,11 @@ public class OrderService {
         } else { //新建、修改相关的
             if (confirm) {
                 oneTemp.setStatus(Constant.STATE_NORMAL);
+                PtOrderTemp temp = new PtOrderTemp();
+                BeanUtil.copyProperties(oneTemp, temp);
+
                 //将更新后的覆盖到原来的里面
-                BeanUtil.copyProperties(oneTemp, ptOrder, "id");
+                BeanUtil.copyProperties(temp, ptOrder, "id");
                 ptOrderManager.update(ptOrder);
             } else {
                 oneTemp.setStatus(Constant.STATE_REFUSE);
@@ -235,7 +238,7 @@ public class OrderService {
         ptOrderManager.updateTemp(oneTemp);
     }
 
-    private OrderListVO parse(PtOrder ptOrder) {
+    public OrderListVO parse(PtOrder ptOrder) {
         OrderListVO orderListVO = new OrderListVO();
         BeanUtil.copyProperties(ptOrder, orderListVO);
         orderListVO.setGoodsName(ptGoodsManager.findNameById(ptOrder.getPtGoodsId()));
@@ -245,6 +248,10 @@ public class OrderService {
         orderListVO.setCity(ptOrder.getCity());
         orderListVO.setCountry(ptOrder.getCountry());
         return orderListVO;
+    }
+
+    public OrderListVO parse(Long orderId) {
+        return parse(findOne(orderId));
     }
 
     private OrderTempListVO parseTemp(PtOrderTemp ptOrderTemp) {

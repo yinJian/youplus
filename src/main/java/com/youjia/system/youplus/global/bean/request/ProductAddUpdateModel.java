@@ -2,9 +2,6 @@ package com.youjia.system.youplus.global.bean.request;
 
 import com.youjia.system.youplus.core.product.PtProduct;
 import com.youjia.system.youplus.core.product.define.PtProductDefineSetting;
-import com.youjia.system.youplus.core.product.ordersend.PtOrderSendSetting;
-
-import java.util.List;
 
 /**
  * @author wuweifeng wrote on 2018/12/3.
@@ -12,14 +9,14 @@ import java.util.List;
 public class ProductAddUpdateModel {
     private PtProduct product;
     private PtProductDefineSetting productDefineSetting;
-    private List<PtOrderSendSetting> orderSendSettings;
+    //private List<PtOrderSendSetting> orderSendSettings;
 
     @Override
     public String toString() {
         return "ProductVO{" +
                 "product=" + product +
                 ", productDefineSetting=" + productDefineSetting +
-                ", orderSendSettings=" + orderSendSettings +
+                //", orderSendSettings=" + orderSendSettings +
                 '}';
     }
 
@@ -39,11 +36,11 @@ public class ProductAddUpdateModel {
         this.productDefineSetting = productDefineSetting;
     }
 
-    public List<PtOrderSendSetting> getOrderSendSettings() {
-        return orderSendSettings;
-    }
-
-    public void setOrderSendSettings(List<PtOrderSendSetting> orderSendSettings) {
-        this.orderSendSettings = orderSendSettings;
-    }
+    //public List<PtOrderSendSetting> getOrderSendSettings() {
+    //    return orderSendSettings;
+    //}
+    //
+    //public void setOrderSendSettings(List<PtOrderSendSetting> orderSendSettings) {
+    //    this.orderSendSettings = orderSendSettings;
+    //}
 }

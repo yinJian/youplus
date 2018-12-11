@@ -136,8 +136,11 @@ public class GoodsService {
         } else { //新建、修改相关的
             if (confirm) {
                 goodsTemp.setStatus(Constant.STATE_NORMAL);
+                PtGoodsTemp temp = new PtGoodsTemp();
+                BeanUtil.copyProperties(goodsTemp, temp);
+
                 //将更新后的覆盖到原来的里面
-                BeanUtil.copyProperties(goodsTemp, ptGoods, "id");
+                BeanUtil.copyProperties(temp, ptGoods, "id");
                 ptGoodsManager.update(ptGoods);
             } else {
                 goodsTemp.setStatus(Constant.STATE_REFUSE);

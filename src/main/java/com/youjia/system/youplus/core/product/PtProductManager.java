@@ -25,6 +25,14 @@ public class PtProductManager {
         return ptProductRepository.getOne(id);
     }
 
+    public String findNameById(Long id) {
+        PtProduct ptProduct = find(id);
+        if (ptProduct != null) {
+            return ptProduct.getName();
+        }
+        return "";
+    }
+
     public PtProduct add(PtProduct ptProduct) {
         return save(ptProduct);
     }

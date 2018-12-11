@@ -24,6 +24,7 @@ public class PtPrePayTemplateManager {
         return ptPrePayTemplateRepository.getOne(id);
     }
 
+
     private PtPrePayTemplate save(PtPrePayTemplate ptPrePayTemplate) {
         return ptPrePayTemplateRepository.save(ptPrePayTemplate);
     }
