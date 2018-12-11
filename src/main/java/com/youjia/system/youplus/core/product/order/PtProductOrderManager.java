@@ -1,5 +1,8 @@
 package com.youjia.system.youplus.core.product.order;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,6 +17,20 @@ public class PtProductOrderManager {
 
     public PtProductOrder add(PtProductOrder ptProductOrder) {
         return save(ptProductOrder);
+    }
+
+
+    /**
+     * 分页查找
+     *
+     * @param var1
+     *         var1
+     * @param var2
+     *         var2
+     * @return Page
+     */
+    public Page<PtProductOrder> findAll(Specification<PtProductOrder> var1, Pageable var2) {
+        return ptProductOrderRepository.findAll(var1, var2);
     }
 
     public PtProductOrder update(PtProductOrder ptProductOrder) {

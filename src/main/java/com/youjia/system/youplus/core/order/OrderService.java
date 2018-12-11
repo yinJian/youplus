@@ -181,6 +181,23 @@ public class OrderService {
                 (this::parse).collect(Collectors.toList()));
     }
 
+    public List<Long> findIds(OrderListQueryModel companyListQueryModel) {
+        Criteria<PtOrder> criteria = new Criteria<>();
+        criteria.add(Restrictions.eq("companyId", companyListQueryModel.getCompanyId(), true));
+        criteria.add(Restrictions.eq("status", Constant.STATE_NORMAL, true));
+        criteria.add(Restrictions.like("userName", companyListQueryModel.getUserName(), true));
+        criteria.add(Restrictions.like("mobile", companyListQueryModel.getMobile(), true));
+        criteria.add(Restrictions.like("paper", companyListQueryModel.getPaper(), true));
+        criteria.add(Restrictions.eq("province", companyListQueryModel.getProvince(), true));
+        criteria.add(Restrictions.eq("city", companyListQueryModel.getCity(), true));
+        criteria.add(Restrictions.eq("country", companyListQueryModel.getCountry(), true));
+        criteria.add(Restrictions.eq("deleteFlag", false, true));
+        Pageable pageable = PageRequest.of(0, 1000, Sort
+                .Direction.DESC, "id");
+        Page<PtOrder> page = ptOrderManager.findAll(criteria, pageable);
+        return page.getContent().stream().map(PtOrder::getId).collect(Collectors.toList());
+    }
+
     /**
      * 查待确认的，所有的
      */

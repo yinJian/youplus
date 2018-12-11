@@ -1,6 +1,7 @@
 package com.youjia.system.youplus.core.person;
 
 import com.xiaoleilu.hutool.util.BeanUtil;
+import com.youjia.system.youplus.core.dict.area.AreaManager;
 import com.youjia.system.youplus.global.bean.SimplePage;
 import com.youjia.system.youplus.global.bean.request.GroundPersonListQueryModel;
 import com.youjia.system.youplus.global.bean.response.GroundPersonListVO;
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
 public class GroundPersonService {
     @Resource
     private PtGroundPersonManager ptGroundPersonManager;
+    @Resource
+    private AreaManager areaManager;
 
     public PtGroundPerson add(PtGroundPerson ptGroundPerson) {
         return ptGroundPersonManager.add(ptGroundPerson);
@@ -57,6 +60,9 @@ public class GroundPersonService {
     private GroundPersonListVO parse(PtGroundPerson ptGroundPerson) {
         GroundPersonListVO vo = new GroundPersonListVO();
         BeanUtil.copyProperties(ptGroundPerson, vo);
+        vo.setProvinceValue(areaManager.findName(ptGroundPerson.getProvince()));
+        vo.setCityValue(areaManager.findName(ptGroundPerson.getCity()));
+        vo.setCountryValue(areaManager.findName(ptGroundPerson.getCountry()));
         return vo;
     }
 

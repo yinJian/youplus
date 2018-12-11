@@ -3,11 +3,13 @@ package com.youjia.system.youplus.core.medical.doctor;
 import com.xiaoleilu.hutool.util.BeanUtil;
 import com.xiaoleilu.hutool.util.CollectionUtil;
 import com.xiaoleilu.hutool.util.StrUtil;
+import com.youjia.system.youplus.core.dict.area.AreaManager;
 import com.youjia.system.youplus.core.medical.hospital.PtHospital;
 import com.youjia.system.youplus.core.medical.hospital.PtHospitalManager;
 import com.youjia.system.youplus.global.bean.SimplePage;
 import com.youjia.system.youplus.global.bean.request.DoctorListQueryModel;
 import com.youjia.system.youplus.global.bean.response.DoctorListVO;
+import com.youjia.system.youplus.global.cache.DictCache;
 import com.youjia.system.youplus.global.specify.Criteria;
 import com.youjia.system.youplus.global.specify.Restrictions;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,10 @@ public class DoctorService {
     private PtDoctorManager ptDoctorManager;
     @Resource
     private PtHospitalManager ptHospitalManager;
+    @Resource
+    private DictCache dictCache;
+    @Resource
+    private AreaManager areaManager;
 
     public PtDoctor add(PtDoctor ptDoctor) {
         return ptDoctorManager.add(ptDoctor);
@@ -78,6 +84,11 @@ public class DoctorService {
         DoctorListVO doctorListVO = new DoctorListVO();
         BeanUtil.copyProperties(ptDoctor, doctorListVO);
         doctorListVO.setHospitalName(ptHospitalManager.findName(ptDoctor.getHospitalId()));
+        doctorListVO.setDept1Value(dictCache.findByGroupIdAndKey(1, ptDoctor.getDept1()));
+        doctorListVO.setDept2Value(dictCache.findByGroupIdAndKey(2, ptDoctor.getDept2()));
+        doctorListVO.setProvinceValue(areaManager.findName(ptDoctor.getProvince()));
+        doctorListVO.setCityValue(areaManager.findName(ptDoctor.getCity()));
+        doctorListVO.setCountryValue(areaManager.findName(ptDoctor.getCountry()));
         return doctorListVO;
     }
 }

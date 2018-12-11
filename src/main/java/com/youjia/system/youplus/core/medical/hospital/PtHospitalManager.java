@@ -22,13 +22,12 @@ public class PtHospitalManager {
     }
 
     public String findName(Long id) {
-        if (id == null) {
+        if (id == null || !ptHospitalRepository.existsById(id)) {
             return "";
         }
+        
         return find(id).getName();
     }
-
-
 
     public PtHospital find(Long id) {
         return ptHospitalRepository.getOne(id);

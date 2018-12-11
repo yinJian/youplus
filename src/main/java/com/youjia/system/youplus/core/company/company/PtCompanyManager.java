@@ -79,6 +79,10 @@ public class PtCompanyManager {
     }
 
     public String findNameById(Long id) {
+        if (id == null || !ptCompanyRepository.existsById(id)) {
+            return "";
+        }
+
         return findOne(id).getName();
     }
 

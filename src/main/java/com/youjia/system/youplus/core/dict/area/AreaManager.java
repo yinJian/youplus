@@ -32,6 +32,17 @@ public class AreaManager {
         areaRepository.deleteById(id);
     }
 
+    public String findName(String areaCode) {
+        if (areaCode == null) {
+            return "";
+        }
+        AreaEntity areaEntity = areaRepository.findByAreaCode(areaCode);
+        if (areaEntity == null) {
+            return "";
+        }
+        return areaEntity.getAreaName();
+    }
+
     /**
      * 查询完整地址
      * @param areaCode areaCode

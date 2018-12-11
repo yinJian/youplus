@@ -29,11 +29,15 @@ public class PtProductOrder extends BaseDeleteEntity {
     /**
      * 当前状态group=14.未派单，已派单，已接单，
      */
-    private Integer state;
+    private String state;
     /**
      * 子状态group=15。已转单，未转单
      */
-    private Integer childState;
+    private String childState;
+    /**
+     * 派单备注
+     */
+    private String remark;
 
     @Override
     public String toString() {
@@ -44,7 +48,16 @@ public class PtProductOrder extends BaseDeleteEntity {
                 ", groundPersonId=" + groundPersonId +
                 ", state=" + state +
                 ", childState=" + childState +
+                ", remark='" + remark + '\'' +
                 '}';
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public Long getOrderId() {
@@ -79,19 +92,19 @@ public class PtProductOrder extends BaseDeleteEntity {
         this.groundPersonId = groundPersonId;
     }
 
-    public Integer getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(Integer state) {
+    public void setState(String state) {
         this.state = state;
     }
 
-    public Integer getChildState() {
+    public String getChildState() {
         return childState;
     }
 
-    public void setChildState(Integer childState) {
+    public void setChildState(String childState) {
         this.childState = childState;
     }
 }

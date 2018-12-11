@@ -159,7 +159,7 @@ public class CompanyService {
         CompanyListVO companyListVO = new CompanyListVO();
         BeanUtil.copyProperties(ptCompany, companyListVO);
         companyListVO.setPropertyValue(dictCache.findByGroupIdAndKey(6, ptCompany.getProperty()));
-        companyListVO.setTypeValue(dictCache.findByGroupIdAndKey(6, ptCompany.getType()));
+        companyListVO.setTypeValue(dictCache.findByGroupIdAndKey(7, ptCompany.getType()));
         return companyListVO;
     }
 

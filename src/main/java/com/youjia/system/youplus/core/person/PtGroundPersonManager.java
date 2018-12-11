@@ -16,6 +16,14 @@ public class PtGroundPersonManager {
         return ptGroundPersonRepository.findAll(var1, var2);
     }
 
+    public String findNameById(Long id) {
+        if (id == null || !ptGroundPersonRepository.existsById(id)) {
+            return "";
+        }
+
+        return find(id).getUserName();
+    }
+
     public PtGroundPerson find(Long id) {
         return ptGroundPersonRepository.getOne(id);
     }

@@ -1,32 +1,45 @@
 package com.youjia.system.youplus.global.bean.response;
 
+/**
+ * @author wuwf
+ */
 public class DoctorListVO {
     private Long id;
+    /**
+     * 医院ID
+     */
+    private Long hospitalId;
     /**
      * TODO
      */
     private String hospitalName;
     private String name;
     /**
-     * 医院ID
-     */
-    private Long hospitalId;
-    /**
-     *科室
+     * 科室
      */
     private String dept;
     /**
-     * 一级科室
+     * 一级科室,group=1
      */
     private String dept1;
     /**
-     * 二级科室
+     * TODO
+     */
+    private String dept1Value;
+    /**
+     * 二级科室 ,group=2
      */
     private String dept2;
-
+    /**
+     * TODO
+     */
+    private String dept2Value;
     private String province;
+    private String provinceValue;
     private String city;
+    private String cityValue;
     private String country;
+    private String countryValue;
     private String phone;
     /**
      * 职称
@@ -50,15 +63,20 @@ public class DoctorListVO {
     public String toString() {
         return "DoctorListVO{" +
                 "id=" + id +
+                ", hospitalId=" + hospitalId +
                 ", hospitalName='" + hospitalName + '\'' +
                 ", name='" + name + '\'' +
-                ", hospitalId=" + hospitalId +
                 ", dept='" + dept + '\'' +
                 ", dept1='" + dept1 + '\'' +
+                ", dept1Value='" + dept1Value + '\'' +
                 ", dept2='" + dept2 + '\'' +
+                ", dept2Value='" + dept2Value + '\'' +
                 ", province='" + province + '\'' +
+                ", provinceValue='" + provinceValue + '\'' +
                 ", city='" + city + '\'' +
+                ", cityValue='" + cityValue + '\'' +
                 ", country='" + country + '\'' +
+                ", countryValue='" + countryValue + '\'' +
                 ", phone='" + phone + '\'' +
                 ", level='" + level + '\'' +
                 ", headIcon='" + headIcon + '\'' +
@@ -66,6 +84,46 @@ public class DoctorListVO {
                 ", skill='" + skill + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';
+    }
+
+    public String getDept1Value() {
+        return dept1Value;
+    }
+
+    public void setDept1Value(String dept1Value) {
+        this.dept1Value = dept1Value;
+    }
+
+    public String getDept2Value() {
+        return dept2Value;
+    }
+
+    public void setDept2Value(String dept2Value) {
+        this.dept2Value = dept2Value;
+    }
+
+    public String getProvinceValue() {
+        return provinceValue;
+    }
+
+    public void setProvinceValue(String provinceValue) {
+        this.provinceValue = provinceValue;
+    }
+
+    public String getCityValue() {
+        return cityValue;
+    }
+
+    public void setCityValue(String cityValue) {
+        this.cityValue = cityValue;
+    }
+
+    public String getCountryValue() {
+        return countryValue;
+    }
+
+    public void setCountryValue(String countryValue) {
+        this.countryValue = countryValue;
     }
 
     public Long getId() {

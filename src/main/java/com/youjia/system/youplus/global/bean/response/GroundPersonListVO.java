@@ -14,8 +14,11 @@ public class GroundPersonListVO {
      */
     private String mobile;
     private String province;
+    private String provinceValue;
     private String city;
+    private String cityValue;
     private String country;
+    private String countryValue;
     private String remark;
 
     @Override
@@ -25,10 +28,37 @@ public class GroundPersonListVO {
                 ", userName='" + userName + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", province='" + province + '\'' +
+                ", provinceValue='" + provinceValue + '\'' +
                 ", city='" + city + '\'' +
+                ", cityValue='" + cityValue + '\'' +
                 ", country='" + country + '\'' +
+                ", countryValue='" + countryValue + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';
+    }
+
+    public String getProvinceValue() {
+        return provinceValue;
+    }
+
+    public void setProvinceValue(String provinceValue) {
+        this.provinceValue = provinceValue;
+    }
+
+    public String getCityValue() {
+        return cityValue;
+    }
+
+    public void setCityValue(String cityValue) {
+        this.cityValue = cityValue;
+    }
+
+    public String getCountryValue() {
+        return countryValue;
+    }
+
+    public void setCountryValue(String countryValue) {
+        this.countryValue = countryValue;
     }
 
     public Long getId() {

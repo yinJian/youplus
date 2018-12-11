@@ -18,11 +18,11 @@ public class PtDoctor extends BaseDeleteEntity {
      */
     private String dept;
     /**
-     * 一级科室
+     * 一级科室,group=1
      */
     private String dept1;
     /**
-     * 二级科室
+     * 二级科室,group=2
      */
     private String dept2;
 
