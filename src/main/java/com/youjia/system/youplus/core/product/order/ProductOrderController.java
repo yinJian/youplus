@@ -28,6 +28,22 @@ public class ProductOrderController {
         return ResultGenerator.genSuccessResult(productOrderService.find(id));
     }
 
+    /**
+     * 选地勤人员
+     */
+    @PostMapping("/{id}/groundPerson")
+    public BaseData paidan(@PathVariable Long id, Long personId, String remark) {
+        return ResultGenerator.genSuccessResult(productOrderService.chooseGroundPerson(id, personId, remark));
+    }
+
+    /**
+     * 转单给别的地勤人员
+     */
+    @PutMapping("/{id}/groundPerson")
+    public BaseData paidanOther(@PathVariable Long id, Long personId, String remark) {
+        return ResultGenerator.genSuccessResult(productOrderService.changeGroundPerson(id, personId, remark));
+    }
+
     @PostMapping("")
     public BaseData add(@RequestBody ProductOrderAddModel ptProduct) {
         return ResultGenerator.genSuccessResult(productOrderService.add(ptProduct));

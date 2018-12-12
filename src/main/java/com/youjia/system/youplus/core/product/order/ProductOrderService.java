@@ -6,6 +6,7 @@ import com.youjia.system.youplus.core.dict.area.AreaManager;
 import com.youjia.system.youplus.core.medical.hospital.PtHospitalManager;
 import com.youjia.system.youplus.core.order.OrderService;
 import com.youjia.system.youplus.core.order.PtOrder;
+import com.youjia.system.youplus.core.person.GroundPersonService;
 import com.youjia.system.youplus.core.person.PtGroundPersonManager;
 import com.youjia.system.youplus.core.product.PtProductManager;
 import com.youjia.system.youplus.core.product.template.prepay.PtPrePayTemplate;
@@ -16,6 +17,7 @@ import com.youjia.system.youplus.global.bean.SimplePage;
 import com.youjia.system.youplus.global.bean.request.OrderListQueryModel;
 import com.youjia.system.youplus.global.bean.request.ProductOrderAddModel;
 import com.youjia.system.youplus.global.bean.request.ProductOrderListQueryModel;
+import com.youjia.system.youplus.global.bean.response.GroundPersonListVO;
 import com.youjia.system.youplus.global.bean.response.OrderListVO;
 import com.youjia.system.youplus.global.bean.response.ProductOrderListVO;
 import com.youjia.system.youplus.global.bean.response.ProductOrderVO;
@@ -60,6 +62,8 @@ public class ProductOrderService {
     private PtGroundPersonManager ptGroundPersonManager;
     @Resource
     private PtHospitalManager ptHospitalManager;
+    @Resource
+    private GroundPersonService groundPersonService;
 
 
     public BaseData add(ProductOrderAddModel productOrderAddModel) {
@@ -70,11 +74,16 @@ public class ProductOrderService {
 
         PtProductOrder ptProductOrder = new PtProductOrder();
         BeanUtil.copyProperties(productOrderAddModel, ptProductOrder);
+        //未派单
+        ptProductOrder.setState("1");
+        //未转单
+        ptProductOrder.setChildState("1");
         ptProductOrder = ptProductOrderManager.add(ptProductOrder);
 
         template.setProductId(ptProductOrder.getId());
         template = ptPrePayTemplateManager.add(template);
         ptProductOrder.setTemplateId(template.getId());
+
         ptProductOrderManager.update(ptProductOrder);
 
         return ResultGenerator.genSuccessResult(ptProductOrder);
@@ -86,18 +95,19 @@ public class ProductOrderService {
         if (ptProductOrder == null) {
             return null;
         }
-        BeanUtil.copyProperties(productOrderAddModel, ptProductOrder);
+        BeanUtil.copyProperties(productOrderAddModel, ptProductOrder, BeanUtil.CopyOptions.create()
+                .setIgnoreNullValue(true));
 
         PtPrePayTemplate template = productOrderAddModel.getTemplate();
         if (template != null) {
-            PtPrePayTemplate orignalTemplate = ptPrePayTemplateManager.find(productOrderAddModel.getTemplateId());
-            if (orignalTemplate == null) {
-                orignalTemplate = new PtPrePayTemplate();
+            PtPrePayTemplate originalTemplate = ptPrePayTemplateManager.find(productOrderAddModel.getTemplateId());
+            if (originalTemplate == null) {
+                originalTemplate = new PtPrePayTemplate();
             }
-            BeanUtil.copyProperties(template, orignalTemplate, BeanUtil.CopyOptions.create().setIgnoreNullValue(true));
-            ptPrePayTemplateManager.update(orignalTemplate);
+            BeanUtil.copyProperties(template, originalTemplate, BeanUtil.CopyOptions.create().setIgnoreNullValue(true));
+            ptPrePayTemplateManager.update(originalTemplate);
 
-            ptProductOrder.setTemplateId(orignalTemplate.getId());
+            ptProductOrder.setTemplateId(originalTemplate.getId());
         }
 
         return ptProductOrderManager.update(ptProductOrder);
@@ -118,7 +128,30 @@ public class ProductOrderService {
         OrderListVO orderListVO = orderService.parse(ptProductOrder.getOrderId());
         productOrderVO.setOrderListVO(orderListVO);
 
+        GroundPersonListVO groundPersonListVO = groundPersonService.parse(ptProductOrder.getGroundPersonId());
+        productOrderVO.setGroundPersonListVO(groundPersonListVO);
+
         return productOrderVO;
+    }
+
+    public PtProductOrder chooseGroundPerson(Long id, Long personId, String remark) {
+        PtProductOrder ptProductOrder = ptProductOrderManager.find(id);
+        ptProductOrder.setRemark(remark);
+        ptProductOrder.setGroundPersonId(personId);
+        ptProductOrder.setState("2");
+        return ptProductOrderManager.update(ptProductOrder);
+    }
+
+    /**
+     * 转单
+     */
+    public PtProductOrder changeGroundPerson(Long id, Long personId, String remark) {
+        PtProductOrder ptProductOrder = ptProductOrderManager.find(id);
+        ptProductOrder.setRemark(remark);
+        ptProductOrder.setGroundPersonId(personId);
+        ptProductOrder.setState("2");
+        ptProductOrder.setChildState("2");
+        return ptProductOrderManager.update(ptProductOrder);
     }
 
     /**

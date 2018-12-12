@@ -13,6 +13,27 @@ public class ProductOrderVO {
 
     private PtPrePayTemplate template;
 
+    private GroundPersonListVO groundPersonListVO;
+
+    @Override
+    public String toString() {
+        return "ProductOrderVO{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", orderListVO=" + orderListVO +
+                ", template=" + template +
+                ", groundPersonListVO=" + groundPersonListVO +
+                '}';
+    }
+
+    public GroundPersonListVO getGroundPersonListVO() {
+        return groundPersonListVO;
+    }
+
+    public void setGroundPersonListVO(GroundPersonListVO groundPersonListVO) {
+        this.groundPersonListVO = groundPersonListVO;
+    }
+
     public Long getProductId() {
         return productId;
     }

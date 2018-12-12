@@ -66,4 +66,10 @@ public class GroundPersonService {
         return vo;
     }
 
+    public GroundPersonListVO parse(Long id) {
+        if (id == null) {
+            return null;
+        }
+        return parse(find(id));
+    }
 }
