@@ -61,7 +61,7 @@ public class PhysicalChildService {
         criteria.add(Restrictions.eq("city", physicalChildListQueryModel.getCity(), true));
         criteria.add(Restrictions.eq("country", physicalChildListQueryModel.getCountry(), true));
         criteria.add(Restrictions.like("name", physicalChildListQueryModel.getName(), true));
-        criteria.add(Restrictions.eq("deleteFlag", false, true));
+        //criteria.add(Restrictions.eq("deleteFlag", false, true));
 
         Pageable pageable = PageRequest.of(physicalChildListQueryModel.getPage(),
                 physicalChildListQueryModel.getSize(), Sort.Direction.DESC, "id");

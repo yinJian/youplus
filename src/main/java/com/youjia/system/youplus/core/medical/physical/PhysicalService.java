@@ -60,7 +60,7 @@ public class PhysicalService {
                     children.stream().map(PtPhysicalChild::getPhysicalId).collect(Collectors.toSet()), false));
         }
 
-        criteria.add(Restrictions.eq("deleteFlag", false, true));
+        //criteria.add(Restrictions.eq("deleteFlag", false, true));
 
         Pageable pageable = PageRequest.of(physicalListQueryModel.getPage(),
                 physicalListQueryModel.getSize(), Sort.Direction.DESC, "id");

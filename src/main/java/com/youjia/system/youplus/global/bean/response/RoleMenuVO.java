@@ -11,7 +11,7 @@ import java.util.Set;
 public class RoleMenuVO {
     private PtRole role;
 
-    private Set<SimpleMenu> menus;
+    private Set<Long> menus;
 
     @Override
     public String toString() {
@@ -29,11 +29,11 @@ public class RoleMenuVO {
         this.role = role;
     }
 
-    public Set<SimpleMenu> getMenus() {
+    public Set<Long> getMenus() {
         return menus;
     }
 
-    public void setMenus(Set<SimpleMenu> menus) {
+    public void setMenus(Set<Long> menus) {
         this.menus = menus;
     }
 }

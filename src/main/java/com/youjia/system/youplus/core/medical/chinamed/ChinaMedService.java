@@ -59,7 +59,7 @@ public class ChinaMedService {
                     children.stream().map(PtChinaMedChild::getChinaMedId).collect(Collectors.toSet()), false));
         }
 
-        criteria.add(Restrictions.eq("deleteFlag", false, true));
+        //criteria.add(Restrictions.eq("deleteFlag", false, true));
 
         Pageable pageable = PageRequest.of(ChinaMedListQueryModel.getPage(),
                 ChinaMedListQueryModel.getSize(), Sort.Direction.DESC, "id");

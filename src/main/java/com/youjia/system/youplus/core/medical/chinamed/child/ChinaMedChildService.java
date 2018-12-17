@@ -61,7 +61,7 @@ public class ChinaMedChildService {
         criteria.add(Restrictions.eq("city", chinaMedChildListQueryModel.getCity(), true));
         criteria.add(Restrictions.eq("country", chinaMedChildListQueryModel.getCountry(), true));
         criteria.add(Restrictions.like("name", chinaMedChildListQueryModel.getName(), true));
-        criteria.add(Restrictions.eq("deleteFlag", false, true));
+        //criteria.add(Restrictions.eq("deleteFlag", false, true));
 
         Pageable pageable = PageRequest.of(chinaMedChildListQueryModel.getPage(),
                 chinaMedChildListQueryModel.getSize(), Sort.Direction.DESC, "id");

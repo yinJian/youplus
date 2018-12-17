@@ -8,13 +8,14 @@ import com.youjia.system.youplus.core.user.menu.PtRoleMenuManager;
 import com.youjia.system.youplus.core.user.userrole.PtUserRoleManager;
 import com.youjia.system.youplus.global.bean.request.RoleAddRequestModel;
 import com.youjia.system.youplus.global.bean.response.RoleMenuVO;
-import com.youjia.system.youplus.global.bean.response.SimpleMenu;
 import com.youjia.system.youplus.global.event.RoleMenuChangeEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 角色管理
@@ -41,53 +42,52 @@ public class RoleService {
 
     public RoleMenuVO findOne(Long id) {
         PtRole ptRole = ptRoleManager.find(id);
-
-        Set<SimpleMenu> menus = findMenusByRoleId(id);
+        List<PtMenu> ptMenus = ptMenuManager.findAllMenuByRoles(Arrays.asList(ptRole));
 
         RoleMenuVO roleMenuVO = new RoleMenuVO();
 
-        roleMenuVO.setMenus(menus);
+        roleMenuVO.setMenus(ptMenus.stream().map(PtMenu::getId).collect(Collectors.toSet()));
         roleMenuVO.setRole(ptRole);
 
         return roleMenuVO;
     }
 
-    public Set<SimpleMenu> findMenusByRoleId(Long roleId) {
-        PtRole ptRole = ptRoleManager.find(roleId);
-        List<PtMenu> ptMenus = ptMenuManager.findAllMenuByRoles(Arrays.asList(ptRole));
-
-        Set<SimpleMenu> menus = new HashSet<>();
-        for (PtMenu ptMenu : ptMenus) {
-            if (ptMenu.getParentId() == 0) {
-                SimpleMenu simpleMenu = new SimpleMenu();
-                simpleMenu.setId(ptMenu.getId());
-                simpleMenu.setName(ptMenu.getName());
-                simpleMenu.setGroupId(ptMenu.getGroupId());
-                simpleMenu.setOrderNum(ptMenu.getOrderNum());
-                List<SimpleMenu> childMenus = new ArrayList<>();
-                simpleMenu.setChildMenus(childMenus);
-                menus.add(simpleMenu);
-            }
-        }
-        for (PtMenu ptMenu : ptMenus) {
-            Long parentId = ptMenu.getParentId();
-            if (ptMenu.getParentId() == 0) {
-                continue;
-            }
-            for (SimpleMenu menu : menus) {
-                if (parentId.equals(menu.getGroupId())) {
-                    SimpleMenu simpleMenu = new SimpleMenu();
-                    simpleMenu.setName(ptMenu.getName());
-                    simpleMenu.setId(ptMenu.getId());
-                    simpleMenu.setGroupId(ptMenu.getGroupId());
-                    simpleMenu.setOrderNum(ptMenu.getOrderNum());
-                    menu.getChildMenus().add(simpleMenu);
-                }
-            }
-        }
-
-        return menus;
-    }
+    //public Set<SimpleMenu> findMenusByRoleId(Long roleId) {
+    //    PtRole ptRole = ptRoleManager.find(roleId);
+    //    List<PtMenu> ptMenus = ptMenuManager.findAllMenuByRoles(Arrays.asList(ptRole));
+    //
+    //    Set<SimpleMenu> menus = new HashSet<>();
+    //    for (PtMenu ptMenu : ptMenus) {
+    //        if (ptMenu.getParentId() == 0) {
+    //            SimpleMenu simpleMenu = new SimpleMenu();
+    //            simpleMenu.setId(ptMenu.getId());
+    //            simpleMenu.setName(ptMenu.getName());
+    //            simpleMenu.setGroupId(ptMenu.getGroupId());
+    //            simpleMenu.setOrderNum(ptMenu.getOrderNum());
+    //            List<SimpleMenu> childMenus = new ArrayList<>();
+    //            simpleMenu.setChildMenus(childMenus);
+    //            menus.add(simpleMenu);
+    //        }
+    //    }
+    //    for (PtMenu ptMenu : ptMenus) {
+    //        Long parentId = ptMenu.getParentId();
+    //        if (ptMenu.getParentId() == 0) {
+    //            continue;
+    //        }
+    //        for (SimpleMenu menu : menus) {
+    //            if (parentId.equals(menu.getGroupId())) {
+    //                SimpleMenu simpleMenu = new SimpleMenu();
+    //                simpleMenu.setName(ptMenu.getName());
+    //                simpleMenu.setId(ptMenu.getId());
+    //                simpleMenu.setGroupId(ptMenu.getGroupId());
+    //                simpleMenu.setOrderNum(ptMenu.getOrderNum());
+    //                menu.getChildMenus().add(simpleMenu);
+    //            }
+    //        }
+    //    }
+    //
+    //    return menus;
+    //}
 
     /**
      * 新增一个role。只有超级管理员和公司管理员才有该权限

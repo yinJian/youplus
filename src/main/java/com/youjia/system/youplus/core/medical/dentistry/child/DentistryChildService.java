@@ -61,7 +61,7 @@ public class DentistryChildService {
         criteria.add(Restrictions.eq("city", dentistryChildListQueryModel.getCity(), true));
         criteria.add(Restrictions.eq("country", dentistryChildListQueryModel.getCountry(), true));
         criteria.add(Restrictions.like("name", dentistryChildListQueryModel.getName(), true));
-        criteria.add(Restrictions.eq("deleteFlag", false, true));
+        //criteria.add(Restrictions.eq("deleteFlag", false, true));
 
         Pageable pageable = PageRequest.of(dentistryChildListQueryModel.getPage(),
                 dentistryChildListQueryModel.getSize(), Sort.Direction.DESC, "id");

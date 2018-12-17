@@ -59,7 +59,7 @@ public class DentistryService {
                     children.stream().map(PtDentistryChild::getDentistryId).collect(Collectors.toSet()), false));
         }
 
-        criteria.add(Restrictions.eq("deleteFlag", false, true));
+        //criteria.add(Restrictions.eq("deleteFlag", false, true));
 
         Pageable pageable = PageRequest.of(dentistryListQueryModel.getPage(),
                 dentistryListQueryModel.getSize(), Sort.Direction.DESC, "id");
