@@ -44,7 +44,7 @@ public interface Constant {
      */
     String AUTHORIZATION = "token";
     String USERID = "userId";
-
+    String PERSONID = "personId";
 
     int PAGE_SIZE = 10;
     int PAGE_NUM = 0;

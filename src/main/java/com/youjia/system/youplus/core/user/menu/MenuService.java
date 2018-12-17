@@ -108,7 +108,7 @@ public class MenuService {
      */
     public List<MenuVO> find(final Long parentId) {
         long id = parentId == null ? 0 : parentId;
-        Long userId = userKit.gertCurrentUserId();
+        Long userId = userKit.getCurrentUserId();
         List<PtRole> ptRoleList = ptRoleManager.findByUserId(userId);
         //得到该用户所有菜单
         List<PtMenu> menuList = ptMenuManager.findAllMenuByRoles(ptRoleList);

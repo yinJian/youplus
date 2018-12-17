@@ -13,6 +13,7 @@ import com.youjia.system.youplus.core.product.flow.PtOrderFlow;
 import com.youjia.system.youplus.core.product.flow.PtOrderFlowManager;
 import com.youjia.system.youplus.core.product.template.prepay.PtPrePayTemplate;
 import com.youjia.system.youplus.core.product.template.prepay.PtPrePayTemplateManager;
+import com.youjia.system.youplus.global.UserKit;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.SimplePage;
@@ -68,6 +69,8 @@ public class ProductOrderService {
     private GroundPersonService groundPersonService;
     @Resource
     private PtOrderFlowManager ptOrderFlowManager;
+    @Resource
+    private UserKit userKit;
 
 
     public BaseData add(ProductOrderAddModel productOrderAddModel) {
@@ -169,8 +172,13 @@ public class ProductOrderService {
         Criteria<PtProductOrder> criteria = new Criteria<>();
         criteria.add(Restrictions.eq("id", productOrderListQueryModel.getId(), true));
         criteria.add(Restrictions.eq("state", productOrderListQueryModel.getState(), true));
+        criteria.add(Restrictions.ne("state", productOrderListQueryModel.getNotState(), true));
         criteria.add(Restrictions.eq("childState", productOrderListQueryModel.getChildState(), true));
         criteria.add(Restrictions.eq("deleteFlag", false, true));
+        //给H5用的功能
+        if (userKit.getGroundPersonId() != null) {
+            criteria.add(Restrictions.eq("groundPersonId", userKit.getGroundPersonId(), true));
+        }
 
         OrderListQueryModel orderListQueryModel = new OrderListQueryModel();
         BeanUtil.copyProperties(productOrderListQueryModel, orderListQueryModel);

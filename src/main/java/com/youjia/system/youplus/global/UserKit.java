@@ -17,10 +17,19 @@ public class UserKit {
     @Resource
     private PtUserManager ptUserManager;
 
-    public Long gertCurrentUserId() {
+    public Long getCurrentUserId() {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         return Long.valueOf(request.getHeader(Constant.USERID));
+    }
+
+    /**
+     * 获取地勤人员id
+     */
+    public Long getGroundPersonId() {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        return Long.valueOf(request.getHeader(Constant.PERSONID));
     }
 
 }

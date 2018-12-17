@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface PtGroundPersonRepository extends JpaRepository<PtGroundPerson, Long>,
         JpaSpecificationExecutor<PtGroundPerson> {
-
+    PtGroundPerson findFirstByMobileAndDeleteFlagFalse(String mobile);
 }

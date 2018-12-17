@@ -93,6 +93,7 @@ public class PtRoleManager {
             //放入缓存
             userRoleCache.saveUserRolesByUser(user.getId(), roles.stream().map(PtRole::getId).collect(Collectors
                     .toList()));
+            return roles;
         }
         return roleIds.stream().map(id -> ptRoleRepository.getOne(id)).collect(Collectors.toList());
     }

@@ -20,6 +20,10 @@ public class ProductOrderListQueryModel extends BaseModel {
      */
     private Integer state;
     /**
+     * 不能为哪个state
+     */
+    private Integer notState;
+    /**
      * 子状态group=15。已转单，未转单
      */
     private Integer childState;
@@ -38,6 +42,14 @@ public class ProductOrderListQueryModel extends BaseModel {
                 ", state=" + state +
                 ", childState=" + childState +
                 '}';
+    }
+
+    public Integer getNotState() {
+        return notState;
+    }
+
+    public void setNotState(Integer notState) {
+        this.notState = notState;
     }
 
     public String getId() {

@@ -35,7 +35,7 @@ public class UserService {
     private ApplicationEventPublisher eventPublisher;
 
     public BaseData updatePassword(String oldPass, String pass) {
-        Long userId = userKit.gertCurrentUserId();
+        Long userId = userKit.getCurrentUserId();
         PtUser ptUser = ptUserManager.find(userId);
         if (!ptUser.getPassword().equals(oldPass)) {
             return ResultGenerator.genFailResult("旧密码不正确");

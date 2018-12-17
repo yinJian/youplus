@@ -36,6 +36,11 @@ public class GroundPersonService {
         return ptGroundPersonManager.find(id);
     }
 
+
+    public PtGroundPerson findByMobile(String mobile) {
+        return ptGroundPersonManager.findByMobile(mobile);
+    }
+
     public void delete(Long id) {
         ptGroundPersonManager.delete(ptGroundPersonManager.find(id));
     }

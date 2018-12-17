@@ -24,6 +24,11 @@ public class PtGroundPersonManager {
         return find(id).getUserName();
     }
 
+    public PtGroundPerson findByMobile(String mobile) {
+        return ptGroundPersonRepository.findFirstByMobileAndDeleteFlagFalse(mobile);
+    }
+
+
     public PtGroundPerson find(Long id) {
         return ptGroundPersonRepository.getOne(id);
     }
@@ -41,7 +46,7 @@ public class PtGroundPersonManager {
         update(ptGroundPerson);
     }
 
-    private PtGroundPerson save(PtGroundPerson ptGroundPerson)  {
+    private PtGroundPerson save(PtGroundPerson ptGroundPerson) {
         return ptGroundPersonRepository.save(ptGroundPerson);
     }
 }
