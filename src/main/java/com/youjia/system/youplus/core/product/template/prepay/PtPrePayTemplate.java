@@ -18,11 +18,23 @@ public class PtPrePayTemplate extends BaseTemplate {
      * 预约电话
      */
     private String bookMobile;
-
+    /**
+     * 疾病类型(意外1、疾病2、重疾3)
+     */
+    private Integer sickType;
+    /**
+     * 具体疾病名称
+     */
+    private String sickName;
+    /**
+     * 所在地区省市县
+     */
     private String province;
     private String city;
     private String country;
-
+    /**
+     * 期望就医省市县
+     */
     private String wantProvince;
     private String wantCity;
     private String wantCountry;
@@ -35,13 +47,16 @@ public class PtPrePayTemplate extends BaseTemplate {
      */
     private Long hospitalId;
     /**
-     * 一级科室
+     * 一级科室。从字典表里选，填入dKey
      */
     private String dept1;
     /**
-     * 二级科室
+     * 二级科室。从字典表里选，填入dKey
      */
     private String dept2;
+    /**
+     * 选择医院后，查询该医院的所有医生，填入ID
+     */
     private Long doctorId;
     /**
      * 住院状态，1已住院，2未确认住院，3有住院单未住院。group=12
@@ -71,6 +86,9 @@ public class PtPrePayTemplate extends BaseTemplate {
      * 新农合盖章
      */
     private Boolean nongHeSign;
+    /**
+     * 备注
+     */
     private String remark;
 
     @Override
@@ -78,6 +96,8 @@ public class PtPrePayTemplate extends BaseTemplate {
         return "PtPrePayTemplate{" +
                 "productId=" + productId +
                 ", bookMobile='" + bookMobile + '\'' +
+                ", sickType=" + sickType +
+                ", sickName='" + sickName + '\'' +
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
@@ -100,6 +120,22 @@ public class PtPrePayTemplate extends BaseTemplate {
                 ", nongHeSign=" + nongHeSign +
                 ", remark='" + remark + '\'' +
                 '}';
+    }
+
+    public Integer getSickType() {
+        return sickType;
+    }
+
+    public void setSickType(Integer sickType) {
+        this.sickType = sickType;
+    }
+
+    public String getSickName() {
+        return sickName;
+    }
+
+    public void setSickName(String sickName) {
+        this.sickName = sickName;
     }
 
     public Long getProductId() {

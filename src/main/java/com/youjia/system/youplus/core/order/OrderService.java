@@ -1,11 +1,14 @@
 package com.youjia.system.youplus.core.order;
 
+import com.xiaoleilu.hutool.io.FileUtil;
 import com.xiaoleilu.hutool.util.BeanUtil;
 import com.xiaoleilu.hutool.util.StrUtil;
 import com.youjia.system.youplus.core.company.company.PtCompanyManager;
+import com.youjia.system.youplus.core.company.goods.PtGoods;
 import com.youjia.system.youplus.core.company.goods.PtGoodsManager;
-import com.youjia.system.youplus.core.dict.area.AreaManager;
 import com.youjia.system.youplus.core.user.user.PtUserManager;
+import com.youjia.system.youplus.global.bean.BaseData;
+import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.SimplePage;
 import com.youjia.system.youplus.global.bean.request.OrderAddUpdateModel;
 import com.youjia.system.youplus.global.bean.request.OrderListQueryModel;
@@ -21,8 +24,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,8 +46,6 @@ public class OrderService {
     private PtCompanyManager ptCompanyManager;
     @Resource
     private PtUserManager ptUserManager;
-    @Resource
-    private AreaManager areaManager;
     @Resource
     private PtOrderRelationManager ptOrderRelationManager;
 
@@ -76,6 +80,67 @@ public class OrderService {
 
         return ptOrder;
     }
+
+
+    /**
+     * 导入csv功能
+     */
+    public BaseData importCsv(MultipartFile multFile, Long goodsId) {
+        // 获取文件名
+        String fileName = multFile.getOriginalFilename();
+        // 获取文件后缀
+        String prefix = fileName.substring(fileName.lastIndexOf("."));
+        try {
+            // 用uuid作为文件名，防止生成的临时文件重复
+            File excelFile = File.createTempFile(System.currentTimeMillis() + "", prefix);
+            // MultipartFile to File
+            multFile.transferTo(excelFile);
+            List<String> list = FileUtil.readLines(excelFile, "utf-8");
+            List<OrderAddUpdateModel> models = new ArrayList<>();
+
+            PtGoods ptGoods = ptGoodsManager.findOne(goodsId);
+            Long companyId = ptGoods.getCompanyId();
+
+            for (String line : list) {
+                OrderAddUpdateModel model = parseCsv(line, goodsId, companyId);
+                if (model != null) {
+                    models.add(model);
+                    add(model, true);
+                }
+
+            }
+            return ResultGenerator.genSuccessResult("成功导入" + models.size() + "条");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResultGenerator.genFailResult("导入失败");
+        }
+
+    }
+
+    private OrderAddUpdateModel parseCsv(String line, Long goodsId, Long companyId) {
+        String[] array = line.split(",");
+        if (array.length != 11) {
+            return null;
+        }
+        OrderAddUpdateModel model = new OrderAddUpdateModel();
+        model.setUserName(array[0]);
+        model.setSex(Integer.valueOf(array[1]));
+        model.setPaperType(array[2]);
+        model.setPaper(array[3]);
+        model.setMobile(array[4]);
+        model.setEmail(array[5]);
+        model.setCardNum(array[6]);
+        model.setBeginTime(array[7]);
+        model.setEndTime(array[8]);
+        model.setRemark(array[9]);
+        model.setStatus(Integer.valueOf(array[10]));
+
+        model.setPtGoodsId(goodsId);
+        model.setCompanyId(companyId);
+
+        return model;
+    }
+
 
     /**
      * 查询order详情

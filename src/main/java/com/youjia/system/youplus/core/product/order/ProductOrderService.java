@@ -9,6 +9,8 @@ import com.youjia.system.youplus.core.order.PtOrder;
 import com.youjia.system.youplus.core.person.GroundPersonService;
 import com.youjia.system.youplus.core.person.PtGroundPersonManager;
 import com.youjia.system.youplus.core.product.PtProductManager;
+import com.youjia.system.youplus.core.product.flow.PtOrderFlow;
+import com.youjia.system.youplus.core.product.flow.PtOrderFlowManager;
 import com.youjia.system.youplus.core.product.template.prepay.PtPrePayTemplate;
 import com.youjia.system.youplus.core.product.template.prepay.PtPrePayTemplateManager;
 import com.youjia.system.youplus.global.bean.BaseData;
@@ -64,6 +66,8 @@ public class ProductOrderService {
     private PtHospitalManager ptHospitalManager;
     @Resource
     private GroundPersonService groundPersonService;
+    @Resource
+    private PtOrderFlowManager ptOrderFlowManager;
 
 
     public BaseData add(ProductOrderAddModel productOrderAddModel) {
@@ -131,6 +135,10 @@ public class ProductOrderService {
         GroundPersonListVO groundPersonListVO = groundPersonService.parse(ptProductOrder.getGroundPersonId());
         productOrderVO.setGroundPersonListVO(groundPersonListVO);
 
+        //订单的详细流程
+        PtOrderFlow orderFlow = ptOrderFlowManager.findByProductOrderId(id);
+        productOrderVO.setOrderFlow(orderFlow);
+
         return productOrderVO;
     }
 
@@ -162,6 +170,7 @@ public class ProductOrderService {
         criteria.add(Restrictions.eq("id", productOrderListQueryModel.getId(), true));
         criteria.add(Restrictions.eq("state", productOrderListQueryModel.getState(), true));
         criteria.add(Restrictions.eq("childState", productOrderListQueryModel.getChildState(), true));
+        criteria.add(Restrictions.eq("deleteFlag", false, true));
 
         OrderListQueryModel orderListQueryModel = new OrderListQueryModel();
         BeanUtil.copyProperties(productOrderListQueryModel, orderListQueryModel);
@@ -199,10 +208,10 @@ public class ProductOrderService {
     }
 
     /**
-     * 判断该对象是否: 返回ture表示所有属性为null  返回false表示不是所有属性都是null
+     * 判断该对象是否: 返回true表示所有属性为null  返回false表示不是所有属性都是null
      */
     private boolean isAllFieldNull(Object obj) {
-        Class stuCla = (Class) obj.getClass();
+        Class stuCla = obj.getClass();
         Field[] fs = stuCla.getDeclaredFields();
         boolean flag = true;
         //遍历属性
@@ -227,7 +236,9 @@ public class ProductOrderService {
 
 
     public void delete(Long id) {
-        ptProductOrderManager.delete(ptProductOrderManager.find(id));
+        PtProductOrder ptProductOrder = ptProductOrderManager.find(id);
+        ptProductOrder.setDeleteFlag(true);
+        ptProductOrderManager.update(ptProductOrder);
     }
 
 }

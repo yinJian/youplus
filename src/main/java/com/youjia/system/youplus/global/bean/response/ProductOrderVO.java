@@ -1,5 +1,6 @@
 package com.youjia.system.youplus.global.bean.response;
 
+import com.youjia.system.youplus.core.product.flow.PtOrderFlow;
 import com.youjia.system.youplus.core.product.template.prepay.PtPrePayTemplate;
 
 /**
@@ -15,15 +16,14 @@ public class ProductOrderVO {
 
     private GroundPersonListVO groundPersonListVO;
 
-    @Override
-    public String toString() {
-        return "ProductOrderVO{" +
-                "productId=" + productId +
-                ", productName='" + productName + '\'' +
-                ", orderListVO=" + orderListVO +
-                ", template=" + template +
-                ", groundPersonListVO=" + groundPersonListVO +
-                '}';
+    private PtOrderFlow orderFlow;
+
+    public PtOrderFlow getOrderFlow() {
+        return orderFlow;
+    }
+
+    public void setOrderFlow(PtOrderFlow orderFlow) {
+        this.orderFlow = orderFlow;
     }
 
     public GroundPersonListVO getGroundPersonListVO() {

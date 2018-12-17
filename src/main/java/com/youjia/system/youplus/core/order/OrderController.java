@@ -6,6 +6,7 @@ import com.youjia.system.youplus.global.bean.request.OrderAddUpdateModel;
 import com.youjia.system.youplus.global.bean.request.OrderListQueryModel;
 import com.youjia.system.youplus.global.bean.request.OrderTempListQueryModel;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
@@ -50,6 +51,14 @@ public class OrderController {
     @PostMapping("")
     public BaseData add(@RequestBody OrderAddUpdateModel orderAddUpdateModel) {
         return ResultGenerator.genSuccessResult(orderService.add(orderAddUpdateModel, true));
+    }
+
+    /**
+     * 导入csv
+     */
+    @PostMapping("/import")
+    public BaseData importCsv(@RequestParam("file") MultipartFile file, Long goodsId) {
+        return orderService.importCsv(file, goodsId);
     }
 
     @PutMapping("")
