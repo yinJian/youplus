@@ -6,6 +6,7 @@ import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.request.ProductOrderListQueryModel;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,5 +41,10 @@ public class WeChatController {
             productOrderListQueryModel.setNotState(8);
         }
         return ResultGenerator.genSuccessResult(productOrderService.findAll(productOrderListQueryModel));
+    }
+
+    @GetMapping("/orders/{id}")
+    public BaseData orderOne(@PathVariable Long id) {
+        return ResultGenerator.genSuccessResult(productOrderService.find(id));
     }
 }

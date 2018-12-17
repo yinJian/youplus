@@ -1,7 +1,6 @@
 package com.youjia.system.youplus.global.bean.response;
 
 import com.youjia.system.youplus.core.product.flow.PtOrderFlow;
-import com.youjia.system.youplus.core.product.template.prepay.PtPrePayTemplate;
 
 /**
  * @author wuweifeng wrote on 2018/12/10.
@@ -12,11 +11,23 @@ public class ProductOrderVO {
     
     private OrderListVO orderListVO;
 
-    private PtPrePayTemplate template;
+    private PrePayTemplateVO template;
 
     private GroundPersonListVO groundPersonListVO;
 
     private PtOrderFlow orderFlow;
+
+    @Override
+    public String toString() {
+        return "ProductOrderVO{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", orderListVO=" + orderListVO +
+                ", template=" + template +
+                ", groundPersonListVO=" + groundPersonListVO +
+                ", orderFlow=" + orderFlow +
+                '}';
+    }
 
     public PtOrderFlow getOrderFlow() {
         return orderFlow;
@@ -58,11 +69,11 @@ public class ProductOrderVO {
         this.orderListVO = orderListVO;
     }
 
-    public PtPrePayTemplate getTemplate() {
+    public PrePayTemplateVO getTemplate() {
         return template;
     }
 
-    public void setTemplate(PtPrePayTemplate template) {
+    public void setTemplate(PrePayTemplateVO template) {
         this.template = template;
     }
 }

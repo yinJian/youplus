@@ -6,6 +6,7 @@ import com.xiaoleilu.hutool.util.StrUtil;
 import com.youjia.system.youplus.core.company.company.PtCompanyManager;
 import com.youjia.system.youplus.core.company.goods.PtGoods;
 import com.youjia.system.youplus.core.company.goods.PtGoodsManager;
+import com.youjia.system.youplus.core.dict.area.AreaManager;
 import com.youjia.system.youplus.core.user.user.PtUserManager;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
@@ -48,6 +49,8 @@ public class OrderService {
     private PtUserManager ptUserManager;
     @Resource
     private PtOrderRelationManager ptOrderRelationManager;
+    @Resource
+    private AreaManager areaManager;
 
     public PtOrder add(OrderAddUpdateModel orderAddUpdateModel, boolean needConfirm) {
         PtOrder ptOrder = new PtOrder();
@@ -326,9 +329,9 @@ public class OrderService {
         orderListVO.setGoodsName(ptGoodsManager.findNameById(ptOrder.getPtGoodsId()));
         orderListVO.setYouServers(ptGoodsManager.youServers(ptOrder.getPtGoodsId()));
         orderListVO.setCompanyName(ptCompanyManager.findNameById(ptOrder.getCompanyId()));
-        orderListVO.setProvince(ptOrder.getProvince());
-        orderListVO.setCity(ptOrder.getCity());
-        orderListVO.setCountry(ptOrder.getCountry());
+        orderListVO.setProvinceValue(areaManager.findName(ptOrder.getProvince()));
+        orderListVO.setCityValue(areaManager.findName(ptOrder.getCity()));
+        orderListVO.setCountryValue(areaManager.findName(ptOrder.getCountry()));
         return orderListVO;
     }
 

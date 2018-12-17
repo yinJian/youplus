@@ -44,8 +44,11 @@ public class OrderListVO {
      */
     private Date endTime;
     private String province;
+    private String provinceValue;
     private String city;
+    private String cityValue;
     private String country;
+    private String countryValue;
     /**
      * 状态（0正常，1中止，2终止，3失效）
      */
@@ -65,10 +68,37 @@ public class OrderListVO {
                 ", beginTime=" + beginTime +
                 ", endTime=" + endTime +
                 ", province='" + province + '\'' +
+                ", provinceValue='" + provinceValue + '\'' +
                 ", city='" + city + '\'' +
+                ", cityValue='" + cityValue + '\'' +
                 ", country='" + country + '\'' +
+                ", countryValue='" + countryValue + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    public String getProvinceValue() {
+        return provinceValue;
+    }
+
+    public void setProvinceValue(String provinceValue) {
+        this.provinceValue = provinceValue;
+    }
+
+    public String getCityValue() {
+        return cityValue;
+    }
+
+    public void setCityValue(String cityValue) {
+        this.cityValue = cityValue;
+    }
+
+    public String getCountryValue() {
+        return countryValue;
+    }
+
+    public void setCountryValue(String countryValue) {
+        this.countryValue = countryValue;
     }
 
     public String getProvince() {

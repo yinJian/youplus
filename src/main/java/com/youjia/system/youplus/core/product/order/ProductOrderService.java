@@ -20,10 +20,7 @@ import com.youjia.system.youplus.global.bean.SimplePage;
 import com.youjia.system.youplus.global.bean.request.OrderListQueryModel;
 import com.youjia.system.youplus.global.bean.request.ProductOrderAddModel;
 import com.youjia.system.youplus.global.bean.request.ProductOrderListQueryModel;
-import com.youjia.system.youplus.global.bean.response.GroundPersonListVO;
-import com.youjia.system.youplus.global.bean.response.OrderListVO;
-import com.youjia.system.youplus.global.bean.response.ProductOrderListVO;
-import com.youjia.system.youplus.global.bean.response.ProductOrderVO;
+import com.youjia.system.youplus.global.bean.response.*;
 import com.youjia.system.youplus.global.cache.DictCache;
 import com.youjia.system.youplus.global.specify.Criteria;
 import com.youjia.system.youplus.global.specify.Restrictions;
@@ -127,7 +124,7 @@ public class ProductOrderService {
         ProductOrderVO productOrderVO = new ProductOrderVO();
         PtProductOrder ptProductOrder = ptProductOrderManager.find(id);
         PtPrePayTemplate template = ptPrePayTemplateManager.find(ptProductOrder.getTemplateId());
-        productOrderVO.setTemplate(template);
+        productOrderVO.setTemplate(parseTemplate(template));
 
         productOrderVO.setProductId(ptProductOrder.getProductId());
         productOrderVO.setProductName(ptProductManager.findNameById(ptProductOrder.getProductId()));
@@ -143,6 +140,25 @@ public class ProductOrderService {
         productOrderVO.setOrderFlow(orderFlow);
 
         return productOrderVO;
+    }
+
+    private PrePayTemplateVO parseTemplate(PtPrePayTemplate template) {
+        PrePayTemplateVO vo = new PrePayTemplateVO();
+        BeanUtil.copyProperties(template, vo);
+        vo.setProvinceValue(areaManager.findName(template.getProvince()));
+        vo.setCityValue(areaManager.findName(template.getCity()));
+        vo.setCountryValue(areaManager.findName(template.getCountry()));
+        vo.setWantProvinceValue(areaManager.findName(template.getWantProvince()));
+        vo.setWantCityValue(areaManager.findName(template.getWantCity()));
+        vo.setWantCountryValue(areaManager.findName(template.getWantCountry()));
+        vo.setSheBaoCityValue(areaManager.findName(template.getSheBaoCity()));
+        vo.setSheBaoCountryValue(areaManager.findName(template.getSheBaoCountry()));
+        vo.setSheBaoProvinceValue(areaManager.findName(template.getSheBaoProvince()));
+        vo.setHospitalName(ptHospitalManager.findName(template.getHospitalId()));
+        vo.setDept1Value(dictCache.findByGroupIdAndKey(1, template.getDept1()));
+        vo.setDept2Value(dictCache.findByGroupIdAndKey(2, template.getDept2()));
+        vo.setSheBaoStateValue(dictCache.findByGroupIdAndKey(13, template.getSheBaoState()));
+        return vo;
     }
 
     public PtProductOrder chooseGroundPerson(Long id, Long personId, String remark) {
@@ -197,12 +213,13 @@ public class ProductOrderService {
 
     private ProductOrderListVO parse(PtProductOrder ptProductOrder) {
         ProductOrderListVO productOrderListVO = new ProductOrderListVO();
-        BeanUtil.copyProperties(ptProductOrder, productOrderListVO);
-        productOrderListVO.setChildStateValue(dictCache.findByGroupIdAndKey(15, ptProductOrder.getChildState()));
-        productOrderListVO.setStateValue(dictCache.findByGroupIdAndKey(14, ptProductOrder.getState()));
 
         PtOrder order = orderService.findOne(ptProductOrder.getOrderId());
         BeanUtil.copyProperties(order, productOrderListVO);
+
+        BeanUtil.copyProperties(ptProductOrder, productOrderListVO);
+        productOrderListVO.setChildStateValue(dictCache.findByGroupIdAndKey(15, ptProductOrder.getChildState()));
+        productOrderListVO.setStateValue(dictCache.findByGroupIdAndKey(14, ptProductOrder.getState()));
 
         productOrderListVO.setCityValue(areaManager.findName(order.getCity()));
         productOrderListVO.setProvinceValue(areaManager.findName(order.getProvince()));
@@ -212,6 +229,7 @@ public class ProductOrderService {
         productOrderListVO.setGroundPersonName(ptGroundPersonManager.findNameById(ptProductOrder.getGroundPersonId()));
         productOrderListVO.setHospitalName(ptHospitalManager.findName(ptPrePayTemplateManager.find(ptProductOrder
                 .getTemplateId()).getHospitalId()));
+
         return productOrderListVO;
     }
 
