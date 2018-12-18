@@ -2,6 +2,8 @@ package com.youjia.system.youplus.core.person;
 
 import com.xiaoleilu.hutool.util.BeanUtil;
 import com.youjia.system.youplus.core.dict.area.AreaManager;
+import com.youjia.system.youplus.global.bean.BaseData;
+import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.SimplePage;
 import com.youjia.system.youplus.global.bean.request.GroundPersonListQueryModel;
 import com.youjia.system.youplus.global.bean.response.GroundPersonListVO;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -22,6 +25,8 @@ public class GroundPersonService {
     private PtGroundPersonManager ptGroundPersonManager;
     @Resource
     private AreaManager areaManager;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     public PtGroundPerson add(PtGroundPerson ptGroundPerson) {
         return ptGroundPersonManager.add(ptGroundPerson);
@@ -36,6 +41,13 @@ public class GroundPersonService {
         return ptGroundPersonManager.find(id);
     }
 
+    public BaseData login(String mobile, String smsCode) {
+        String savedCode = stringRedisTemplate.opsForValue().get("uplus_sms_" + mobile);
+        if (savedCode.equals(smsCode)) {
+             return ResultGenerator.genSuccessResult(findByMobile(mobile));
+        }
+        return ResultGenerator.genFailResult("验证码错误");
+    }
 
     public PtGroundPerson findByMobile(String mobile) {
         return ptGroundPersonManager.findByMobile(mobile);

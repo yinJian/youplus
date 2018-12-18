@@ -5,10 +5,8 @@ import com.youjia.system.youplus.core.product.order.ProductOrderService;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.request.ProductOrderListQueryModel;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.youjia.system.youplus.global.sms.SmsUtil;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -23,10 +21,20 @@ public class WeChatController {
     private GroundPersonService groundPersonService;
     @Resource
     private ProductOrderService productOrderService;
+    @Resource
+    private SmsUtil smsUtil;
 
-    @GetMapping("")
-    public BaseData login(String mobile) {
-        return ResultGenerator.genSuccessResult(groundPersonService.findByMobile(mobile));
+    /**
+     * 发短信
+     */
+    @GetMapping("sms")
+    public BaseData sms(String mobile) {
+        return smsUtil.send(mobile);
+    }
+
+    @PostMapping("")
+    public BaseData login(String mobile, String smsCode) {
+        return groundPersonService.login(mobile, smsCode);
     }
 
     @GetMapping("/orders")

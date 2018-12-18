@@ -12,6 +12,7 @@ public class ChinaMedListVO {
      * 分院数量
      */
     private Integer count;
+    private Boolean deleteFlag;
 
     @Override
     public String toString() {
@@ -21,7 +22,16 @@ public class ChinaMedListVO {
                 ", contactPerson='" + contactPerson + '\'' +
                 ", phone='" + phone + '\'' +
                 ", count=" + count +
+                ", deleteFlag=" + deleteFlag +
                 '}';
+    }
+
+    public Boolean getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     public Long getId() {

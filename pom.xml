@@ -38,6 +38,13 @@
             <version>1.2.3</version>
         </dependency>
         <!--logback logstash-->
+        <!--短信sdk-->
+        <dependency>
+            <groupId>com.yunpian.sdk</groupId>
+            <artifactId>yunpian-java-sdk</artifactId>
+            <version>1.2.7</version>
+        </dependency>
+        <!--短信sdk-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
