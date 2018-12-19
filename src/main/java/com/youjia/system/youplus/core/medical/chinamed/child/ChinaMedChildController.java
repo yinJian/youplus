@@ -3,9 +3,11 @@ package com.youjia.system.youplus.core.medical.chinamed.child;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.request.ChinaMedChildListQueryModel;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * 分院管理
@@ -28,12 +30,12 @@ public class ChinaMedChildController {
     }
 
     @PostMapping("")
-    public BaseData add(PtChinaMedChild ptChinaMedChild) {
+    public BaseData add(@Valid PtChinaMedChild ptChinaMedChild, BindingResult bindingResult) {
         return ResultGenerator.genSuccessResult(chinaMedChildService.add(ptChinaMedChild));
     }
 
     @PutMapping("")
-    public BaseData update(PtChinaMedChild ptChinaMedChild) {
+    public BaseData update(@Valid PtChinaMedChild ptChinaMedChild, BindingResult bindingResult) {
         return ResultGenerator.genSuccessResult(chinaMedChildService.update(ptChinaMedChild));
     }
 

@@ -3,9 +3,11 @@ package com.youjia.system.youplus.core.medical.dentistry;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.request.DentistryListQueryModel;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * 分院管理
@@ -28,12 +30,12 @@ public class DentistryController {
     }
 
     @PostMapping("")
-    public BaseData add(PtDentistry ptDentistry) {
+    public BaseData add(@Valid PtDentistry ptDentistry, BindingResult bindingResult) {
         return ResultGenerator.genSuccessResult(dentistryService.add(ptDentistry));
     }
 
     @PutMapping("")
-    public BaseData update(PtDentistry ptDentistry) {
+    public BaseData update(@Valid PtDentistry ptDentistry, BindingResult bindingResult) {
         return ResultGenerator.genSuccessResult(dentistryService.update(ptDentistry));
     }
 

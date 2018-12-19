@@ -3,9 +3,11 @@ package com.youjia.system.youplus.core.medical.physical;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.request.PhysicalListQueryModel;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * 分院管理
@@ -28,12 +30,12 @@ public class PhysicalController {
     }
 
     @PostMapping("")
-    public BaseData add(PtPhysical ptPhysical) {
+    public BaseData add(@Valid PtPhysical ptPhysical, BindingResult bindingResult) {
         return ResultGenerator.genSuccessResult(physicalService.add(ptPhysical));
     }
 
     @PutMapping("")
-    public BaseData update(PtPhysical ptPhysical) {
+    public BaseData update(@Valid PtPhysical ptPhysical, BindingResult bindingResult) {
         return ResultGenerator.genSuccessResult(physicalService.update(ptPhysical));
     }
 

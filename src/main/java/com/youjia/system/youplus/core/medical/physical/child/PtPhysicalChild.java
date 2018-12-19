@@ -4,12 +4,14 @@ import com.youjia.system.youplus.core.base.BaseDeleteEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "pt_physical_child")
 public class PtPhysicalChild extends BaseDeleteEntity {
+    @NotEmpty(message = "父级ID不能为空")
     private Long physicalId;
-
+    @NotEmpty(message = "名字不能为空")
     private String name;
     /**
      *联系人

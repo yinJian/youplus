@@ -4,6 +4,7 @@ import com.youjia.system.youplus.core.base.BaseDeleteEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * 牙科
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "pt_dentistry")
 public class PtDentistry extends BaseDeleteEntity {
+    @NotEmpty(message = "名字不能为空")
     private String name;
     /**
      *联系人
