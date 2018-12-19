@@ -3,7 +3,6 @@ package com.youjia.system.youplus.core.product.flow;
 import com.youjia.system.youplus.core.base.BaseEntity;
 
 import javax.persistence.Entity;
-import java.util.Date;
 
 /**
  * 订单各流程阶段
@@ -19,7 +18,7 @@ public class PtOrderFlow extends BaseEntity {
     /**
      * 接单时间
      */
-    private Date groundPersonIdTime;
+    private Long groundPersonIdTime;
     /**
      * 理赔相关信息的id
      */
@@ -27,7 +26,7 @@ public class PtOrderFlow extends BaseEntity {
     /**
      * 生成理赔单，时间
      */
-    private Date claimIdTime;
+    private Long claimIdTime;
     /**
      * 与患者联系人沟通服务细节
      */
@@ -35,7 +34,7 @@ public class PtOrderFlow extends BaseEntity {
     /**
      * 与患者联系人沟通服务细节，时间
      */
-    private Date hasContactTime;
+    private Long hasContactTime;
     /**
      * 检查并携带相关协议无误
      */
@@ -43,7 +42,7 @@ public class PtOrderFlow extends BaseEntity {
     /**
      * 检查并携带相关协议无误，时间
      */
-    private Date hasCheckedTime;
+    private Long hasCheckedTime;
     /**
      * 提交押金垫付已签署文件。逗号分隔
      */
@@ -55,7 +54,7 @@ public class PtOrderFlow extends BaseEntity {
     /**
      * 是否已确认"押金垫付的文件"，确认时间
      */
-    private Date prePayFileConfirmTime;
+    private Long prePayFileConfirmTime;
     /**
      * 确认垫付金额
      */
@@ -67,7 +66,7 @@ public class PtOrderFlow extends BaseEntity {
     /**
      * 确认垫付金额，确认时间
      */
-    private Date prePayMoneyTime;
+    private Long prePayMoneyTime;
     /**
      * 住院押金条
      */
@@ -75,7 +74,7 @@ public class PtOrderFlow extends BaseEntity {
     /**
      * 住院押金条，确认时间
      */
-    private Date depositFilesTime;
+    private Long depositFilesTime;
     /**
      * 是否驳回押金条
      */
@@ -87,7 +86,7 @@ public class PtOrderFlow extends BaseEntity {
     /**
      * 出院结算明细，确认时间
      */
-    private Date balanceFilesTime;
+    private Long balanceFilesTime;
     /**
      * 是否驳回出院结算单子
      */
@@ -103,11 +102,11 @@ public class PtOrderFlow extends BaseEntity {
     /**
      * 追缴完成，确认时间
      */
-    private Date finishNeedMoneyTime;
+    private Long finishNeedMoneyTime;
     /**
      * 服务完成时间
      */
-    private Date finishTime;
+    private Long finishTime;
 
     @Override
     public String toString() {
@@ -140,75 +139,75 @@ public class PtOrderFlow extends BaseEntity {
                 '}';
     }
 
-    public Date getGroundPersonIdTime() {
+    public Long getGroundPersonIdTime() {
         return groundPersonIdTime;
     }
 
-    public void setGroundPersonIdTime(Date groundPersonIdTime) {
+    public void setGroundPersonIdTime(Long groundPersonIdTime) {
         this.groundPersonIdTime = groundPersonIdTime;
     }
 
-    public Date getClaimIdTime() {
+    public Long getClaimIdTime() {
         return claimIdTime;
     }
 
-    public void setClaimIdTime(Date claimIdTime) {
+    public void setClaimIdTime(Long claimIdTime) {
         this.claimIdTime = claimIdTime;
     }
 
-    public Date getHasContactTime() {
+    public Long getHasContactTime() {
         return hasContactTime;
     }
 
-    public void setHasContactTime(Date hasContactTime) {
+    public void setHasContactTime(Long hasContactTime) {
         this.hasContactTime = hasContactTime;
     }
 
-    public Date getHasCheckedTime() {
+    public Long getHasCheckedTime() {
         return hasCheckedTime;
     }
 
-    public void setHasCheckedTime(Date hasCheckedTime) {
+    public void setHasCheckedTime(Long hasCheckedTime) {
         this.hasCheckedTime = hasCheckedTime;
     }
 
-    public Date getPrePayFileConfirmTime() {
+    public Long getPrePayFileConfirmTime() {
         return prePayFileConfirmTime;
     }
 
-    public void setPrePayFileConfirmTime(Date prePayFileConfirmTime) {
+    public void setPrePayFileConfirmTime(Long prePayFileConfirmTime) {
         this.prePayFileConfirmTime = prePayFileConfirmTime;
     }
 
-    public Date getPrePayMoneyTime() {
+    public Long getPrePayMoneyTime() {
         return prePayMoneyTime;
     }
 
-    public void setPrePayMoneyTime(Date prePayMoneyTime) {
+    public void setPrePayMoneyTime(Long prePayMoneyTime) {
         this.prePayMoneyTime = prePayMoneyTime;
     }
 
-    public Date getDepositFilesTime() {
+    public Long getDepositFilesTime() {
         return depositFilesTime;
     }
 
-    public void setDepositFilesTime(Date depositFilesTime) {
+    public void setDepositFilesTime(Long depositFilesTime) {
         this.depositFilesTime = depositFilesTime;
     }
 
-    public Date getBalanceFilesTime() {
+    public Long getBalanceFilesTime() {
         return balanceFilesTime;
     }
 
-    public void setBalanceFilesTime(Date balanceFilesTime) {
+    public void setBalanceFilesTime(Long balanceFilesTime) {
         this.balanceFilesTime = balanceFilesTime;
     }
 
-    public Date getFinishNeedMoneyTime() {
+    public Long getFinishNeedMoneyTime() {
         return finishNeedMoneyTime;
     }
 
-    public void setFinishNeedMoneyTime(Date finishNeedMoneyTime) {
+    public void setFinishNeedMoneyTime(Long finishNeedMoneyTime) {
         this.finishNeedMoneyTime = finishNeedMoneyTime;
     }
 
@@ -332,11 +331,11 @@ public class PtOrderFlow extends BaseEntity {
         this.finishNeedMoney = finishNeedMoney;
     }
 
-    public Date getFinishTime() {
+    public Long getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(Date finishTime) {
+    public void setFinishTime(Long finishTime) {
         this.finishTime = finishTime;
     }
 }

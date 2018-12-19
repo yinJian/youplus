@@ -1,5 +1,7 @@
 package com.youjia.system.youplus.core.product.order;
 
+import com.youjia.system.youplus.core.product.OrderFlowService;
+import com.youjia.system.youplus.core.product.flow.PtOrderFlow;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.request.ProductOrderAddModel;
@@ -17,6 +19,8 @@ import javax.annotation.Resource;
 public class ProductOrderController {
     @Resource
     private ProductOrderService productOrderService;
+    @Resource
+    private OrderFlowService orderFlowService;
 
     @GetMapping("")
     public BaseData list(ProductOrderListQueryModel productOrderListQueryModel) {
@@ -52,6 +56,11 @@ public class ProductOrderController {
     @PutMapping("")
     public BaseData update(@RequestBody ProductOrderAddModel ptProduct) {
         return ResultGenerator.genSuccessResult(productOrderService.update(ptProduct));
+    }
+
+    @PutMapping("/orderFlow")
+    public BaseData orderFlow(PtOrderFlow ptOrderFlow) {
+        return ResultGenerator.genSuccessResult(orderFlowService.addOrUpdate(ptOrderFlow));
     }
 
     @DeleteMapping("/{id}")

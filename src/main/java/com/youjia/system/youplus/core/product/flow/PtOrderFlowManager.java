@@ -28,6 +28,10 @@ public class PtOrderFlowManager {
         return ptOrderFlowRepository.getOne(id);
     }
 
+    public boolean exist(Long id) {
+        return ptOrderFlowRepository.existsById(id);
+    }
+
     private PtOrderFlow save(PtOrderFlow ptOrderFlow) {
         return ptOrderFlowRepository.save(ptOrderFlow);
     }

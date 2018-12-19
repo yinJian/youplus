@@ -1,6 +1,7 @@
 package com.youjia.system.youplus.core.product;
 
 import com.youjia.system.youplus.core.person.GroundPersonService;
+import com.youjia.system.youplus.core.product.flow.PtOrderFlow;
 import com.youjia.system.youplus.core.product.order.ProductOrderService;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
@@ -23,6 +24,8 @@ public class WeChatController {
     private ProductOrderService productOrderService;
     @Resource
     private SmsUtil smsUtil;
+    @Resource
+    private OrderFlowService orderFlowService;
 
     /**
      * 发短信
@@ -54,5 +57,10 @@ public class WeChatController {
     @GetMapping("/orders/{id}")
     public BaseData orderOne(@PathVariable Long id) {
         return ResultGenerator.genSuccessResult(productOrderService.find(id));
+    }
+
+    @PutMapping("/orderFlow")
+    public BaseData modify(PtOrderFlow ptOrderFlow) {
+        return ResultGenerator.genSuccessResult(orderFlowService.addOrUpdate(ptOrderFlow));
     }
 }

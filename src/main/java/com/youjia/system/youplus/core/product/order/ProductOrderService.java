@@ -182,7 +182,7 @@ public class ProductOrderService {
     }
 
     /**
-     * 查待确认的，所有的
+     * 所有的
      */
     public SimplePage<ProductOrderListVO> findAll(ProductOrderListQueryModel productOrderListQueryModel) {
         Criteria<PtProductOrder> criteria = new Criteria<>();
