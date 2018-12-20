@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface PtGoodsPlanRepository extends JpaRepository<PtGoodsPlan, Long>,
         JpaSpecificationExecutor<PtGoodsPlan> {
-    List<PtGoodsPlan> findByCompanyIdAndDeleteFlagFalse(Long companyId);
+    List<PtGoodsPlan> findByCompanyId(Long companyId);
 }

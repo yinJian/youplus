@@ -136,6 +136,7 @@ public class GoodsService {
         } else { //新建、修改相关的
             if (confirm) {
                 goodsTemp.setStatus(Constant.STATE_NORMAL);
+                goodsTemp.setDeleteFlag(false);
                 PtGoodsTemp temp = new PtGoodsTemp();
                 BeanUtil.copyProperties(goodsTemp, temp);
 
@@ -200,28 +201,28 @@ public class GoodsService {
     }
 
     /**
-     * 下架所有某planId的temp
+     * 上、下架所有某planId的temp
      *
      * @param planId
      *         planId
      */
-    public void deleteTempByPlanId(Long planId) {
+    public void deleteTempByPlanId(Long planId, Boolean upload) {
         List<PtGoodsTemp> temps = ptGoodsManager.findByPlanId(planId);
         for (PtGoodsTemp temp : temps) {
-            ptGoodsManager.deleteTemp(temp);
+            ptGoodsManager.deleteTemp(temp, upload);
         }
     }
 
     /**
-     * 下架某个商品，则先操作temp表，该表不动
+     * 上、下架某个商品，则先操作temp表，该表不动
      *
      * @param id
      *         id
      */
-    public void deleteById(Long id) {
+    public void deleteById(Long id, Boolean upload) {
         PtGoodsTemp temp = ptGoodsManager.findOneTempByGoodsId(id);
         temp.setStatus(Constant.STATE_CONFIRM);
-        ptGoodsManager.deleteTemp(temp);
+        ptGoodsManager.deleteTemp(temp, upload);
     }
 
     private GoodsTempListVO parse(PtGoodsTemp temp) {

@@ -23,6 +23,7 @@ public interface Constant {
     String REASON_NEW_CREATE = "新建";
     String REASON_UPDATE = "修改";
     String REASON_DELETE = "下架";
+    String REASON_UPLOAD = "上架";
 
     int STATE_FAIL = 2;
 

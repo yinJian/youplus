@@ -77,11 +77,11 @@ public class GoodsController {
     }
 
     /**
-     * 下架操作
+     * 上、下架操作
      */
     @DeleteMapping("/{id}")
-    public BaseData delete(@PathVariable Long id) {
-        goodsService.deleteById(id);
+    public BaseData delete(@PathVariable Long id, Boolean upload) {
+        goodsService.deleteById(id, upload);
         return ResultGenerator.genSuccessResult("操作成功，请等待审核");
     }
 }

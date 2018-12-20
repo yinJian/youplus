@@ -27,17 +27,27 @@ public class GoodsListVO {
      * 包含的优加服务
      */
     private String youServers;
+    private Boolean deleteFlag;
 
     @Override
     public String toString() {
         return "GoodsListVO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", ptGoodsPlanName=" + ptGoodsPlanName +
+                ", ptGoodsPlanName='" + ptGoodsPlanName + '\'' +
                 ", beginTime=" + beginTime +
                 ", endTime=" + endTime +
                 ", youServers='" + youServers + '\'' +
+                ", deleteFlag=" + deleteFlag +
                 '}';
+    }
+
+    public Boolean getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     public String getPtGoodsPlanName() {

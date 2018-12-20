@@ -85,12 +85,20 @@ public class PtGoodsManager {
     }
 
     /**
-     * 下架商品
+     * 上、下架商品
      */
-    public void deleteTemp(PtGoodsTemp ptGoodsTemp) {
-        ptGoodsTemp.setDeleteFlag(true);
-        ptGoodsTemp.setReason(Constant.REASON_DELETE);
-        ptGoodsTemp.setOperatorType(Constant.REASON_DELETE);
+    public void deleteTemp(PtGoodsTemp ptGoodsTemp, Boolean upload) {
+        if (upload == null) {
+            upload = false;
+        }
+        ptGoodsTemp.setDeleteFlag(upload);
+        if (upload) {
+            ptGoodsTemp.setReason(Constant.REASON_UPLOAD);
+            ptGoodsTemp.setOperatorType(Constant.REASON_UPLOAD);
+        } else {
+            ptGoodsTemp.setReason(Constant.REASON_DELETE);
+            ptGoodsTemp.setOperatorType(Constant.REASON_DELETE);
+        }
         save(ptGoodsTemp);
     }
 
@@ -144,7 +152,7 @@ public class PtGoodsManager {
      * 根据公司id查询
      */
     public Page<PtGoods> findByCompanyId(Long companyId, Pageable var2) {
-        return ptGoodsRepository.findByCompanyIdAndDeleteFlagFalse(companyId, var2);
+        return ptGoodsRepository.findByCompanyId(companyId, var2);
     }
 
     public Page<PtGoodsTemp> findAllTemp(Specification<PtGoodsTemp> var1, Pageable var2) {

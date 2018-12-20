@@ -22,7 +22,7 @@ public interface PtGoodsRepository extends JpaRepository<PtGoods, Long>,
     /**
      * 分页查询某公司的所有商品
      */
-    Page<PtGoods> findByCompanyIdAndDeleteFlagFalse(Long companyId, Pageable pageable);
+    Page<PtGoods> findByCompanyId(Long companyId, Pageable pageable);
 
 
     List<PtGoods> findByPtGoodsPlanIdAndDeleteFlagFalse(Long goodsPlanId);

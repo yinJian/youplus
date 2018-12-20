@@ -37,8 +37,8 @@ public class GoodsPlanController {
     }
 
     @DeleteMapping("/{id}")
-    public BaseData delete(@PathVariable Long id) {
-        goodsPlanService.delete(id);
+    public BaseData delete(@PathVariable Long id, Boolean upload) {
+        goodsPlanService.delete(id, upload);
         return ResultGenerator.genSuccessResult();
     }
 }

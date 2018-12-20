@@ -57,11 +57,14 @@ public class GoodsPlanService {
         return ptGoodsPlanManager.update(ptGoodsPlan);
     }
 
-    public void delete(Long id) {
+    public void delete(Long id, Boolean upload) {
         PtGoodsPlan goodsPlan = ptGoodsPlanManager.findOne(id);
-        goodsPlan.setDeleteFlag(true);
+        if (upload == null) {
+            upload = false;
+        }
+        goodsPlan.setDeleteFlag(upload);
         ptGoodsPlanManager.update(goodsPlan);
 
-        goodsService.deleteTempByPlanId(goodsPlan.getId());
+        goodsService.deleteTempByPlanId(goodsPlan.getId(), upload);
     }
 }

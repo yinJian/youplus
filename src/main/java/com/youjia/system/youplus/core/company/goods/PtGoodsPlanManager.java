@@ -16,7 +16,7 @@ public class PtGoodsPlanManager {
     private PtGoodsPlanRepository ptGoodsPlanRepository;
 
     public List<PtGoodsPlan> findByCompanyId(Long companyId) {
-        return ptGoodsPlanRepository.findByCompanyIdAndDeleteFlagFalse(companyId);
+        return ptGoodsPlanRepository.findByCompanyId(companyId);
     }
 
     public String findNameById(Long id) {
