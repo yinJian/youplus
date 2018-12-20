@@ -1,7 +1,10 @@
 package com.youjia.system.youplus.core.medical.dentistry.child;
 
+import com.xiaoleilu.hutool.util.BeanUtil;
+import com.youjia.system.youplus.core.dict.area.AreaManager;
 import com.youjia.system.youplus.global.bean.SimplePage;
 import com.youjia.system.youplus.global.bean.request.DentistryChildListQueryModel;
+import com.youjia.system.youplus.global.bean.response.DentistryChildVO;
 import com.youjia.system.youplus.global.specify.Criteria;
 import com.youjia.system.youplus.global.specify.Restrictions;
 import org.springframework.data.domain.Page;
@@ -12,11 +15,14 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class DentistryChildService {
     @Resource
     private PtDentistryChildManager ptDentistryChildManager;
+    @Resource
+    private AreaManager areaManager;
 
     public PtDentistryChild add(PtDentistryChild ptDentistryChild) {
         return ptDentistryChildManager.add(ptDentistryChild);
@@ -54,7 +60,7 @@ public class DentistryChildService {
         return ptDentistryChildManager.findAll(criteria);
     }
 
-    public SimplePage<PtDentistryChild> find(DentistryChildListQueryModel dentistryChildListQueryModel) {
+    public SimplePage<DentistryChildVO> find(DentistryChildListQueryModel dentistryChildListQueryModel) {
         Criteria<PtDentistryChild> criteria = new Criteria<>();
         criteria.add(Restrictions.eq("dentistryId", dentistryChildListQueryModel.getDentistryId(), true));
         criteria.add(Restrictions.eq("province", dentistryChildListQueryModel.getProvince(), true));
@@ -67,7 +73,16 @@ public class DentistryChildService {
                 dentistryChildListQueryModel.getSize(), Sort.Direction.DESC, "id");
         Page<PtDentistryChild> page = ptDentistryChildManager.findAll(criteria, pageable);
 
-        return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent());
+        return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent().stream()
+        .map(this::parse).collect(Collectors.toList()));
     }
 
+    private DentistryChildVO parse(PtDentistryChild ptDentistryChild) {
+        DentistryChildVO dentistryChildVO = new DentistryChildVO();
+        BeanUtil.copyProperties(ptDentistryChild, dentistryChildVO);
+        dentistryChildVO.setProvinceValue(areaManager.findName(ptDentistryChild.getProvince()));
+        dentistryChildVO.setCityValue(areaManager.findName(ptDentistryChild.getCity()));
+        dentistryChildVO.setCountryValue(areaManager.findName(ptDentistryChild.getCountry()));
+        return dentistryChildVO;
+    }
 }

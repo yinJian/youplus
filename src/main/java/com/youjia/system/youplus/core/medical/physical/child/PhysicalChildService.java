@@ -1,7 +1,10 @@
 package com.youjia.system.youplus.core.medical.physical.child;
 
+import com.xiaoleilu.hutool.util.BeanUtil;
+import com.youjia.system.youplus.core.dict.area.AreaManager;
 import com.youjia.system.youplus.global.bean.SimplePage;
 import com.youjia.system.youplus.global.bean.request.PhysicalChildListQueryModel;
+import com.youjia.system.youplus.global.bean.response.PhysicalChildVO;
 import com.youjia.system.youplus.global.specify.Criteria;
 import com.youjia.system.youplus.global.specify.Restrictions;
 import org.springframework.data.domain.Page;
@@ -12,11 +15,14 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class PhysicalChildService {
     @Resource
     private PtPhysicalChildManager ptPhysicalChildManager;
+    @Resource
+    private AreaManager areaManager;
 
     public PtPhysicalChild add(PtPhysicalChild ptPhysicalChild) {
         return ptPhysicalChildManager.add(ptPhysicalChild);
@@ -54,7 +60,7 @@ public class PhysicalChildService {
         return ptPhysicalChildManager.findAll(criteria);
     }
 
-    public SimplePage<PtPhysicalChild> find(PhysicalChildListQueryModel physicalChildListQueryModel) {
+    public SimplePage<PhysicalChildVO> find(PhysicalChildListQueryModel physicalChildListQueryModel) {
         Criteria<PtPhysicalChild> criteria = new Criteria<>();
         criteria.add(Restrictions.eq("physicalId", physicalChildListQueryModel.getPhysicalId(), true));
         criteria.add(Restrictions.eq("province", physicalChildListQueryModel.getProvince(), true));
@@ -67,7 +73,17 @@ public class PhysicalChildService {
                 physicalChildListQueryModel.getSize(), Sort.Direction.DESC, "id");
         Page<PtPhysicalChild> page = ptPhysicalChildManager.findAll(criteria, pageable);
 
-        return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent());
+        return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent().stream()
+        .map(this::parse).collect(Collectors.toList()));
+    }
+
+    private PhysicalChildVO parse(PtPhysicalChild ptPhysicalChild) {
+        PhysicalChildVO physicalChildVO = new PhysicalChildVO();
+        BeanUtil.copyProperties(ptPhysicalChild, physicalChildVO);
+        physicalChildVO.setProvinceValue(areaManager.findName(ptPhysicalChild.getProvince()));
+        physicalChildVO.setCityValue(areaManager.findName(ptPhysicalChild.getCity()));
+        physicalChildVO.setCountryValue(areaManager.findName(ptPhysicalChild.getCountry()));
+        return physicalChildVO;
     }
 
 }

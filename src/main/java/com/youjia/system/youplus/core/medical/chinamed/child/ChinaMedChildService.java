@@ -1,7 +1,10 @@
 package com.youjia.system.youplus.core.medical.chinamed.child;
 
+import com.xiaoleilu.hutool.util.BeanUtil;
+import com.youjia.system.youplus.core.dict.area.AreaManager;
 import com.youjia.system.youplus.global.bean.SimplePage;
 import com.youjia.system.youplus.global.bean.request.ChinaMedChildListQueryModel;
+import com.youjia.system.youplus.global.bean.response.ChinaMedChildVO;
 import com.youjia.system.youplus.global.specify.Criteria;
 import com.youjia.system.youplus.global.specify.Restrictions;
 import org.springframework.data.domain.Page;
@@ -12,11 +15,14 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ChinaMedChildService {
     @Resource
     private PtChinaMedChildManager ptChinaMedChildManager;
+    @Resource
+    private AreaManager areaManager;
 
     public PtChinaMedChild add(PtChinaMedChild ptChinaMedChild) {
         return ptChinaMedChildManager.add(ptChinaMedChild);
@@ -54,7 +60,7 @@ public class ChinaMedChildService {
         return ptChinaMedChildManager.findAll(criteria);
     }
 
-    public SimplePage<PtChinaMedChild> find(ChinaMedChildListQueryModel chinaMedChildListQueryModel) {
+    public SimplePage<ChinaMedChildVO> find(ChinaMedChildListQueryModel chinaMedChildListQueryModel) {
         Criteria<PtChinaMedChild> criteria = new Criteria<>();
         criteria.add(Restrictions.eq("chinaMedId", chinaMedChildListQueryModel.getChinaMedId(), true));
         criteria.add(Restrictions.eq("province", chinaMedChildListQueryModel.getProvince(), true));
@@ -67,7 +73,16 @@ public class ChinaMedChildService {
                 chinaMedChildListQueryModel.getSize(), Sort.Direction.DESC, "id");
         Page<PtChinaMedChild> page = ptChinaMedChildManager.findAll(criteria, pageable);
 
-        return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent());
+        return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent().stream()
+                .map(this::parse).collect(Collectors.toList()));
     }
 
+    private ChinaMedChildVO parse(PtChinaMedChild ptChinaMedChild) {
+        ChinaMedChildVO chinaMedChildVO = new ChinaMedChildVO();
+        BeanUtil.copyProperties(ptChinaMedChild, chinaMedChildVO);
+        chinaMedChildVO.setProvinceValue(areaManager.findName(ptChinaMedChild.getProvince()));
+        chinaMedChildVO.setCityValue(areaManager.findName(ptChinaMedChild.getCity()));
+        chinaMedChildVO.setCountryValue(areaManager.findName(ptChinaMedChild.getCountry()));
+        return chinaMedChildVO;
+    }
 }
