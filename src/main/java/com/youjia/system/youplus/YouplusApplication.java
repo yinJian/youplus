@@ -19,4 +19,5 @@ public class YouplusApplication {
     public static void main(String[] args) {
         SpringApplication.run(YouplusApplication.class, args);
     }
+
 }
