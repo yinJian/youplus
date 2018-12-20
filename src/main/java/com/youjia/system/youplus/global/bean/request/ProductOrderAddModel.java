@@ -2,7 +2,7 @@ package com.youjia.system.youplus.global.bean.request;
 
 import com.youjia.system.youplus.core.product.template.prepay.PtPrePayTemplate;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * 派单功能
@@ -14,12 +14,12 @@ public class ProductOrderAddModel {
     /**
      * 对应的服务单ID
      */
-    @NotEmpty(message = "服务单不能为空")
+    @NotNull(message = "服务单不能为空")
     private Long orderId;
     /**
      * 产品ID，如"押金垫付"
      */
-    @NotEmpty(message = "产品不能为空")
+    @NotNull(message = "产品不能为空")
     private Long productId;
     /**
      * 对应的模板ID,TODO
