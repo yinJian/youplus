@@ -24,6 +24,8 @@ public class ChinaMedChildVO {
 
     private String phone;
 
+    private Boolean deleteFlag;
+
     @Override
     public String toString() {
         return "ChinaMedChildVO{" +
@@ -40,7 +42,16 @@ public class ChinaMedChildVO {
                 ", address='" + address + '\'' +
                 ", workTime='" + workTime + '\'' +
                 ", phone='" + phone + '\'' +
+                ", deleteFlag=" + deleteFlag +
                 '}';
+    }
+
+    public Boolean getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     public Long getId() {
