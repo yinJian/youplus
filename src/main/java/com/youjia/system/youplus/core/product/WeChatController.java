@@ -41,7 +41,7 @@ public class WeChatController {
     }
 
     @GetMapping("/orders")
-    public BaseData orders(Boolean finish) {
+    public BaseData orders(Boolean finish, String mobile, String userName) {
         ProductOrderListQueryModel productOrderListQueryModel = new ProductOrderListQueryModel();
         if(finish == null) {
             finish = false;
@@ -51,6 +51,8 @@ public class WeChatController {
         } else {
             productOrderListQueryModel.setNotState(8);
         }
+        productOrderListQueryModel.setUserName(userName);
+        productOrderListQueryModel.setMobile(mobile);
         return ResultGenerator.genSuccessResult(productOrderService.findAll(productOrderListQueryModel));
     }
 
