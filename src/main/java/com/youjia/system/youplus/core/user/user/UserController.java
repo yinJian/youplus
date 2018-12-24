@@ -28,6 +28,14 @@ public class UserController {
         return ResultGenerator.genSuccessResult(userService.find(id));
     }
 
+    /**
+     * 查询自己的所有菜单
+     */
+    @GetMapping("/menu")
+    public BaseData menus() {
+        return ResultGenerator.genSuccessResult(userService.findMenus());
+    }
+
     @PutMapping("/password")
     public BaseData password(String oldPassword, String password) {
         return userService.updatePassword(oldPassword, password);

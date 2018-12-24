@@ -3,11 +3,13 @@ package com.youjia.system.youplus.core.user.user;
 import com.xiaoleilu.hutool.util.BeanUtil;
 import com.youjia.system.youplus.core.user.role.PtRole;
 import com.youjia.system.youplus.core.user.role.PtRoleManager;
+import com.youjia.system.youplus.core.user.role.RoleService;
 import com.youjia.system.youplus.core.user.userrole.PtUserRoleManager;
 import com.youjia.system.youplus.global.UserKit;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.request.UserAddRequestModel;
+import com.youjia.system.youplus.global.bean.response.RoleMenuVO;
 import com.youjia.system.youplus.global.bean.response.UserListVO;
 import com.youjia.system.youplus.global.event.UserRoleChangeEvent;
 import org.springframework.context.ApplicationEventPublisher;
@@ -29,6 +31,8 @@ public class UserService {
     private PtUserRoleManager ptUserRoleManager;
     @Resource
     private PtRoleManager ptRoleManager;
+    @Resource
+    private RoleService roleService;
     @Resource
     private UserKit userKit;
     @Resource
@@ -54,6 +58,13 @@ public class UserService {
     public UserListVO find(Long id) {
         PtUser ptUser = ptUserManager.find(id);
         return parse(ptUser);
+    }
+
+    public RoleMenuVO findMenus() {
+        PtUser ptUser = ptUserManager.find(userKit.getCurrentUserId());
+        List<PtRole> ptRoles = ptRoleManager.findByUserId(ptUser.getId());
+
+        return roleService.findOne(ptRoles.get(0).getId());
     }
 
     //public UserDetailVO findOne(Long id) {
