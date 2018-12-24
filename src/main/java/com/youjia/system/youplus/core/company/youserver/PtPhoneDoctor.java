@@ -25,9 +25,9 @@ public class PtPhoneDoctor extends BaseEntity {
      */
     private Integer singleDuration;
     /**
-     * 自费购买
+     * 自费购买,-1为不是自费
      */
-    private Boolean selfPay;
+    private Integer selfPay;
     /**
      * 等待期
      */
@@ -55,11 +55,11 @@ public class PtPhoneDoctor extends BaseEntity {
         this.singleDuration = singleDuration;
     }
 
-    public Boolean getSelfPay() {
+    public Integer getSelfPay() {
         return selfPay;
     }
 
-    public void setSelfPay(Boolean selfPay) {
+    public void setSelfPay(Integer selfPay) {
         this.selfPay = selfPay;
     }
 

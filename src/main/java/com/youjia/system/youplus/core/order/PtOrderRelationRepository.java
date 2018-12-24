@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface PtOrderRelationRepository extends JpaRepository<PtOrderRelation, Long>,
         JpaSpecificationExecutor<PtOrderRelation> {
-
+    PtOrderRelation findFirstByOrderId(Long orderId);
 }

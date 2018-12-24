@@ -1,6 +1,7 @@
 package com.youjia.system.youplus.global.bean.response;
 
 import com.youjia.system.youplus.core.order.PtOrder;
+import com.youjia.system.youplus.core.order.PtOrderRelation;
 import com.youjia.system.youplus.core.order.PtOrderTemp;
 
 /**
@@ -17,6 +18,7 @@ public class OrderModifyDetailVO {
      * 修改人
      */
     private String operatorName;
+    private PtOrderRelation orderRelation;
 
     @Override
     public String toString() {
@@ -24,7 +26,16 @@ public class OrderModifyDetailVO {
                 "orignal=" + orignal +
                 ", modified=" + modified +
                 ", operatorName='" + operatorName + '\'' +
+                ", orderRelation=" + orderRelation +
                 '}';
+    }
+
+    public PtOrderRelation getOrderRelation() {
+        return orderRelation;
+    }
+
+    public void setOrderRelation(PtOrderRelation orderRelation) {
+        this.orderRelation = orderRelation;
     }
 
     public PtOrder getOrignal() {

@@ -23,4 +23,8 @@ public class PtOrderRelationManager {
     private PtOrderRelation save(PtOrderRelation ptOrderRelation) {
         return ptOrderRelationRepository.save(ptOrderRelation);
     }
+
+    public PtOrderRelation findByOrderId(Long orderId) {
+        return ptOrderRelationRepository.findFirstByOrderId(orderId);
+    }
 }

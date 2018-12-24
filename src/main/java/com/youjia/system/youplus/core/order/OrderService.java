@@ -203,6 +203,9 @@ public class OrderService {
         orderModifyDetailVO.setOrignal(ptGoods);
         orderModifyDetailVO.setModified(orderTemp);
 
+        PtOrderRelation orderRelation = ptOrderRelationManager.findByOrderId(orderTemp.getOrderId());
+        orderModifyDetailVO.setOrderRelation(orderRelation);
+
         return orderModifyDetailVO;
     }
 
