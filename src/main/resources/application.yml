@@ -48,3 +48,8 @@ apollo:
   meta: http://apollo:8080
   bootstrap:
     enabled: true
+###############################---七牛云---##############################
+qiniu:
+  ak: 3DR4mVwQzEoqO4hQxKfg9_SFGdt1CUPTL7tHDFvh
+  sk: lEmpAX3ZiNaNHAV5LS8ArKIjPZirNwMqGNOu2hqV
+  bucket: youplus

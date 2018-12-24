@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 
 /**
  * 微信H5
+ *
  * @author wuweifeng wrote on 2018/11/12.
  */
 @RestController
@@ -26,6 +27,8 @@ public class WeChatController {
     private SmsUtil smsUtil;
     @Resource
     private OrderFlowService orderFlowService;
+    @Resource
+    private QiniuService qiniuService;
 
     /**
      * 发短信
@@ -43,7 +46,7 @@ public class WeChatController {
     @GetMapping("/orders")
     public BaseData orders(Boolean finish, String mobile, String userName) {
         ProductOrderListQueryModel productOrderListQueryModel = new ProductOrderListQueryModel();
-        if(finish == null) {
+        if (finish == null) {
             finish = false;
         }
         if (finish) {
@@ -64,5 +67,10 @@ public class WeChatController {
     @PutMapping("/orderFlow")
     public BaseData modify(PtOrderFlow ptOrderFlow) {
         return ResultGenerator.genSuccessResult(orderFlowService.addOrUpdate(ptOrderFlow));
+    }
+
+    @GetMapping("/qiniu/token")
+    public BaseData qiniuToken() {
+        return ResultGenerator.genSuccessResult(qiniuService.token());
     }
 }
