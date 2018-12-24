@@ -2,6 +2,10 @@ package com.youjia.system.youplus.core.product.order;
 
 import com.xiaoleilu.hutool.util.BeanUtil;
 import com.youjia.system.youplus.core.company.company.PtCompanyManager;
+import com.youjia.system.youplus.core.company.goods.PtGoods;
+import com.youjia.system.youplus.core.company.goods.PtGoodsManager;
+import com.youjia.system.youplus.core.company.youserver.PtCashPrePay;
+import com.youjia.system.youplus.core.company.youserver.PtCashPrePayManager;
 import com.youjia.system.youplus.core.dict.area.AreaManager;
 import com.youjia.system.youplus.core.medical.hospital.PtHospitalManager;
 import com.youjia.system.youplus.core.order.OrderService;
@@ -66,6 +70,10 @@ public class ProductOrderService {
     private GroundPersonService groundPersonService;
     @Resource
     private PtOrderFlowManager ptOrderFlowManager;
+    @Resource
+    private PtGoodsManager ptGoodsManager;
+    @Resource
+    private PtCashPrePayManager ptCashPrePayManager;
     @Resource
     private UserKit userKit;
 
@@ -140,6 +148,21 @@ public class ProductOrderService {
         productOrderVO.setOrderFlow(orderFlow);
 
         return productOrderVO;
+    }
+
+    public CashPrePayWordsVO findWords(Long id) {
+        PtProductOrder ptProductOrder = ptProductOrderManager.find(id);
+        PtOrder ptOrder = orderService.findOne(ptProductOrder.getOrderId());
+        Long goodsId = ptOrder.getPtGoodsId();
+        PtGoods ptGoods = ptGoodsManager.findOne(goodsId);
+        CashPrePayWordsVO vo = new CashPrePayWordsVO();
+        Long prepayId = ptGoods.getYouCashPrePayId();
+        if (prepayId != 0) {
+            PtCashPrePay ptCashPrePay = ptCashPrePayManager.find(prepayId);
+            vo.setFilePaths(ptCashPrePay.getFilePaths());
+            vo.setRemark(ptCashPrePay.getRemark());
+        }
+        return vo;
     }
 
     private PrePayTemplateVO parseTemplate(PtPrePayTemplate template) {

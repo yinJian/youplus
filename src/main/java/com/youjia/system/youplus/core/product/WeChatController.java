@@ -64,13 +64,23 @@ public class WeChatController {
         return ResultGenerator.genSuccessResult(productOrderService.find(id));
     }
 
+    @GetMapping("/orders/{id}/words")
+    public BaseData words(@PathVariable Long id) {
+        return ResultGenerator.genSuccessResult(productOrderService.findWords(id));
+    }
+
     @PutMapping("/orderFlow")
     public BaseData modify(PtOrderFlow ptOrderFlow) {
         return ResultGenerator.genSuccessResult(orderFlowService.addOrUpdate(ptOrderFlow));
     }
 
+    /**
+     * 获取七牛token
+     */
     @GetMapping("/qiniu/token")
     public BaseData qiniuToken() {
         return ResultGenerator.genSuccessResult(qiniuService.token());
     }
+
+    
 }
