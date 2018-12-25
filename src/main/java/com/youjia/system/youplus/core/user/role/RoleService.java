@@ -2,8 +2,8 @@ package com.youjia.system.youplus.core.user.role;
 
 import com.xiaoleilu.hutool.util.BeanUtil;
 import com.xiaoleilu.hutool.util.CollectionUtil;
-import com.youjia.system.youplus.core.user.menu.PtMenu;
 import com.youjia.system.youplus.core.user.menu.PtMenuManager;
+import com.youjia.system.youplus.core.user.menu.PtRoleMenu;
 import com.youjia.system.youplus.core.user.menu.PtRoleMenuManager;
 import com.youjia.system.youplus.core.user.userrole.PtUserRoleManager;
 import com.youjia.system.youplus.global.bean.request.RoleAddRequestModel;
@@ -13,7 +13,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,11 +41,11 @@ public class RoleService {
 
     public RoleMenuVO findOne(Long id) {
         PtRole ptRole = ptRoleManager.find(id);
-        List<PtMenu> ptMenus = ptMenuManager.findAllMenuByRoles(Arrays.asList(ptRole));
+        List<PtRoleMenu> roleMenus = ptRoleMenuManager.findByRoleId(id);
 
         RoleMenuVO roleMenuVO = new RoleMenuVO();
 
-        roleMenuVO.setMenus(ptMenus.stream().map(PtMenu::getId).collect(Collectors.toSet()));
+        roleMenuVO.setMenus(roleMenus.stream().map(PtRoleMenu::getExtra).collect(Collectors.toList()));
         roleMenuVO.setRole(ptRole);
 
         return roleMenuVO;
@@ -101,9 +100,9 @@ public class RoleService {
         BeanUtil.copyProperties(roleAddRequestModel, ptRole);
         ptRole = ptRoleManager.add(ptRole);
 
-        List<Long> menuIds = roleAddRequestModel.getMenuIds();
+        List<String> menuIds = roleAddRequestModel.getMenuIds();
         if (CollectionUtil.isNotEmpty(menuIds)) {
-            for (Long menuId : menuIds) {
+            for (String menuId : menuIds) {
                 ptRoleMenuManager.add(menuId, ptRole.getId());
             }
         }
@@ -115,10 +114,10 @@ public class RoleService {
         PtRole ptRole = ptRoleManager.find(roleAddRequestModel.getId());
         BeanUtil.copyProperties(roleAddRequestModel, ptRole, BeanUtil.CopyOptions.create().setIgnoreNullValue(true));
 
-        List<Long> menuIds = roleAddRequestModel.getMenuIds();
+        List<String> menuIds = roleAddRequestModel.getMenuIds();
         if (CollectionUtil.isNotEmpty(menuIds)) {
             ptRoleMenuManager.deleteByRoleId(roleAddRequestModel.getId());
-            for (Long menuId : menuIds) {
+            for (String menuId : menuIds) {
                 ptRoleMenuManager.add(menuId, ptRole.getId());
             }
             eventPublisher.publishEvent(new RoleMenuChangeEvent(CollectionUtil.newArrayList(ptRole.getId())));

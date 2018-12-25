@@ -24,6 +24,9 @@ public class PtRoleMenuManager {
     @Resource
     private ApplicationEventPublisher eventPublisher;
 
+    public List<PtRoleMenu> findByRoleId(Long roleId) {
+        return ptRoleMenuRepository.findByRoleId(roleId);
+    }
 
     /**
      * 给某个role赋值权限
@@ -38,6 +41,14 @@ public class PtRoleMenuManager {
         PtRoleMenu menuRole = addOne(menuId, roleId);
 
         publishRoleEvent(CollectionUtil.newArrayList(roleId));
+        return menuRole;
+    }
+
+    public PtRoleMenu add(String extra, Long roleId) {
+        PtRoleMenu menuRole = new PtRoleMenu();
+        menuRole.setRoleId(roleId);
+        menuRole.setExtra(extra);
+
         return menuRole;
     }
 

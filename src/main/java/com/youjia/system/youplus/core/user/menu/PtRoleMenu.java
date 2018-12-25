@@ -13,6 +13,15 @@ import javax.persistence.Entity;
 public class PtRoleMenu extends BaseEntity {
     private Long menuId;
     private Long roleId;
+    private String extra;
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
 
     public Long getMenuId() {
         return menuId;

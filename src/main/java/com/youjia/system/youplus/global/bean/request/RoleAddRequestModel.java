@@ -14,7 +14,7 @@ public class RoleAddRequestModel {
     private String name;
     private Integer state = 0;
 
-    private List<Long> menuIds = new ArrayList<>();
+    private List<String> menuIds = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -50,11 +50,11 @@ public class RoleAddRequestModel {
         this.name = name;
     }
 
-    public List<Long> getMenuIds() {
+    public List<String> getMenuIds() {
         return menuIds;
     }
 
-    public void setMenuIds(List<Long> menuIds) {
+    public void setMenuIds(List<String> menuIds) {
         this.menuIds = menuIds;
     }
 }

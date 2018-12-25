@@ -3,6 +3,7 @@ package com.youjia.system.youplus.global.bean.response;
 
 import com.youjia.system.youplus.core.user.role.PtRole;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Set;
 public class RoleMenuVO {
     private PtRole role;
 
-    private Set<Long> menus;
+    private List<String> menus;
 
     @Override
     public String toString() {
@@ -29,11 +30,11 @@ public class RoleMenuVO {
         this.role = role;
     }
 
-    public Set<Long> getMenus() {
+    public List<String> getMenus() {
         return menus;
     }
 
-    public void setMenus(Set<Long> menus) {
+    public void setMenus(List<String> menus) {
         this.menus = menus;
     }
 }
