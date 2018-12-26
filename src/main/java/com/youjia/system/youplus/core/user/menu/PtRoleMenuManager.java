@@ -48,8 +48,7 @@ public class PtRoleMenuManager {
         PtRoleMenu menuRole = new PtRoleMenu();
         menuRole.setRoleId(roleId);
         menuRole.setExtra(extra);
-
-        return menuRole;
+        return ptRoleMenuRepository.save(menuRole);
     }
 
     public void deleteByRoleId(Long roleId) {
