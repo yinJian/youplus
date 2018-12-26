@@ -17,6 +17,7 @@ public class GoodsPlanVO {
      * 商品名字集合，逗号分隔
      */
     private String goodsName;
+    private Boolean deleteFlag;
 
     @Override
     public String toString() {
@@ -25,7 +26,16 @@ public class GoodsPlanVO {
                 ", name='" + name + '\'' +
                 ", companyId=" + companyId +
                 ", goodsName='" + goodsName + '\'' +
+                ", deleteFlag=" + deleteFlag +
                 '}';
+    }
+
+    public Boolean getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     public Long getId() {
