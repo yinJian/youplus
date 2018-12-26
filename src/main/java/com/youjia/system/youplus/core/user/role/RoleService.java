@@ -11,10 +11,10 @@ import com.youjia.system.youplus.global.bean.response.RoleMenuVO;
 import com.youjia.system.youplus.global.event.RoleMenuChangeEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 角色管理
@@ -45,7 +45,9 @@ public class RoleService {
 
         RoleMenuVO roleMenuVO = new RoleMenuVO();
 
-        roleMenuVO.setMenus(roleMenus.stream().map(PtRoleMenu::getExtra).collect(Collectors.toList()));
+        if (CollectionUtil.isNotEmpty(roleMenus)) {
+            roleMenuVO.setMenu(roleMenus.get(0).getExtra());
+        }
         roleMenuVO.setRole(ptRole);
 
         return roleMenuVO;
@@ -100,11 +102,9 @@ public class RoleService {
         BeanUtil.copyProperties(roleAddRequestModel, ptRole);
         ptRole = ptRoleManager.add(ptRole);
 
-        List<String> menuIds = roleAddRequestModel.getMenuIds();
-        if (CollectionUtil.isNotEmpty(menuIds)) {
-            for (String menuId : menuIds) {
-                ptRoleMenuManager.add(menuId, ptRole.getId());
-            }
+        String menu = roleAddRequestModel.getMenu();
+        if (!StringUtils.isEmpty(menu)) {
+            ptRoleMenuManager.add(menu, ptRole.getId());
         }
 
         return ptRole;
@@ -114,13 +114,11 @@ public class RoleService {
         PtRole ptRole = ptRoleManager.find(roleAddRequestModel.getId());
         BeanUtil.copyProperties(roleAddRequestModel, ptRole, BeanUtil.CopyOptions.create().setIgnoreNullValue(true));
 
-        List<String> menuIds = roleAddRequestModel.getMenuIds();
-        if (CollectionUtil.isNotEmpty(menuIds)) {
+        String menu = roleAddRequestModel.getMenu();
+        if (!StringUtils.isEmpty(menu)) {
             ptRoleMenuManager.deleteByRoleId(roleAddRequestModel.getId());
-            for (String menuId : menuIds) {
-                ptRoleMenuManager.add(menuId, ptRole.getId());
-            }
-            eventPublisher.publishEvent(new RoleMenuChangeEvent(CollectionUtil.newArrayList(ptRole.getId())));
+            ptRoleMenuManager.add(menu, ptRole.getId());
+            //eventPublisher.publishEvent(new RoleMenuChangeEvent(CollectionUtil.newArrayList(ptRole.getId())));
         }
 
         return ptRoleManager.update(ptRole);

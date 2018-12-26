@@ -1,8 +1,5 @@
 package com.youjia.system.youplus.global.bean.request;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author wuweifeng wrote on 2018/11/26.
  */
@@ -14,7 +11,7 @@ public class RoleAddRequestModel {
     private String name;
     private Integer state = 0;
 
-    private List<String> menuIds = new ArrayList<>();
+    private String menu;
 
     @Override
     public String toString() {
@@ -22,7 +19,6 @@ public class RoleAddRequestModel {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", state=" + state +
-                ", menuIds=" + menuIds +
                 '}';
     }
 
@@ -50,11 +46,11 @@ public class RoleAddRequestModel {
         this.name = name;
     }
 
-    public List<String> getMenuIds() {
-        return menuIds;
+    public String getMenu() {
+        return menu;
     }
 
-    public void setMenuIds(List<String> menuIds) {
-        this.menuIds = menuIds;
+    public void setMenu(String menu) {
+        this.menu = menu;
     }
 }
