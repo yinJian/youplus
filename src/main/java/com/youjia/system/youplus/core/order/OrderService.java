@@ -335,6 +335,8 @@ public class OrderService {
         orderListVO.setProvinceValue(areaManager.findName(ptOrder.getProvince()));
         orderListVO.setCityValue(areaManager.findName(ptOrder.getCity()));
         orderListVO.setCountryValue(areaManager.findName(ptOrder.getCountry()));
+        orderListVO.setRelationUserName(ptOrderRelationManager.findNameByOrderId(ptOrder.getId()));
+
         return orderListVO;
     }
 

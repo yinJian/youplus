@@ -27,4 +27,12 @@ public class PtOrderRelationManager {
     public PtOrderRelation findByOrderId(Long orderId) {
         return ptOrderRelationRepository.findFirstByOrderId(orderId);
     }
+
+    public String findNameByOrderId(Long orderId) {
+        PtOrderRelation orderRelation = findByOrderId(orderId);
+        if (orderRelation == null) {
+            return "无";
+        }
+        return orderRelation.getUserName();
+    }
 }

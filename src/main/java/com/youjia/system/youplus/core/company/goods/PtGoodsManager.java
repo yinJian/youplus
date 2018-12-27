@@ -53,22 +53,22 @@ public class PtGoodsManager {
         String you = "";
         //优加服务
         if (ptGoods.getYouCashPrePayId() != 0) {
-            you += "押金垫付,";
+            you += "押金垫付 ";
         }
         if (ptGoods.getYouPhoneDoctorId() != 0) {
-            you += "电话医生,";
+            you += "电话医生 ";
         }
         if (ptGoods.getYouBodyCheck() != 0) {
-            you += "体检服务,";
+            you += "体检服务 ";
         }
         if (ptGoods.getYouOutpatient() != 0) {
-            you += "门诊绿通,";
+            you += "门诊绿通 ";
         }
         if (ptGoods.getYouHospital() != 0) {
-            you += "住院绿通,";
+            you += "住院绿通 ";
         }
         if (ptGoods.getYouOperation() != 0) {
-            you += "手术绿通,";
+            you += "手术绿通 ";
         }
         if (ptGoods.getYouSecondMed() != 0) {
             you += "二次诊疗";

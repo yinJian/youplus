@@ -8,6 +8,10 @@ import java.util.Date;
 public class OrderListVO {
     private Long id;
     /**
+     * 关联权益人姓名
+     */
+    private String relationUserName;
+    /**
      * 用户名称
      */
     private String userName;
@@ -58,6 +62,7 @@ public class OrderListVO {
     public String toString() {
         return "OrderListVO{" +
                 "id=" + id +
+                ", relationUserName='" + relationUserName + '\'' +
                 ", userName='" + userName + '\'' +
                 ", goodsName='" + goodsName + '\'' +
                 ", companyName='" + companyName + '\'' +
@@ -75,6 +80,14 @@ public class OrderListVO {
                 ", countryValue='" + countryValue + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    public String getRelationUserName() {
+        return relationUserName;
+    }
+
+    public void setRelationUserName(String relationUserName) {
+        this.relationUserName = relationUserName;
     }
 
     public String getProvinceValue() {
