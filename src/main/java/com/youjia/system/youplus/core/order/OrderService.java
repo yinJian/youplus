@@ -20,6 +20,8 @@ import com.youjia.system.youplus.global.bean.response.OrderTempListVO;
 import com.youjia.system.youplus.global.specify.Criteria;
 import com.youjia.system.youplus.global.specify.Restrictions;
 import com.youjia.system.youplus.global.util.Constant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -51,6 +53,8 @@ public class OrderService {
     private PtOrderRelationManager ptOrderRelationManager;
     @Resource
     private AreaManager areaManager;
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     public PtOrder add(OrderAddUpdateModel orderAddUpdateModel, boolean needConfirm) {
         PtOrder ptOrder = new PtOrder();
@@ -91,6 +95,7 @@ public class OrderService {
     public BaseData importCsv(MultipartFile multFile, Long goodsId) {
         // 获取文件名
         String fileName = multFile.getOriginalFilename();
+        logger.info("文件名--" + fileName);
         // 获取文件后缀
         String prefix = fileName.substring(fileName.lastIndexOf("."));
         try {
@@ -99,6 +104,8 @@ public class OrderService {
             // MultipartFile to File
             multFile.transferTo(excelFile);
             List<String> list = FileUtil.readLines(excelFile, "utf-8");
+            logger.info("文件共有" + list.size() + "行");
+
             List<OrderAddUpdateModel> models = new ArrayList<>();
 
             PtGoods ptGoods = ptGoodsManager.findOne(goodsId);
@@ -122,7 +129,8 @@ public class OrderService {
 
     private OrderAddUpdateModel parseCsv(String line, Long goodsId, Long companyId) {
         String[] array = line.split(",");
-        if (array.length != 11) {
+        if (array.length != 10) {
+            logger.info("一行数据不对:" + line);
             return null;
         }
         OrderAddUpdateModel model = new OrderAddUpdateModel();
