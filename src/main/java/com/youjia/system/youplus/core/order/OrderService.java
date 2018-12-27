@@ -112,6 +112,10 @@ public class OrderService {
             Long companyId = ptGoods.getCompanyId();
 
             for (String line : list) {
+                //忽略表头
+                if (line.contains("姓名")) {
+                    continue;
+                }
                 OrderAddUpdateModel model = parseCsv(line, goodsId, companyId);
                 if (model != null) {
                     models.add(model);
@@ -129,7 +133,7 @@ public class OrderService {
 
     private OrderAddUpdateModel parseCsv(String line, Long goodsId, Long companyId) {
         String[] array = line.split(",");
-        if (array.length != 10) {
+        if (array.length != 11) {
             logger.info("一行数据不对:" + line);
             return null;
         }
