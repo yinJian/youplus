@@ -234,7 +234,7 @@ public class OrderService {
     public SimplePage<OrderListVO> find(OrderListQueryModel companyListQueryModel) {
         Criteria<PtOrder> criteria = new Criteria<>();
         criteria.add(Restrictions.eq("companyId", companyListQueryModel.getCompanyId(), true));
-        criteria.add(Restrictions.eq("status", Constant.STATE_NORMAL, true));
+        //criteria.add(Restrictions.eq("status", Constant.STATE_NORMAL, true));
         criteria.add(Restrictions.like("userName", companyListQueryModel.getUserName(), true));
         criteria.add(Restrictions.like("cardNum", companyListQueryModel.getCardNum(), true));
         criteria.add(Restrictions.like("mobile", companyListQueryModel.getMobile(), true));
@@ -255,7 +255,7 @@ public class OrderService {
     public List<Long> findIds(OrderListQueryModel companyListQueryModel) {
         Criteria<PtOrder> criteria = new Criteria<>();
         criteria.add(Restrictions.eq("companyId", companyListQueryModel.getCompanyId(), true));
-        criteria.add(Restrictions.eq("status", Constant.STATE_NORMAL, true));
+        //criteria.add(Restrictions.eq("status", Constant.STATE_NORMAL, true));
         criteria.add(Restrictions.like("userName", companyListQueryModel.getUserName(), true));
         criteria.add(Restrictions.like("mobile", companyListQueryModel.getMobile(), true));
         criteria.add(Restrictions.like("paper", companyListQueryModel.getPaper(), true));
