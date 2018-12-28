@@ -70,8 +70,8 @@ public class OrderController {
      * 删除
      */
     @DeleteMapping("/{id}")
-    public BaseData delete(@PathVariable Long id, String reason) {
-        orderService.deleteById(id, reason);
+    public BaseData delete(@PathVariable Long id, String reason, String files) {
+        orderService.deleteById(id, reason, files);
         return ResultGenerator.genSuccessResult("操作成功，请等待审核");
     }
 }

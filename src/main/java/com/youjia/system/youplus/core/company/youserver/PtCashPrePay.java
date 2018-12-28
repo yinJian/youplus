@@ -32,19 +32,19 @@ public class PtCashPrePay extends BaseEntity {
      * 携带文件，也是逗号分隔
      */
     private String filePaths;
+    /**
+     * 携带信息  [{name: '', link: ''}, {}]
+     */
+    private String carryInfoList;
 
     private Long goodsId;
 
-    @Override
-    public String toString() {
-        return "PtCashPrePay{" +
-                "cityCodes='" + cityCodes + '\'' +
-                ", serverTimes=" + serverTimes +
-                ", waitMonths=" + waitMonths +
-                ", remark='" + remark + '\'' +
-                ", filePaths='" + filePaths + '\'' +
-                ", goodsId=" + goodsId +
-                '}';
+    public String getCarryInfoList() {
+        return carryInfoList;
+    }
+
+    public void setCarryInfoList(String carryInfoList) {
+        this.carryInfoList = carryInfoList;
     }
 
     public Long getGoodsId() {

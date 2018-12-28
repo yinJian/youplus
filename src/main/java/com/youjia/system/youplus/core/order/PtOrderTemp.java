@@ -32,6 +32,10 @@ public class PtOrderTemp extends BaseDeleteEntity {
      * 操作类型（新建，修改，删除）
      */
     private String operatorType;
+    /**
+     * 删除时需要文件，逗号分隔
+     */
+    private String files;
     ///////////// PtOrder ///////////////////////////////////
     /**
      * 用户名称
@@ -89,6 +93,7 @@ public class PtOrderTemp extends BaseDeleteEntity {
                 "orderId=" + orderId +
                 ", reason='" + reason + '\'' +
                 ", operatorType='" + operatorType + '\'' +
+                ", files='" + files + '\'' +
                 ", userName='" + userName + '\'' +
                 ", ptGoodsId=" + ptGoodsId +
                 ", companyId=" + companyId +
@@ -106,6 +111,14 @@ public class PtOrderTemp extends BaseDeleteEntity {
                 ", remark='" + remark + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    public String getFiles() {
+        return files;
+    }
+
+    public void setFiles(String files) {
+        this.files = files;
     }
 
     public String getProvince() {

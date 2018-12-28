@@ -196,10 +196,11 @@ public class OrderService {
      * @param id
      *         id
      */
-    public void deleteById(Long id, String reason) {
+    public void deleteById(Long id, String reason, String files) {
         PtOrderTemp temp = ptOrderManager.findOneTempByOrderId(id);
         temp.setStatus(Constant.STATE_CONFIRM);
         temp.setReason(reason);
+        temp.setFiles(files);
         ptOrderManager.deleteTemp(temp);
     }
 
