@@ -35,19 +35,29 @@ public class HospitalService {
     }
 
     public SimplePage<PtHospital> find(HospitalListQueryModel hospitalListQueryModel) {
+        Criteria<PtHospital> criteria1 = buildCriteria(hospitalListQueryModel);
+        criteria1.add(Restrictions.like("name", hospitalListQueryModel.getName(), true));
+
+        Criteria<PtHospital> criteria2 = buildCriteria(hospitalListQueryModel);
+        criteria2.add(Restrictions.like("otherName", hospitalListQueryModel.getName(), true));
+
+        Pageable pageable = PageRequest.of(hospitalListQueryModel.getPage(),
+                hospitalListQueryModel.getSize(), Sort.Direction.DESC, "id");
+        Page<PtHospital> page = ptHospitalManager.findAll(criteria1.or(criteria2), pageable);
+
+        return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent());
+    }
+
+    private Criteria<PtHospital>  buildCriteria(HospitalListQueryModel hospitalListQueryModel) {
         Criteria<PtHospital> criteria = new Criteria<>();
-        criteria.add(Restrictions.like("name", hospitalListQueryModel.getName(), true));
+
         criteria.add(Restrictions.eq("level", hospitalListQueryModel.getLevel(), true));
         criteria.add(Restrictions.eq("province", hospitalListQueryModel.getProvince(), true));
         criteria.add(Restrictions.eq("city", hospitalListQueryModel.getCity(), true));
         criteria.add(Restrictions.eq("country", hospitalListQueryModel.getCountry(), true));
         criteria.add(Restrictions.eq("deleteFlag", false, true));
 
-        Pageable pageable = PageRequest.of(hospitalListQueryModel.getPage(),
-                hospitalListQueryModel.getSize(), Sort.Direction.DESC, "id");
-        Page<PtHospital> page = ptHospitalManager.findAll(criteria, pageable);
-
-        return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent());
+        return criteria;
     }
 
 }
