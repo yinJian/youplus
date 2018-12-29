@@ -134,7 +134,7 @@ public class OrderService {
     private OrderAddUpdateModel parseCsv(String line, Long goodsId, Long companyId) {
         String[] array = line.split(",");
         if (array.length != 11) {
-            logger.info("一行数据不对:" + line);
+            logger.info("这一行数据不对:" + line);
             return null;
         }
         OrderAddUpdateModel model = new OrderAddUpdateModel();
@@ -148,7 +148,7 @@ public class OrderService {
         model.setBeginTime(array[7]);
         model.setEndTime(array[8]);
         model.setRemark(array[9]);
-        model.setStatus(Integer.valueOf(array[10]));
+        model.setState(Integer.valueOf(array[10]));
 
         model.setPtGoodsId(goodsId);
         model.setCompanyId(companyId);

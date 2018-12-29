@@ -61,7 +61,7 @@ public class OrderAddUpdateModel {
     /**
      * 状态（0正常，1中止，2终止，3失效）
      */
-    private Integer status;
+    private Integer state;
     /**
      * 关联权益人
      */
@@ -85,7 +85,7 @@ public class OrderAddUpdateModel {
                 ", beginTime='" + beginTime + '\'' +
                 ", endTime='" + endTime + '\'' +
                 ", remark='" + remark + '\'' +
-                ", status=" + status +
+                ", state=" + state +
                 ", orderRelation=" + orderRelation +
                 '}';
     }
@@ -210,12 +210,12 @@ public class OrderAddUpdateModel {
         this.remark = remark;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getState() {
+        return state;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public PtOrderRelation getOrderRelation() {

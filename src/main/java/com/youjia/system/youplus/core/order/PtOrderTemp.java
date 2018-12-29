@@ -83,7 +83,11 @@ public class PtOrderTemp extends BaseDeleteEntity {
     private Date endTime;
     private String remark;
     /**
-     * 状态（-1待审核，-2被拒绝，0正常，1中止，2终止，3失效）
+     * 状态（0正常，1中止，2终止，3失效）
+     */
+    private Integer state;
+    /**
+     * 状态（-1待审核，-2被拒绝，0正常）
      */
     private Integer status;
 
@@ -109,8 +113,17 @@ public class PtOrderTemp extends BaseDeleteEntity {
                 ", beginTime=" + beginTime +
                 ", endTime=" + endTime +
                 ", remark='" + remark + '\'' +
+                ", state=" + state +
                 ", status=" + status +
                 '}';
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public String getFiles() {

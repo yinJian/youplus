@@ -68,6 +68,10 @@ public class PtOrder extends BaseDeleteEntity {
     /**
      * 状态（0正常，1中止，2终止，3失效）
      */
+    private Integer state;
+    /**
+     * 审核状态（0正常，-1审核中，-1被拒绝）
+     */
     private Integer status;
 
     @Override
@@ -88,8 +92,17 @@ public class PtOrder extends BaseDeleteEntity {
                 ", beginTime=" + beginTime +
                 ", endTime=" + endTime +
                 ", remark='" + remark + '\'' +
+                ", state=" + state +
                 ", status=" + status +
                 '}';
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public Integer getSex() {
