@@ -50,6 +50,8 @@ apollo:
     enabled: true
 ###############################---七牛云---##############################
 qiniu:
-  ak: 3DR4mVwQzEoqO4hQxKfg9_SFGdt1CUPTL7tHDFvh
-  sk: lEmpAX3ZiNaNHAV5LS8ArKIjPZirNwMqGNOu2hqV
+  #ak: 3DR4mVwQzEoqO4hQxKfg9_SFGdt1CUPTL7tHDFvh
+  ak: C-sUrk-wUNCuypUseL1lT7kLWwQ70YaoMnHAC0W9
+  #sk: lEmpAX3ZiNaNHAV5LS8ArKIjPZirNwMqGNOu2hqV
+  sk: iaTA6PJU6VpN84Jcnz2976tNI04tEKPmF1INPIgO
   bucket: youplus
