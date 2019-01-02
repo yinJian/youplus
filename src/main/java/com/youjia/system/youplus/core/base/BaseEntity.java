@@ -23,6 +23,16 @@ public class BaseEntity {
 
     private Date updateTime;
 
+    @Override
+    public String toString() {
+        return "BaseEntity{" +
+                "id=" + id +
+                ", operatorId=" + operatorId +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
+
     public Date getCreateTime() {
         return createTime;
     }

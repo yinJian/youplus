@@ -9,6 +9,13 @@ import javax.persistence.MappedSuperclass;
 public class BaseDeleteEntity extends BaseEntity {
     private boolean deleteFlag = false;
 
+    @Override
+    public String toString() {
+        return "BaseDeleteEntity{" +
+                "deleteFlag=" + deleteFlag +
+                '}';
+    }
+
     public boolean isDeleteFlag() {
         return deleteFlag;
     }

@@ -2,9 +2,9 @@ spring:
   profiles:
     active: ${ENV:prod}
   application:
-    name: youplus
+    name: ${APP_NAME:youplus}
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/you_plus?useUnicode=true&characterEncoding=UTF8
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${DB_NAME:you_plus}?useUnicode=true&characterEncoding=UTF8
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASS:root}
   jpa:
