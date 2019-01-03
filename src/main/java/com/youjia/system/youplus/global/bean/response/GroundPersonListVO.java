@@ -20,6 +20,7 @@ public class GroundPersonListVO {
     private String country;
     private String countryValue;
     private String remark;
+    private String workTimes;
 
     @Override
     public String toString() {
@@ -34,7 +35,16 @@ public class GroundPersonListVO {
                 ", country='" + country + '\'' +
                 ", countryValue='" + countryValue + '\'' +
                 ", remark='" + remark + '\'' +
+                ", workTimes='" + workTimes + '\'' +
                 '}';
+    }
+
+    public String getWorkTimes() {
+        return workTimes;
+    }
+
+    public void setWorkTimes(String workTimes) {
+        this.workTimes = workTimes;
     }
 
     public String getProvinceValue() {
