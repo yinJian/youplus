@@ -25,6 +25,9 @@ public class UserKit {
     public Long getGroundPersonId() {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
+        if (request.getHeader(Constant.PERSONID) == null) {
+            return null;
+        }
         return Long.valueOf(request.getHeader(Constant.PERSONID));
     }
 
