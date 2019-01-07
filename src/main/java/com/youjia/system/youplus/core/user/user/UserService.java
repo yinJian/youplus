@@ -91,10 +91,10 @@ public class UserService {
         List<PtRole> ptRoles = ptRoleManager.findByUserId(ptUser.getId());
         String roleName = "";
         for (PtRole role : ptRoles) {
-            roleName += role.getName() + ",";
+            roleName += role.getName() + " ";
             vo.setRoleId(role.getId());
         }
-        vo.setRoleName(roleName.substring(0, roleName.length() - 1));
+        vo.setRoleName(roleName);
         return vo;
     }
 
