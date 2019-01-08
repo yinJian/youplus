@@ -30,7 +30,7 @@ public class PtOrderFlow extends BaseEntity {
     /**
      * 与患者联系人沟通服务细节
      */
-    private boolean hasContact;
+    private Boolean hasContact;
     /**
      * 与患者联系人沟通服务细节，时间
      */
@@ -38,7 +38,7 @@ public class PtOrderFlow extends BaseEntity {
     /**
      * 检查并携带相关协议无误
      */
-    private boolean hasChecked;
+    private Boolean hasChecked;
     /**
      * 检查并携带相关协议无误，时间
      */
@@ -50,7 +50,7 @@ public class PtOrderFlow extends BaseEntity {
     /**
      * 是否已确认"押金垫付的文件"
      */
-    private boolean prePayFileConfirm;
+    private Boolean prePayFileConfirm;
     /**
      * 是否已确认"押金垫付的文件"，确认时间
      */
@@ -235,19 +235,19 @@ public class PtOrderFlow extends BaseEntity {
         this.claimId = claimId;
     }
 
-    public boolean isHasContact() {
+    public Boolean isHasContact() {
         return hasContact;
     }
 
-    public void setHasContact(boolean hasContact) {
+    public void setHasContact(Boolean hasContact) {
         this.hasContact = hasContact;
     }
 
-    public boolean isHasChecked() {
+    public Boolean isHasChecked() {
         return hasChecked;
     }
 
-    public void setHasChecked(boolean hasChecked) {
+    public void setHasChecked(Boolean hasChecked) {
         this.hasChecked = hasChecked;
     }
 
@@ -259,11 +259,11 @@ public class PtOrderFlow extends BaseEntity {
         this.prePayFiles = prePayFiles;
     }
 
-    public boolean isPrePayFileConfirm() {
+    public Boolean isPrePayFileConfirm() {
         return prePayFileConfirm;
     }
 
-    public void setPrePayFileConfirm(boolean prePayFileConfirm) {
+    public void setPrePayFileConfirm(Boolean prePayFileConfirm) {
         this.prePayFileConfirm = prePayFileConfirm;
     }
 
