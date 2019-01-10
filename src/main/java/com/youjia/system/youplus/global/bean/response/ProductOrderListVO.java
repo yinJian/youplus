@@ -38,6 +38,7 @@ public class ProductOrderListVO {
      */
     private String childStateValue;
     private String remark;
+    private Boolean deleteFlag;
 
     @Override
     public String toString() {
@@ -54,7 +55,16 @@ public class ProductOrderListVO {
                 ", stateValue='" + stateValue + '\'' +
                 ", childStateValue='" + childStateValue + '\'' +
                 ", remark='" + remark + '\'' +
+                ", deleteFlag=" + deleteFlag +
                 '}';
+    }
+
+    public Boolean getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     public String getProvinceValue() {
