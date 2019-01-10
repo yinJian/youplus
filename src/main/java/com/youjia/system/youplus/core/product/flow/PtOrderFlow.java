@@ -155,6 +155,14 @@ public class PtOrderFlow extends BaseEntity {
         this.claimIdTime = claimIdTime;
     }
 
+    public Boolean getHasContact() {
+        return hasContact;
+    }
+
+    public Boolean getPrePayFileConfirm() {
+        return prePayFileConfirm;
+    }
+
     public Long getHasContactTime() {
         return hasContactTime;
     }
