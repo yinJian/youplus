@@ -240,6 +240,8 @@ public class ProductOrderService {
         PtOrder order = orderService.findOne(ptProductOrder.getOrderId());
         BeanUtil.copyProperties(order, productOrderListVO);
 
+        PtPrePayTemplate ptPrePayTemplate = ptPrePayTemplateManager.find(ptProductOrder.getTemplateId());
+
         BeanUtil.copyProperties(ptProductOrder, productOrderListVO);
         productOrderListVO.setChildStateValue(dictCache.findByGroupIdAndKey(15, ptProductOrder.getChildState()));
         productOrderListVO.setStateValue(dictCache.findByGroupIdAndKey(14, ptProductOrder.getState()));
@@ -247,6 +249,10 @@ public class ProductOrderService {
         productOrderListVO.setCityValue(areaManager.findName(order.getCity()));
         productOrderListVO.setProvinceValue(areaManager.findName(order.getProvince()));
         productOrderListVO.setCountryValue(areaManager.findName(order.getCountry()));
+
+        productOrderListVO.setWantProvince(areaManager.findName(ptPrePayTemplate.getWantProvince()));
+        productOrderListVO.setWantCity(areaManager.findName(ptPrePayTemplate.getWantCity()));
+        productOrderListVO.setWantCountry(areaManager.findName(ptPrePayTemplate.getWantCountry()));
 
         productOrderListVO.setCompanyName(ptCompanyManager.findNameById(order.getCompanyId()));
         productOrderListVO.setGroundPersonName(ptGroundPersonManager.findNameById(ptProductOrder.getGroundPersonId()));

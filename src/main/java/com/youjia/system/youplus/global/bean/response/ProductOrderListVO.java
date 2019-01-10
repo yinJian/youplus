@@ -17,6 +17,13 @@ public class ProductOrderListVO {
     private String provinceValue;
     private String cityValue;
     private String countryValue;
+
+    /**
+     * 期望就医省市县
+     */
+    private String wantProvince;
+    private String wantCity;
+    private String wantCountry;
     /**
      * 医院名 TODO
      */
@@ -49,6 +56,9 @@ public class ProductOrderListVO {
                 ", provinceValue='" + provinceValue + '\'' +
                 ", cityValue='" + cityValue + '\'' +
                 ", countryValue='" + countryValue + '\'' +
+                ", wantProvince='" + wantProvince + '\'' +
+                ", wantCity='" + wantCity + '\'' +
+                ", wantCountry='" + wantCountry + '\'' +
                 ", hospitalName='" + hospitalName + '\'' +
                 ", groundPersonName='" + groundPersonName + '\'' +
                 ", companyName='" + companyName + '\'' +
@@ -57,6 +67,30 @@ public class ProductOrderListVO {
                 ", remark='" + remark + '\'' +
                 ", deleteFlag=" + deleteFlag +
                 '}';
+    }
+
+    public String getWantProvince() {
+        return wantProvince;
+    }
+
+    public void setWantProvince(String wantProvince) {
+        this.wantProvince = wantProvince;
+    }
+
+    public String getWantCity() {
+        return wantCity;
+    }
+
+    public void setWantCity(String wantCity) {
+        this.wantCity = wantCity;
+    }
+
+    public String getWantCountry() {
+        return wantCountry;
+    }
+
+    public void setWantCountry(String wantCountry) {
+        this.wantCountry = wantCountry;
     }
 
     public Boolean getDeleteFlag() {
