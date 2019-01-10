@@ -243,6 +243,10 @@ public class PtOrderFlow extends BaseEntity {
         this.hasContact = hasContact;
     }
 
+    public Boolean getHasChecked() {
+        return hasChecked;
+    }
+
     public Boolean isHasChecked() {
         return hasChecked;
     }
