@@ -27,6 +27,7 @@ public class ProductOrderListQueryModel extends BaseModel {
      * 子状态group=15。已转单，未转单
      */
     private Integer childState;
+    private Boolean deleteFlag;
 
     @Override
     public String toString() {
@@ -42,6 +43,14 @@ public class ProductOrderListQueryModel extends BaseModel {
                 ", state=" + state +
                 ", childState=" + childState +
                 '}';
+    }
+
+    public Boolean getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     public Integer getNotState() {

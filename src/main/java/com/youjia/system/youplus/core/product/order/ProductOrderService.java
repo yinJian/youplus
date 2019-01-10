@@ -213,7 +213,7 @@ public class ProductOrderService {
         criteria.add(Restrictions.eq("state", productOrderListQueryModel.getState(), true));
         criteria.add(Restrictions.ne("state", productOrderListQueryModel.getNotState(), true));
         criteria.add(Restrictions.eq("childState", productOrderListQueryModel.getChildState(), true));
-        //criteria.add(Restrictions.eq("deleteFlag", false, true));
+        criteria.add(Restrictions.eq("deleteFlag", productOrderListQueryModel.getDeleteFlag(), true));
         //给H5用的功能
         if (userKit.getGroundPersonId() != null) {
             criteria.add(Restrictions.eq("groundPersonId", userKit.getGroundPersonId(), true));
@@ -290,9 +290,10 @@ public class ProductOrderService {
     }
 
 
-    public void delete(Long id) {
+    public void delete(Long id, String reason) {
         PtProductOrder ptProductOrder = ptProductOrderManager.find(id);
         ptProductOrder.setDeleteFlag(true);
+        ptProductOrder.setReason(reason);
         ptProductOrderManager.update(ptProductOrder);
     }
 

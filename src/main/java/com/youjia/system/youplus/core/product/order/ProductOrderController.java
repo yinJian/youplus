@@ -64,8 +64,8 @@ public class ProductOrderController {
     }
 
     @DeleteMapping("/{id}")
-    public BaseData delete(@PathVariable Long id) {
-        productOrderService.delete(id);
+    public BaseData delete(@PathVariable Long id, String reason) {
+        productOrderService.delete(id, reason);
         return ResultGenerator.genSuccessResult("删除成功");
     }
 }

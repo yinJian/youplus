@@ -38,6 +38,10 @@ public class PtProductOrder extends BaseDeleteEntity {
      * 派单备注
      */
     private String remark;
+    /**
+     * 关闭原因
+     */
+    private String reason;
 
     @Override
     public String toString() {
@@ -46,10 +50,19 @@ public class PtProductOrder extends BaseDeleteEntity {
                 ", productId=" + productId +
                 ", templateId=" + templateId +
                 ", groundPersonId=" + groundPersonId +
-                ", state=" + state +
-                ", childState=" + childState +
+                ", state='" + state + '\'' +
+                ", childState='" + childState + '\'' +
                 ", remark='" + remark + '\'' +
+                ", reason='" + reason + '\'' +
                 '}';
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public String getRemark() {

@@ -46,6 +46,8 @@ public class ProductOrderListVO {
     private String childStateValue;
     private String remark;
     private Boolean deleteFlag;
+    //关闭原因
+    private String reason;
 
     @Override
     public String toString() {
@@ -66,7 +68,16 @@ public class ProductOrderListVO {
                 ", childStateValue='" + childStateValue + '\'' +
                 ", remark='" + remark + '\'' +
                 ", deleteFlag=" + deleteFlag +
+                ", reason='" + reason + '\'' +
                 '}';
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public String getWantProvince() {
