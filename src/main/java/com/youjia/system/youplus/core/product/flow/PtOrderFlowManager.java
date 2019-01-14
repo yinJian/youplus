@@ -40,7 +40,8 @@ public class PtOrderFlowManager {
     }
 
     private PtOrderFlow save(PtOrderFlow ptOrderFlow) {
-        PtOrderFlow flow = ptOrderFlowRepository.save(ptOrderFlow);
+        ptOrderFlowRepository.save(ptOrderFlow);
+        PtOrderFlow flow = ptOrderFlowRepository.getOne(ptOrderFlow.getId());
         PtProductOrder ptProductOrder = ptProductOrderManager.find(flow.getProductOrderId());
         //已接单
         if (flow.getGroundPersonId() != null) {
