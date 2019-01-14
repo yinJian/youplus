@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface PtChinaMedChildRepository extends JpaRepository<PtChinaMedChild, Long>,
         JpaSpecificationExecutor<PtChinaMedChild> {
-    Long countByDeleteFlagAndChinaMedId(boolean flag, Long id);
+    Long countByChinaMedId(Long id);
 }

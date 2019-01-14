@@ -28,7 +28,7 @@ public class PtChinaMedChildManager {
      * @return Integer
      */
     public Integer countByChinaMedId(Long ChinaMedId) {
-        return ptChinaMedChildRepository.countByDeleteFlagAndChinaMedId(false, ChinaMedId).intValue();
+        return ptChinaMedChildRepository.countByChinaMedId(ChinaMedId).intValue();
     }
 
     public PtChinaMedChild find(Long id) {

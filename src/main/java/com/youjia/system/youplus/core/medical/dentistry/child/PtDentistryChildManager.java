@@ -28,7 +28,7 @@ public class PtDentistryChildManager {
      * @return Integer
      */
     public Integer countByDentistryId(Long DentistryId) {
-        return ptDentistryChildRepository.countByDeleteFlagAndDentistryId(false, DentistryId).intValue();
+        return ptDentistryChildRepository.countByDentistryId(DentistryId).intValue();
     }
 
     public PtDentistryChild find(Long id) {

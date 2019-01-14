@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface PtDentistryChildRepository extends JpaRepository<PtDentistryChild, Long>,
         JpaSpecificationExecutor<PtDentistryChild> {
-    Long countByDeleteFlagAndDentistryId(boolean flag, Long id);
+    Long countByDentistryId(Long id);
 }

@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface PtPhysicalChildRepository extends JpaRepository<PtPhysicalChild, Long>,
         JpaSpecificationExecutor<PtPhysicalChild> {
-    Long countByDeleteFlagAndPhysicalId(boolean flag, Long id);
+    Long countByPhysicalId(Long id);
 }

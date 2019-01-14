@@ -3,6 +3,7 @@ package com.youjia.system.youplus.core.product.flow;
 import com.youjia.system.youplus.core.product.order.PtProductOrder;
 import com.youjia.system.youplus.core.product.order.PtProductOrderManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -11,6 +12,7 @@ import javax.annotation.Resource;
  * @author wuwf
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class PtOrderFlowManager {
     @Resource
     private PtOrderFlowRepository ptOrderFlowRepository;

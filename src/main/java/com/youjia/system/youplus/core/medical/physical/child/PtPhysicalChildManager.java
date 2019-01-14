@@ -28,7 +28,7 @@ public class PtPhysicalChildManager {
      * @return Integer
      */
     public Integer countByPhysicalId(Long physicalId) {
-        return ptPhysicalChildRepository.countByDeleteFlagAndPhysicalId(false, physicalId).intValue();
+        return ptPhysicalChildRepository.countByPhysicalId(physicalId).intValue();
     }
 
     public PtPhysicalChild find(Long id) {
