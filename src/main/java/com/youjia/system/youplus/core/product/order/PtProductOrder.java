@@ -56,6 +56,7 @@ public class PtProductOrder extends BaseDeleteEntity {
                 ", groundPersonId=" + groundPersonId +
                 ", state='" + state + '\'' +
                 ", childState='" + childState + '\'' +
+                ", changePerson=" + changePerson +
                 ", remark='" + remark + '\'' +
                 ", reason='" + reason + '\'' +
                 '}';
