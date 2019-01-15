@@ -35,6 +35,10 @@ public class PtProductOrder extends BaseDeleteEntity {
      */
     private String childState;
     /**
+     * 已转单
+     */
+    private Boolean changePerson;
+    /**
      * 派单备注
      */
     private String remark;
@@ -55,6 +59,14 @@ public class PtProductOrder extends BaseDeleteEntity {
                 ", remark='" + remark + '\'' +
                 ", reason='" + reason + '\'' +
                 '}';
+    }
+
+    public Boolean getChangePerson() {
+        return changePerson;
+    }
+
+    public void setChangePerson(Boolean changePerson) {
+        this.changePerson = changePerson;
     }
 
     public String getReason() {

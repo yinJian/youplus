@@ -48,6 +48,10 @@ public class ProductOrderListVO {
     private Boolean deleteFlag;
     //关闭原因
     private String reason;
+    /**
+     * 是否转过单
+     */
+    private Boolean changePerson;
 
     @Override
     public String toString() {
@@ -70,6 +74,14 @@ public class ProductOrderListVO {
                 ", deleteFlag=" + deleteFlag +
                 ", reason='" + reason + '\'' +
                 '}';
+    }
+
+    public Boolean getChangePerson() {
+        return changePerson;
+    }
+
+    public void setChangePerson(Boolean changePerson) {
+        this.changePerson = changePerson;
     }
 
     public String getReason() {

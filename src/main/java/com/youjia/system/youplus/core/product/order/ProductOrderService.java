@@ -201,6 +201,7 @@ public class ProductOrderService {
         ptProductOrder.setGroundPersonId(personId);
         ptProductOrder.setState("2");
         ptProductOrder.setChildState("2");
+        ptProductOrder.setChangePerson(true);
         return ptProductOrderManager.update(ptProductOrder);
     }
 
