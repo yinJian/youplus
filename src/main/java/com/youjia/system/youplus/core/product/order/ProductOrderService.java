@@ -139,6 +139,7 @@ public class ProductOrderService {
         productOrderVO.setTemplate(parseTemplate(template));
 
         productOrderVO.setProductId(ptProductOrder.getProductId());
+        productOrderVO.setGroundPersonId(productOrderVO.getGroundPersonId());
         productOrderVO.setProductName(ptProductManager.findNameById(ptProductOrder.getProductId()));
 
         OrderListVO orderListVO = orderService.parse(ptProductOrder.getOrderId());
@@ -149,6 +150,7 @@ public class ProductOrderService {
 
         //订单的详细流程
         PtOrderFlow orderFlow = ptOrderFlowManager.findByProductOrderId(id);
+
         productOrderVO.setOrderFlow(orderFlow);
 
         return productOrderVO;

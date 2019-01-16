@@ -8,6 +8,7 @@ import com.youjia.system.youplus.core.product.flow.PtOrderFlow;
 public class ProductOrderVO {
     private Long productId;
     private String productName;
+    private Long groundPersonId;
     
     private OrderListVO orderListVO;
 
@@ -22,11 +23,20 @@ public class ProductOrderVO {
         return "ProductOrderVO{" +
                 "productId=" + productId +
                 ", productName='" + productName + '\'' +
+                ", groundPersonId=" + groundPersonId +
                 ", orderListVO=" + orderListVO +
                 ", template=" + template +
                 ", groundPersonListVO=" + groundPersonListVO +
                 ", orderFlow=" + orderFlow +
                 '}';
+    }
+
+    public Long getGroundPersonId() {
+        return groundPersonId;
+    }
+
+    public void setGroundPersonId(Long groundPersonId) {
+        this.groundPersonId = groundPersonId;
     }
 
     public PtOrderFlow getOrderFlow() {
