@@ -13,6 +13,8 @@ import com.youjia.system.youplus.core.order.PtOrder;
 import com.youjia.system.youplus.core.person.GroundPersonService;
 import com.youjia.system.youplus.core.person.PtGroundPersonManager;
 import com.youjia.system.youplus.core.product.PtProductManager;
+import com.youjia.system.youplus.core.product.change.PtChange;
+import com.youjia.system.youplus.core.product.change.PtChangeManager;
 import com.youjia.system.youplus.core.product.flow.PtOrderFlow;
 import com.youjia.system.youplus.core.product.flow.PtOrderFlowManager;
 import com.youjia.system.youplus.core.product.template.prepay.PtPrePayTemplate;
@@ -76,6 +78,8 @@ public class ProductOrderService {
     private PtCashPrePayManager ptCashPrePayManager;
     @Resource
     private UserKit userKit;
+    @Resource
+    private PtChangeManager ptChangeManager;
 
 
     public BaseData add(ProductOrderAddModel productOrderAddModel) {
@@ -189,6 +193,12 @@ public class ProductOrderService {
         ptProductOrder.setRemark(remark);
         ptProductOrder.setGroundPersonId(personId);
         ptProductOrder.setState("2");
+
+        PtChange ptChange = new PtChange();
+        ptChange.setOrderId(id);
+        ptChange.setNewPersonId(personId);
+        ptChangeManager.add(ptChange);
+
         return ptProductOrderManager.update(ptProductOrder);
     }
 
@@ -197,11 +207,19 @@ public class ProductOrderService {
      */
     public PtProductOrder changeGroundPerson(Long id, Long personId, String remark) {
         PtProductOrder ptProductOrder = ptProductOrderManager.find(id);
+        //添加转单记录
+        PtChange ptChange = new PtChange();
+        ptChange.setOrderId(id);
+        ptChange.setOldPersonId(ptProductOrder.getGroundPersonId());
+        ptChange.setNewPersonId(personId);
+        ptChangeManager.add(ptChange);
+
         ptProductOrder.setRemark(remark);
         ptProductOrder.setGroundPersonId(personId);
         ptProductOrder.setState("2");
         ptProductOrder.setChildState("2");
         ptProductOrder.setChangePerson(true);
+
         return ptProductOrderManager.update(ptProductOrder);
     }
 
@@ -217,7 +235,9 @@ public class ProductOrderService {
         criteria.add(Restrictions.eq("deleteFlag", productOrderListQueryModel.getDeleteFlag(), true));
         //给H5用的功能
         if (userKit.getGroundPersonId() != null) {
-            criteria.add(Restrictions.eq("groundPersonId", userKit.getGroundPersonId(), true));
+            //criteria.add(Restrictions.eq("groundPersonId", userKit.getGroundPersonId(), true));
+            //查询某人所有接过的单
+            criteria.add(Restrictions.in("id", ptChangeManager.findOrderIds(userKit.getGroundPersonId()), true));
         }
 
         OrderListQueryModel orderListQueryModel = new OrderListQueryModel();
@@ -260,6 +280,11 @@ public class ProductOrderService {
         productOrderListVO.setHospitalName(ptHospitalManager.findName(ptPrePayTemplateManager.find(ptProductOrder
                 .getTemplateId()).getHospitalId()));
 
+        if (userKit.getGroundPersonId() != null) {
+            //查询某人所有接过的单
+            productOrderListVO.setPaiTime(ptChangeManager.findTime(userKit.getGroundPersonId()));
+        }
+
         return productOrderListVO;
     }
 
@@ -295,6 +320,8 @@ public class ProductOrderService {
         PtProductOrder ptProductOrder = ptProductOrderManager.find(id);
         ptProductOrder.setDeleteFlag(true);
         ptProductOrder.setReason(reason);
+        //已完成
+        ptProductOrder.setState("8");
         ptProductOrderManager.update(ptProductOrder);
     }
 

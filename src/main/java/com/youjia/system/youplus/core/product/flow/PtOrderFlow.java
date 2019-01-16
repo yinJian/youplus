@@ -12,6 +12,10 @@ import javax.persistence.Entity;
 public class PtOrderFlow extends BaseEntity {
     private Long productOrderId;
     /**
+     * 地勤人员id集合，逗号分隔
+     */
+    private String personIds;
+    /**
      * 为null则是未接单。存在已派单，但未接单的情况
      */
     private Long groundPersonId;
@@ -58,7 +62,7 @@ public class PtOrderFlow extends BaseEntity {
     /**
      * 确认垫付金额
      */
-    private Double prePayMoney;
+    private String prePayMoney;
     /**
      * 是否拒绝赔付，true为拒绝，null为没设置
      */
@@ -112,6 +116,7 @@ public class PtOrderFlow extends BaseEntity {
     public String toString() {
         return "PtOrderFlow{" +
                 "productOrderId=" + productOrderId +
+                ", personIds='" + personIds + '\'' +
                 ", groundPersonId=" + groundPersonId +
                 ", groundPersonIdTime=" + groundPersonIdTime +
                 ", claimId=" + claimId +
@@ -123,7 +128,7 @@ public class PtOrderFlow extends BaseEntity {
                 ", prePayFiles='" + prePayFiles + '\'' +
                 ", prePayFileConfirm=" + prePayFileConfirm +
                 ", prePayFileConfirmTime=" + prePayFileConfirmTime +
-                ", prePayMoney=" + prePayMoney +
+                ", prePayMoney='" + prePayMoney + '\'' +
                 ", refusePay=" + refusePay +
                 ", prePayMoneyTime=" + prePayMoneyTime +
                 ", depositFiles='" + depositFiles + '\'' +
@@ -137,6 +142,14 @@ public class PtOrderFlow extends BaseEntity {
                 ", finishNeedMoneyTime=" + finishNeedMoneyTime +
                 ", finishTime=" + finishTime +
                 '}';
+    }
+
+    public String getPersonIds() {
+        return personIds;
+    }
+
+    public void setPersonIds(String personIds) {
+        this.personIds = personIds;
     }
 
     public Long getGroundPersonIdTime() {
@@ -279,11 +292,11 @@ public class PtOrderFlow extends BaseEntity {
         this.prePayFileConfirm = prePayFileConfirm;
     }
 
-    public Double getPrePayMoney() {
+    public String getPrePayMoney() {
         return prePayMoney;
     }
 
-    public void setPrePayMoney(Double prePayMoney) {
+    public void setPrePayMoney(String prePayMoney) {
         this.prePayMoney = prePayMoney;
     }
 

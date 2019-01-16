@@ -1,5 +1,7 @@
 package com.youjia.system.youplus.global.bean.response;
 
+import java.util.Date;
+
 /**
  * 派单列表页
  * @author wuweifeng wrote on 2018/12/11.
@@ -52,6 +54,10 @@ public class ProductOrderListVO {
      * 是否转过单
      */
     private Boolean changePerson;
+    /**
+     * 派单时间
+     */
+    private Date paiTime;
 
     @Override
     public String toString() {
@@ -73,7 +79,17 @@ public class ProductOrderListVO {
                 ", remark='" + remark + '\'' +
                 ", deleteFlag=" + deleteFlag +
                 ", reason='" + reason + '\'' +
+                ", changePerson=" + changePerson +
+                ", paiTime=" + paiTime +
                 '}';
+    }
+
+    public Date getPaiTime() {
+        return paiTime;
+    }
+
+    public void setPaiTime(Date paiTime) {
+        this.paiTime = paiTime;
     }
 
     public Boolean getChangePerson() {
