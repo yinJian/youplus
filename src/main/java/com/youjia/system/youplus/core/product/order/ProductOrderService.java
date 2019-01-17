@@ -139,7 +139,7 @@ public class ProductOrderService {
         productOrderVO.setTemplate(parseTemplate(template));
 
         productOrderVO.setProductId(ptProductOrder.getProductId());
-        productOrderVO.setGroundPersonId(productOrderVO.getGroundPersonId());
+        productOrderVO.setGroundPersonId(ptProductOrder.getGroundPersonId());
         productOrderVO.setProductName(ptProductManager.findNameById(ptProductOrder.getProductId()));
 
         OrderListVO orderListVO = orderService.parse(ptProductOrder.getOrderId());
