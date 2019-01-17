@@ -6,13 +6,23 @@ package com.youjia.system.youplus.global.bean.response;
 public class CashPrePayWordsVO {
     private String remark;
     private String filePaths;
+    private String carryInfoList;
 
     @Override
     public String toString() {
         return "CashPrePayWordsVO{" +
                 "remark='" + remark + '\'' +
                 ", filePaths='" + filePaths + '\'' +
+                ", carryInfoList='" + carryInfoList + '\'' +
                 '}';
+    }
+
+    public String getCarryInfoList() {
+        return carryInfoList;
+    }
+
+    public void setCarryInfoList(String carryInfoList) {
+        this.carryInfoList = carryInfoList;
     }
 
     public String getRemark() {

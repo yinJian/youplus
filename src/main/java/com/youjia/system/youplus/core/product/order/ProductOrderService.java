@@ -167,6 +167,7 @@ public class ProductOrderService {
             PtCashPrePay ptCashPrePay = ptCashPrePayManager.find(prepayId);
             vo.setFilePaths(ptCashPrePay.getFilePaths());
             vo.setRemark(ptCashPrePay.getRemark());
+            vo.setCarryInfoList(ptCashPrePay.getCarryInfoList());
         }
         return vo;
     }
