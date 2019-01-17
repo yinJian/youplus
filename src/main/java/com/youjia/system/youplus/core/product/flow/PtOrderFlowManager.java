@@ -43,6 +43,8 @@ public class PtOrderFlowManager {
         ptOrderFlowRepository.save(ptOrderFlow);
         PtOrderFlow flow = ptOrderFlowRepository.getOne(ptOrderFlow.getId());
         PtProductOrder ptProductOrder = ptProductOrderManager.find(flow.getProductOrderId());
+        flow.setGroundPersonId(ptProductOrder.getGroundPersonId());
+        ptOrderFlowRepository.save(ptOrderFlow);
         //已接单
         if (flow.getGroundPersonId() != null) {
             ptProductOrder.setState("3");
