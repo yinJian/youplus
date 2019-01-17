@@ -36,6 +36,10 @@ public class PtOrderFlow extends BaseEntity {
      */
     private Boolean hasContact;
     /**
+     * 沟通的内容
+     */
+    private String contactRemark;
+    /**
      * 与患者联系人沟通服务细节，时间
      */
     private Long hasContactTime;
@@ -122,6 +126,7 @@ public class PtOrderFlow extends BaseEntity {
                 ", claimId=" + claimId +
                 ", claimIdTime=" + claimIdTime +
                 ", hasContact=" + hasContact +
+                ", contactRemark='" + contactRemark + '\'' +
                 ", hasContactTime=" + hasContactTime +
                 ", hasChecked=" + hasChecked +
                 ", hasCheckedTime=" + hasCheckedTime +
@@ -142,6 +147,14 @@ public class PtOrderFlow extends BaseEntity {
                 ", finishNeedMoneyTime=" + finishNeedMoneyTime +
                 ", finishTime=" + finishTime +
                 '}';
+    }
+
+    public String getContactRemark() {
+        return contactRemark;
+    }
+
+    public void setContactRemark(String contactRemark) {
+        this.contactRemark = contactRemark;
     }
 
     public String getPersonIds() {
