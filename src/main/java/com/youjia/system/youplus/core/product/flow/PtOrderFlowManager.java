@@ -96,7 +96,7 @@ public class PtOrderFlowManager {
         if (!StringUtils.isEmpty(flow.getBalanceFiles())) {
             ptProductOrder.setState("7");
             //如果没有设置
-            if (flow.getRefuseBalance() != null && flow.getRefuseBalance()) {
+            if (flow.getRefuseBalance() != null && !flow.getRefuseBalance()) {
                 ptProductOrder.setChildState("13");
             } else {
                 ptProductOrder.setChildState("12");
