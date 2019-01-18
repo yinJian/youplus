@@ -31,6 +31,11 @@ public class PtDictManager {
 
     public void delete(PtDict ptDict) {
         ptDictRepository.delete(ptDict);
+        //删1级科室
+        if (1 == ptDict.getGroupId()) {
+            //同时删2级科室
+            ptDictRepository.deleteByParentKey(ptDict.getdKey());
+        }
     }
 
     public PtDict find(Long id) {
