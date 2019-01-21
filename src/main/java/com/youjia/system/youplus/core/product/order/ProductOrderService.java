@@ -191,6 +191,9 @@ public class ProductOrderService {
         return vo;
     }
 
+    /**
+     * 派单
+     */
     public PtProductOrder chooseGroundPerson(Long id, Long personId, String remark) {
         PtProductOrder ptProductOrder = ptProductOrderManager.find(id);
         ptProductOrder.setRemark(remark);

@@ -89,6 +89,7 @@ public class DoctorService {
         doctorListVO.setProvinceValue(areaManager.findName(ptDoctor.getProvince()));
         doctorListVO.setCityValue(areaManager.findName(ptDoctor.getCity()));
         doctorListVO.setCountryValue(areaManager.findName(ptDoctor.getCountry()));
+        doctorListVO.setLevel(dictCache.findByGroupIdAndKey(4, ptDoctor.getLevel()));
         return doctorListVO;
     }
 }
