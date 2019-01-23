@@ -156,11 +156,14 @@ public class ProductOrderService {
         productOrderVO.setOrderFlow(orderFlow);
 
         List<String> personNames = new ArrayList<>();
-        for (String personId : orderFlow.getPersonIds().split(",")) {
-            if (!StringUtils.isEmpty(personId)) {
-                personNames.add(groundPersonService.findName(Long.valueOf(personId)));
+        if (orderFlow.getPersonIds() != null) {
+            for (String personId : orderFlow.getPersonIds().split(",")) {
+                if (!StringUtils.isEmpty(personId)) {
+                    personNames.add(groundPersonService.findName(Long.valueOf(personId)));
+                }
             }
         }
+        
         productOrderVO.setPersonNames(personNames);
 
         return productOrderVO;
