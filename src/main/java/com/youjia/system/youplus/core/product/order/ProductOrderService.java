@@ -36,9 +36,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -152,6 +154,14 @@ public class ProductOrderService {
         PtOrderFlow orderFlow = ptOrderFlowManager.findByProductOrderId(id);
 
         productOrderVO.setOrderFlow(orderFlow);
+
+        List<String> personNames = new ArrayList<>();
+        for (String personId : orderFlow.getPersonIds().split(",")) {
+            if (!StringUtils.isEmpty(personId)) {
+                personNames.add(groundPersonService.findName(Long.valueOf(personId)));
+            }
+        }
+        productOrderVO.setPersonNames(personNames);
 
         return productOrderVO;
     }

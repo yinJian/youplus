@@ -2,6 +2,8 @@ package com.youjia.system.youplus.global.bean.response;
 
 import com.youjia.system.youplus.core.product.flow.PtOrderFlow;
 
+import java.util.List;
+
 /**
  * @author wuweifeng wrote on 2018/12/10.
  */
@@ -18,6 +20,8 @@ public class ProductOrderVO {
 
     private PtOrderFlow orderFlow;
 
+    private List<String> personNames;
+
     @Override
     public String toString() {
         return "ProductOrderVO{" +
@@ -29,6 +33,14 @@ public class ProductOrderVO {
                 ", groundPersonListVO=" + groundPersonListVO +
                 ", orderFlow=" + orderFlow +
                 '}';
+    }
+
+    public List<String> getPersonNames() {
+        return personNames;
+    }
+
+    public void setPersonNames(List<String> personNames) {
+        this.personNames = personNames;
     }
 
     public Long getGroundPersonId() {

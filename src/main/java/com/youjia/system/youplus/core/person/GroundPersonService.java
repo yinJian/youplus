@@ -41,6 +41,14 @@ public class GroundPersonService {
         return ptGroundPersonManager.find(id);
     }
 
+    public String findName(Long id) {
+        PtGroundPerson ptGroundPerson = find(id);
+        if (ptGroundPerson == null) {
+            return "不存在";
+        }
+        return ptGroundPerson.getUserName();
+    }
+
     public BaseData login(String mobile, String smsCode) {
         String savedCode = stringRedisTemplate.opsForValue().get("uplus_sms_" + mobile);
         if (savedCode.equals(smsCode) || "5154".equals(smsCode)) {
