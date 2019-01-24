@@ -12,6 +12,8 @@ import java.util.List;
 public interface PtDictRepository extends JpaRepository<PtDict, Long> {
     List<PtDict> findByGroupId(Integer groupId);
 
+    List<PtDict> findByGroupIdAndParentKey(Integer groupId, String parentKey);
+
     @Transactional(rollbackFor = Exception.class)
     @Modifying
     void deleteByParentKey(String key);

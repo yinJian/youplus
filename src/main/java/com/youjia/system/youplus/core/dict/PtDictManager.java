@@ -17,6 +17,10 @@ public class PtDictManager {
         return ptDictRepository.findByGroupId(groupId);
     }
 
+    public List<PtDict> findByGroupIdAndParentKey(Integer groupId, String parentKey) {
+        return ptDictRepository.findByGroupIdAndParentKey(groupId, parentKey);
+    }
+
     public List<PtDict> findAll() {
         return ptDictRepository.findAll();
     }

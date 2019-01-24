@@ -16,12 +16,16 @@ public class DictController {
     private PtDictManager ptDictManager;
 
     @GetMapping("")
-    public BaseData query(Integer groupId) {
+    public BaseData query(Integer groupId, String parentKey) {
         if (groupId == null) {
             return ResultGenerator.genSuccessResult(ptDictManager.findAll());
         }
+        if (parentKey != null) {
+            return ResultGenerator.genSuccessResult(ptDictManager.findByGroupIdAndParentKey(groupId, parentKey));
+        }
         return ResultGenerator.genSuccessResult(ptDictManager.findByGroupId(groupId));
     }
+
 
     @PostMapping("")
     public BaseData add(PtDict ptDict) {
