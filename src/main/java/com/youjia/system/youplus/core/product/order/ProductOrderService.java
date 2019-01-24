@@ -152,19 +152,20 @@ public class ProductOrderService {
 
         //订单的详细流程
         PtOrderFlow orderFlow = ptOrderFlowManager.findByProductOrderId(id);
+        if (orderFlow != null) {
+            productOrderVO.setOrderFlow(orderFlow);
 
-        productOrderVO.setOrderFlow(orderFlow);
-
-        List<String> personNames = new ArrayList<>();
-        if (orderFlow.getPersonIds() != null) {
-            for (String personId : orderFlow.getPersonIds().split(",")) {
-                if (!StringUtils.isEmpty(personId)) {
-                    personNames.add(groundPersonService.findName(Long.valueOf(personId)));
+            List<String> personNames = new ArrayList<>();
+            if (orderFlow.getPersonIds() != null) {
+                for (String personId : orderFlow.getPersonIds().split(",")) {
+                    if (!StringUtils.isEmpty(personId)) {
+                        personNames.add(groundPersonService.findName(Long.valueOf(personId)));
+                    }
                 }
             }
+
+            productOrderVO.setPersonNames(personNames);
         }
-        
-        productOrderVO.setPersonNames(personNames);
 
         return productOrderVO;
     }
