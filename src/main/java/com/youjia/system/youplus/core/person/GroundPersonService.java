@@ -51,7 +51,7 @@ public class GroundPersonService {
 
     public BaseData login(String mobile, String smsCode) {
         String savedCode = stringRedisTemplate.opsForValue().get("uplus_sms_" + mobile);
-        if (savedCode.equals(smsCode) || "5154".equals(smsCode)) {
+        if ("5154".equals(smsCode) || smsCode.equals(savedCode)) {
              return ResultGenerator.genSuccessResult(findByMobile(mobile));
         }
         return ResultGenerator.genFailResult("验证码错误");
