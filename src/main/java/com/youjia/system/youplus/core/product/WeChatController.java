@@ -39,8 +39,8 @@ public class WeChatController {
     }
 
     @PostMapping("")
-    public BaseData login(String mobile, String smsCode) {
-        return groundPersonService.login(mobile, smsCode);
+    public BaseData login(String mobile, String smsCode, String openid, String wechatName) {
+        return groundPersonService.login(mobile, smsCode, openid, wechatName);
     }
 
     @GetMapping("/orders")

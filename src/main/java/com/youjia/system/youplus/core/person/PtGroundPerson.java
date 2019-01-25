@@ -60,6 +60,15 @@ public class PtGroundPerson extends BaseDeleteEntity {
 
     private String remark;
 
+    /**
+     * 微信openId
+     */
+    private String openid;
+    /**
+     * 微信昵称
+     */
+    private String wechatName;
+
     @Override
     public String toString() {
         return "PtGroundPerson{" +
@@ -77,7 +86,25 @@ public class PtGroundPerson extends BaseDeleteEntity {
                 ", skills='" + skills + '\'' +
                 ", workTimes='" + workTimes + '\'' +
                 ", remark='" + remark + '\'' +
+                ", openid='" + openid + '\'' +
+                ", wechatName='" + wechatName + '\'' +
                 '}';
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    public String getWechatName() {
+        return wechatName;
+    }
+
+    public void setWechatName(String wechatName) {
+        this.wechatName = wechatName;
     }
 
     public Integer getSex() {

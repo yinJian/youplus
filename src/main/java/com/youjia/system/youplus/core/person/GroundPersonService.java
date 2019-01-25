@@ -49,10 +49,15 @@ public class GroundPersonService {
         return ptGroundPerson.getUserName();
     }
 
-    public BaseData login(String mobile, String smsCode) {
+    public BaseData login(String mobile, String smsCode, String openid, String wechatName) {
         String savedCode = stringRedisTemplate.opsForValue().get("uplus_sms_" + mobile);
         if ("5154".equals(smsCode) || smsCode.equals(savedCode)) {
-             return ResultGenerator.genSuccessResult(findByMobile(mobile));
+            PtGroundPerson ptGroundPerson = findByMobile(mobile);
+            ptGroundPerson.setWechatName(wechatName);
+            ptGroundPerson.setOpenid(openid);
+            ptGroundPersonManager.update(ptGroundPerson);
+
+            return ResultGenerator.genSuccessResult(ptGroundPerson);
         }
         return ResultGenerator.genFailResult("验证码错误");
     }
