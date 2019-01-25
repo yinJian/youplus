@@ -342,6 +342,7 @@ public class ProductOrderService {
         ptProductOrder.setReason(reason);
         //已完成
         ptProductOrder.setState("8");
+        ptProductOrder.setChildState("19");
         ptProductOrderManager.update(ptProductOrder);
     }
 
