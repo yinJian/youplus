@@ -268,7 +268,7 @@ public class ProductOrderService {
         }
 
         Pageable pageable = PageRequest.of(productOrderListQueryModel.getPage(), productOrderListQueryModel.getSize(),
-                Sort.Direction.DESC, "id");
+                Sort.Direction.DESC, "updateTime");
         Page<PtProductOrder> page = ptProductOrderManager.findAll(criteria, pageable);
 
         return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent().stream().map
