@@ -29,7 +29,11 @@ public class PtChangeManager {
     }
 
     public Date findTime(Long id) {
-        return ptChangeRepository.findFirstByNewPersonIdOrderByIdDesc(id).getCreateTime();
+        PtChange ptChange = ptChangeRepository.findFirstByNewPersonIdOrderByIdDesc(id);
+        if (ptChange == null) {
+            return null;
+        }
+        return ptChange.getCreateTime();
     }
 
     public PtChange add(PtChange ptChange) {
