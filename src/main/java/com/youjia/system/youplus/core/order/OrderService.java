@@ -145,8 +145,20 @@ public class OrderService {
         model.setMobile(array[4]);
         model.setEmail(array[5]);
         model.setCardNum(array[6]);
-        model.setBeginTime(array[7]);
-        model.setEndTime(array[8]);
+
+        String begin = array[7];
+        if (begin.contains("/")) {
+            model.setBeginTime(array[7].replace("/", "-"));
+        } else {
+            model.setBeginTime(array[7]);
+        }
+        String end = array[8];
+        if (end.contains("/")) {
+            model.setEndTime(array[8].replace("/", "-"));
+        } else {
+            model.setEndTime(array[8]);
+        }
+       
         model.setRemark(array[9]);
         model.setState(Integer.valueOf(array[10]));
 

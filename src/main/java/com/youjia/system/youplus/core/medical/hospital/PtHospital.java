@@ -36,6 +36,32 @@ public class PtHospital extends BaseDeleteEntity {
      */
     private Boolean shebao;
 
+    //***************1.1新增*************//
+    /**
+     * 直付
+     */
+    private Boolean zhifu;
+    /**
+     * 免押
+     */
+    private Boolean mianya;
+    /**
+     * 对公转账
+     */
+    private Boolean publicTrans;
+    /**
+     * 结算周期。1月结，2七天结，3出院结
+     */
+    private Integer zhouqi;
+    /**
+     * 银行
+     */
+    private String bank;
+    /**
+     * 银行卡号
+     */
+    private String bankCardNum;
+
     @Override
     public String toString() {
         return "PtHospital{" +
@@ -51,7 +77,61 @@ public class PtHospital extends BaseDeleteEntity {
                 ", info='" + info + '\'' +
                 ", remark='" + remark + '\'' +
                 ", shebao=" + shebao +
+                ", zhifu=" + zhifu +
+                ", mianya=" + mianya +
+                ", publicTrans=" + publicTrans +
+                ", zhouqi=" + zhouqi +
+                ", bank='" + bank + '\'' +
+                ", bankCardNum='" + bankCardNum + '\'' +
                 '}';
+    }
+
+    public Boolean getZhifu() {
+        return zhifu;
+    }
+
+    public void setZhifu(Boolean zhifu) {
+        this.zhifu = zhifu;
+    }
+
+    public Boolean getMianya() {
+        return mianya;
+    }
+
+    public void setMianya(Boolean mianya) {
+        this.mianya = mianya;
+    }
+
+    public Boolean getPublicTrans() {
+        return publicTrans;
+    }
+
+    public void setPublicTrans(Boolean publicTrans) {
+        this.publicTrans = publicTrans;
+    }
+
+    public Integer getZhouqi() {
+        return zhouqi;
+    }
+
+    public void setZhouqi(Integer zhouqi) {
+        this.zhouqi = zhouqi;
+    }
+
+    public String getBank() {
+        return bank;
+    }
+
+    public void setBank(String bank) {
+        this.bank = bank;
+    }
+
+    public String getBankCardNum() {
+        return bankCardNum;
+    }
+
+    public void setBankCardNum(String bankCardNum) {
+        this.bankCardNum = bankCardNum;
     }
 
     public String getName() {
