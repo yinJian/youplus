@@ -9,6 +9,10 @@ public class GroundPersonListQueryModel extends BaseModel {
     private String province;
     private String city;
     private String country;
+    /**
+     * 审核状态（-1待审核，0正常，-2被拒绝）
+     */
+    private Integer state;
 
     @Override
     public String toString() {
@@ -18,7 +22,16 @@ public class GroundPersonListQueryModel extends BaseModel {
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
+                ", state=" + state +
                 '}';
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public String getUserName() {

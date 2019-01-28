@@ -1,5 +1,7 @@
 package com.youjia.system.youplus.global.bean.response;
 
+import java.util.Date;
+
 /**
  * @author wuweifeng wrote on 2018/11/26.
  */
@@ -21,6 +23,22 @@ public class GroundPersonListVO {
     private String countryValue;
     private String remark;
     private String workTimes;
+    /**
+     * 微信昵称
+     */
+    private String wechatName;
+    /**
+     * 微信id
+     */
+    private String openId;
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+    /**
+     * 审核状态（-1待审核，0正常，-2被拒绝）
+     */
+    private Integer state;
 
     @Override
     public String toString() {
@@ -36,7 +54,43 @@ public class GroundPersonListVO {
                 ", countryValue='" + countryValue + '\'' +
                 ", remark='" + remark + '\'' +
                 ", workTimes='" + workTimes + '\'' +
+                ", wechatName='" + wechatName + '\'' +
+                ", openId='" + openId + '\'' +
+                ", createTime=" + createTime +
+                ", state=" + state +
                 '}';
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public String getWechatName() {
+        return wechatName;
+    }
+
+    public void setWechatName(String wechatName) {
+        this.wechatName = wechatName;
     }
 
     public String getWorkTimes() {

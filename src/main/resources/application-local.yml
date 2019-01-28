@@ -1,0 +1,6 @@
+#######e签宝
+sign:
+  url: https://smlo.tsign.cn/opentreaty-service
+  appId: 4438758707
+  appSecret: 3af57b9b79b617d6058839029184a981
+  

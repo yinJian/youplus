@@ -77,6 +77,7 @@ public class GroundPersonService {
         criteria.add(Restrictions.eq("province", groundPersonListQueryModel.getProvince(), true));
         criteria.add(Restrictions.eq("city", groundPersonListQueryModel.getCity(), true));
         criteria.add(Restrictions.eq("country", groundPersonListQueryModel.getCountry(), true));
+        criteria.add(Restrictions.eq("state", groundPersonListQueryModel.getState(), true));
         criteria.add(Restrictions.eq("deleteFlag", false, true));
 
         Pageable pageable = PageRequest.of(groundPersonListQueryModel.getPage(),

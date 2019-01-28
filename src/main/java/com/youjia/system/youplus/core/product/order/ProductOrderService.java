@@ -17,12 +17,17 @@ import com.youjia.system.youplus.core.product.change.PtChange;
 import com.youjia.system.youplus.core.product.change.PtChangeManager;
 import com.youjia.system.youplus.core.product.flow.PtOrderFlow;
 import com.youjia.system.youplus.core.product.flow.PtOrderFlowManager;
+import com.youjia.system.youplus.core.product.receive.PtOrderReceive;
+import com.youjia.system.youplus.core.product.receive.PtOrderReceiveManager;
 import com.youjia.system.youplus.core.product.template.prepay.PtPrePayTemplate;
 import com.youjia.system.youplus.core.product.template.prepay.PtPrePayTemplateManager;
+import com.youjia.system.youplus.core.wechat.OrderReceiveEvent;
+import com.youjia.system.youplus.core.wechat.event.OrderReceiveBean;
 import com.youjia.system.youplus.global.UserKit;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.SimplePage;
+import com.youjia.system.youplus.global.bean.request.GroundPersonListQueryModel;
 import com.youjia.system.youplus.global.bean.request.OrderListQueryModel;
 import com.youjia.system.youplus.global.bean.request.ProductOrderAddModel;
 import com.youjia.system.youplus.global.bean.request.ProductOrderListQueryModel;
@@ -30,6 +35,7 @@ import com.youjia.system.youplus.global.bean.response.*;
 import com.youjia.system.youplus.global.cache.DictCache;
 import com.youjia.system.youplus.global.specify.Criteria;
 import com.youjia.system.youplus.global.specify.Restrictions;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -82,6 +88,10 @@ public class ProductOrderService {
     private UserKit userKit;
     @Resource
     private PtChangeManager ptChangeManager;
+    @Resource
+    private PtOrderReceiveManager ptOrderReceiveManager;
+    @Resource
+    private ApplicationEventPublisher applicationEventPublisher;
 
 
     public BaseData add(ProductOrderAddModel productOrderAddModel) {
@@ -203,6 +213,71 @@ public class ProductOrderService {
         vo.setDept2Value(dictCache.findByGroupIdAndKey(2, template.getDept2()));
         vo.setSheBaoStateValue(dictCache.findByGroupIdAndKey(13, template.getSheBaoState()));
         return vo;
+    }
+
+    /**
+     * 地勤抢单
+     */
+    public BaseData receiveOrder(Long id) {
+        PtProductOrder ptProductOrder = ptProductOrderManager.find(id);
+        //已被他人抢单
+        if (ptProductOrder.getGroundPersonId() != null) {
+            return ResultGenerator.genFailResult("已被别人抢单");
+        }
+        Long personId = userKit.getGroundPersonId();
+        ptProductOrder.setGroundPersonId(personId);
+        ptProductOrder.setState("2");
+        //设置转单记录
+        PtChange ptChange = new PtChange();
+        ptChange.setOrderId(id);
+        ptChange.setNewPersonId(personId);
+        ptChangeManager.add(ptChange);
+        //添加flow
+        PtOrderFlow ptOrderFlow = new PtOrderFlow();
+        ptOrderFlow.setGroundPersonId(personId);
+        ptOrderFlow.setProductOrderId(id);
+        ptOrderFlow.setPersonIds(personId + "");
+        ptOrderFlow.setGroundPersonIdTime(System.currentTimeMillis());
+        ptOrderFlowManager.add(ptOrderFlow);
+
+        return ResultGenerator.genSuccessResult(ptProductOrderManager.update(ptProductOrder));
+    }
+
+    /**
+     * 后台发起抢单
+     */
+    public BaseData beginReceiveOrder(Long id, String province, String city, String country) {
+        PtOrderReceive ptOrderReceive = new PtOrderReceive();
+        ptOrderReceive.setProductOrderId(id);
+        ptOrderReceive.setProvince(province);
+        ptOrderReceive.setCity(city);
+        ptOrderReceive.setCountry(country);
+
+        //查询所有该地区的地勤
+        GroundPersonListQueryModel groundPersonListQueryModel = new GroundPersonListQueryModel();
+        groundPersonListQueryModel.setProvince(province);
+        groundPersonListQueryModel.setCity(city);
+        groundPersonListQueryModel.setCountry(country);
+        groundPersonListQueryModel.setState(0);
+        groundPersonListQueryModel.setSize(10000);
+        SimplePage<GroundPersonListVO> simplePage = groundPersonService.find(groundPersonListQueryModel);
+        List<GroundPersonListVO> list = (List<GroundPersonListVO>) simplePage.getList();
+
+        int count = 0;
+        String personIds = "";
+        for (GroundPersonListVO vo : list) {
+            if (!StringUtils.isEmpty(vo.getOpenId())) {
+                //通知
+                applicationEventPublisher.publishEvent(new OrderReceiveEvent(new OrderReceiveBean()));
+                count++;
+                personIds += vo.getId() + ",";
+            }
+        }
+
+        ptOrderReceive.setPersonIds(personIds);
+        ptOrderReceiveManager.add(ptOrderReceive);
+
+        return ResultGenerator.genSuccessResult(count);
     }
 
     /**

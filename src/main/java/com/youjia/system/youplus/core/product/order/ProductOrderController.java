@@ -33,6 +33,22 @@ public class ProductOrderController {
     }
 
     /**
+     * 地勤开始抢单
+     */
+    @PostMapping("/{id}/hasReceive")
+    public BaseData qiangdan(@PathVariable Long id) {
+        return productOrderService.receiveOrder(id);
+    }
+
+    /**
+     * 后台发起抢单
+     */
+    @PostMapping("/{id}/beginReceive")
+    public BaseData beginqiangdan(@PathVariable Long id, String province, String city, String country) {
+        return productOrderService.beginReceiveOrder(id, province, city, country);
+    }
+
+    /**
      * 选地勤人员
      */
     @PostMapping("/{id}/groundPerson")

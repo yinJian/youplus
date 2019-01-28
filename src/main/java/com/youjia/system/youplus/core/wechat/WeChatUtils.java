@@ -1,7 +1,9 @@
 package com.youjia.system.youplus.core.wechat;
 
-import com.youjia.system.youplus.core.wechat.bean.ChangeStateBean;
-import com.youjia.system.youplus.core.wechat.bean.NewOrderBean;
+import com.youjia.system.youplus.core.wechat.event.ChangeStateBean;
+import com.youjia.system.youplus.core.wechat.event.NewOrderBean;
+import com.youjia.system.youplus.core.wechat.event.OrderReceiveBean;
+import com.youjia.system.youplus.global.http.HttpUtil;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -40,6 +42,18 @@ public class WeChatUtils {
         map.put("openId", changeStateBean.getOpenId());
         map.put("statesMsg", changeStateBean.getStatesMsg());
         map.put("orderStatus", changeStateBean.getOrderStatus());
+        httpUtil.build(TemplateUrl.CHANGE_STATE, map);
+    }
+
+    /**
+     * 开始抢单
+     */
+    @Async
+    @EventListener(ChangeStateEvent.class)
+    public void beginQiangDan(OrderReceiveEvent orderReceiveEvent) {
+        OrderReceiveBean changeStateBean = (OrderReceiveBean) orderReceiveEvent.getSource();
+        Map<String, Object> map = new HashMap<>();
+        map.put("openId", changeStateBean.getOpenId());
         httpUtil.build(TemplateUrl.CHANGE_STATE, map);
     }
 }

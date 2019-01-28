@@ -1,7 +1,6 @@
 package com.youjia.system.youplus.core.wechat;
 
-import com.youjia.system.youplus.core.wechat.bean.ChangeStateBean;
-import com.youjia.system.youplus.core.wechat.bean.NewOrderBean;
+import com.youjia.system.youplus.core.wechat.event.ChangeStateBean;
 import org.springframework.context.ApplicationEvent;
 
 /**
