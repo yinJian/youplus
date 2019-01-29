@@ -50,9 +50,12 @@ public class GroundPersonService {
     }
 
     public BaseData login(String mobile, String smsCode, String openid, String wechatName) {
+        PtGroundPerson ptGroundPerson = findByMobile(mobile);
+        if (ptGroundPerson == null) {
+            return ResultGenerator.genFailResult("用户不存在");
+        }
         String savedCode = stringRedisTemplate.opsForValue().get("uplus_sms_" + mobile);
         if ("5154".equals(smsCode) || smsCode.equals(savedCode)) {
-            PtGroundPerson ptGroundPerson = findByMobile(mobile);
             ptGroundPerson.setWechatName(wechatName);
             ptGroundPerson.setOpenid(openid);
             ptGroundPersonManager.update(ptGroundPerson);
