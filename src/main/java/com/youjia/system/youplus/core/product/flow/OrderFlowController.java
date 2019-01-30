@@ -3,6 +3,7 @@ package com.youjia.system.youplus.core.product.flow;
 import com.youjia.system.youplus.core.product.OrderFlowService;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,5 +23,15 @@ public class OrderFlowController {
     @PutMapping("")
     public BaseData modify(PtOrderFlow ptOrderFlow) {
         return ResultGenerator.genSuccessResult(orderFlowService.addOrUpdate(ptOrderFlow));
+    }
+
+    /**
+     * 给微信通知用
+     * 押金垫付1，2；住院押金3，4；出院结算明细5，6
+     */
+    @PostMapping("/stateChange")
+    public BaseData notify(Long productOrderId, Integer state) {
+        orderFlowService.stateChange(productOrderId, state);
+        return ResultGenerator.genSuccessResult("已推送消息");
     }
 }

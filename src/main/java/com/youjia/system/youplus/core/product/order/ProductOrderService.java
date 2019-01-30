@@ -10,7 +10,9 @@ import com.youjia.system.youplus.core.dict.area.AreaManager;
 import com.youjia.system.youplus.core.medical.hospital.PtHospitalManager;
 import com.youjia.system.youplus.core.order.OrderService;
 import com.youjia.system.youplus.core.order.PtOrder;
+import com.youjia.system.youplus.core.order.PtOrderManager;
 import com.youjia.system.youplus.core.person.GroundPersonService;
+import com.youjia.system.youplus.core.person.PtGroundPerson;
 import com.youjia.system.youplus.core.person.PtGroundPersonManager;
 import com.youjia.system.youplus.core.product.PtProductManager;
 import com.youjia.system.youplus.core.product.change.PtChange;
@@ -21,7 +23,9 @@ import com.youjia.system.youplus.core.product.receive.PtOrderReceive;
 import com.youjia.system.youplus.core.product.receive.PtOrderReceiveManager;
 import com.youjia.system.youplus.core.product.template.prepay.PtPrePayTemplate;
 import com.youjia.system.youplus.core.product.template.prepay.PtPrePayTemplateManager;
+import com.youjia.system.youplus.core.wechat.NewOrderEvent;
 import com.youjia.system.youplus.core.wechat.OrderReceiveEvent;
+import com.youjia.system.youplus.core.wechat.event.NewOrderBean;
 import com.youjia.system.youplus.core.wechat.event.OrderReceiveBean;
 import com.youjia.system.youplus.global.UserKit;
 import com.youjia.system.youplus.global.bean.BaseData;
@@ -90,6 +94,8 @@ public class ProductOrderService {
     private PtChangeManager ptChangeManager;
     @Resource
     private PtOrderReceiveManager ptOrderReceiveManager;
+    @Resource
+    private PtOrderManager ptOrderManager;
     @Resource
     private ApplicationEventPublisher applicationEventPublisher;
 
@@ -294,6 +300,12 @@ public class ProductOrderService {
         ptChange.setNewPersonId(personId);
         ptChangeManager.add(ptChange);
 
+        PtGroundPerson ptGroundPerson = ptGroundPersonManager.find(personId);
+        Long orderId = ptProductOrder.getOrderId();
+        PtOrder ptOrder = ptOrderManager.findOne(orderId);
+
+        applicationEventPublisher.publishEvent(new NewOrderEvent(new NewOrderBean(id + "", ptGroundPerson.getOpenid(),
+                ptOrder.getUserName(), "押金垫付", ptOrder.getMobile())));
         return ptProductOrderManager.update(ptProductOrder);
     }
 
@@ -315,6 +327,11 @@ public class ProductOrderService {
         ptProductOrder.setChildState("2");
         ptProductOrder.setChangePerson(true);
 
+        PtGroundPerson ptGroundPerson = ptGroundPersonManager.find(personId);
+        Long orderId = ptProductOrder.getOrderId();
+        PtOrder ptOrder = ptOrderManager.findOne(orderId);
+        applicationEventPublisher.publishEvent(new NewOrderEvent(new NewOrderBean(id + "", ptGroundPerson.getOpenid(),
+                ptOrder.getUserName(), "押金垫付", ptOrder.getMobile())));
         return ptProductOrderManager.update(ptProductOrder);
     }
 

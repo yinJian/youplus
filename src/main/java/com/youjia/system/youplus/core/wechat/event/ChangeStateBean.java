@@ -6,7 +6,9 @@ package com.youjia.system.youplus.core.wechat.event;
  */
 public class ChangeStateBean {
     private String openId;
+    //审核通过，审核失败
     private String statesMsg;
+    // 提交押金垫付文件审核1，2；上传住院押金条审核3，4；出院结算明细审核5，6
     private String orderStatus;
 
     public ChangeStateBean() {
