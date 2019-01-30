@@ -1,6 +1,8 @@
 package com.youjia.system.youplus;
 
+import com.youjia.system.youplus.core.wechat.NewOrderEvent;
 import com.youjia.system.youplus.core.wechat.WeChatUtils;
+import com.youjia.system.youplus.core.wechat.event.NewOrderBean;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,10 +21,10 @@ public class YouplusApplicationTests {
 
     @Test
     public void contextLoads() {
-        //NewOrderEvent newOrderEvent = new NewOrderEvent
-        //        (new NewOrderBean("1","o8djk1dseG1jJPZ3dQC74yDK4hpE", "a","a",
-        //        "1867"));
-        //publisher.publishEvent(newOrderEvent);
+        NewOrderEvent newOrderEvent = new NewOrderEvent
+                (new NewOrderBean("1","o8djk1VhtIEHILmttzYUR0djDMms", "a","a",
+                "1867"));
+        publisher.publishEvent(newOrderEvent);
         
     }
 
