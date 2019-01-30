@@ -27,7 +27,7 @@ public class HttpUtil {
     @Resource
     private RestTemplate restTemplate;
 
-    public String buildSign(String url, Map<String, Object> map) {
+    public String build(String url, Map<String, Object> map) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Content-Type", "application/json; charset=UTF-8");
         logger.info(FastJsonUtils.convertObjectToJSON(map));
@@ -39,7 +39,7 @@ public class HttpUtil {
         return sttr;
     }
 
-    public String build(String url, Map<String, Object> map) {
+    public String buildSign(String url, Map<String, Object> map) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Content-Type", "application/json; charset=UTF-8");
         httpHeaders.add("X-Tsign-Open-App-Id", appId);
