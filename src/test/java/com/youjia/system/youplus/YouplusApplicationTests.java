@@ -20,7 +20,7 @@ public class YouplusApplicationTests {
     @Test
     public void contextLoads() {
         //NewOrderEvent newOrderEvent = new NewOrderEvent
-        //        (new NewOrderBean("1","o8djk1chahuCuhMQ-6B6zBIlfDl0", "a","a",
+        //        (new NewOrderBean("1","o8djk1dseG1jJPZ3dQC74yDK4hpE", "a","a",
         //        "1867"));
         //publisher.publishEvent(newOrderEvent);
         
