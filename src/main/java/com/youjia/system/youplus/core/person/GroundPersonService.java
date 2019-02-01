@@ -2,10 +2,13 @@ package com.youjia.system.youplus.core.person;
 
 import com.xiaoleilu.hutool.util.BeanUtil;
 import com.youjia.system.youplus.core.dict.area.AreaManager;
+import com.youjia.system.youplus.core.person.sign.PtSign;
+import com.youjia.system.youplus.core.person.sign.PtSignManager;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.SimplePage;
 import com.youjia.system.youplus.global.bean.request.GroundPersonListQueryModel;
+import com.youjia.system.youplus.global.bean.response.GroundPersonDetailVO;
 import com.youjia.system.youplus.global.bean.response.GroundPersonListVO;
 import com.youjia.system.youplus.global.specify.Criteria;
 import com.youjia.system.youplus.global.specify.Restrictions;
@@ -27,6 +30,8 @@ public class GroundPersonService {
     private AreaManager areaManager;
     @Resource
     private StringRedisTemplate stringRedisTemplate;
+    @Resource
+    private PtSignManager ptSignManager;
 
     public PtGroundPerson add(PtGroundPerson ptGroundPerson) {
         return ptGroundPersonManager.add(ptGroundPerson);
@@ -37,8 +42,13 @@ public class GroundPersonService {
     }
 
 
-    public PtGroundPerson find(Long id) {
-        return ptGroundPersonManager.find(id);
+    public GroundPersonDetailVO findDetail(Long id) {
+        PtGroundPerson ptGroundPerson = ptGroundPersonManager.find(id);
+        GroundPersonDetailVO vo = new GroundPersonDetailVO();
+        BeanUtil.copyProperties(ptGroundPerson, vo);
+        PtSign ptSign = ptSignManager.findByGroundPersonId(id);
+        vo.setSign(ptSign != null);
+        return vo;
     }
 
     public String findName(Long id) {
@@ -47,6 +57,10 @@ public class GroundPersonService {
             return "不存在";
         }
         return ptGroundPerson.getUserName();
+    }
+
+    private PtGroundPerson find(Long id) {
+        return ptGroundPersonManager.find(id);
     }
 
     public BaseData login(String mobile, String smsCode, String openid, String wechatName) {
@@ -60,7 +74,7 @@ public class GroundPersonService {
             ptGroundPerson.setOpenid(openid);
             ptGroundPersonManager.update(ptGroundPerson);
 
-            return ResultGenerator.genSuccessResult(ptGroundPerson);
+            return ResultGenerator.genSuccessResult(findDetail(ptGroundPerson.getId()));
         }
         return ResultGenerator.genFailResult("验证码错误");
     }

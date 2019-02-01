@@ -24,7 +24,7 @@ public class GroundPersonController {
 
     @GetMapping("/{id}")
     public BaseData one(@PathVariable Long id) {
-        return ResultGenerator.genSuccessResult(groundPersonService.find(id));
+        return ResultGenerator.genSuccessResult(groundPersonService.findDetail(id));
     }
 
     @PostMapping("")
