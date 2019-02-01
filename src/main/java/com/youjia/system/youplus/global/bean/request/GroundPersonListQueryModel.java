@@ -9,6 +9,7 @@ public class GroundPersonListQueryModel extends BaseModel {
     private String province;
     private String city;
     private String country;
+    private Boolean areaOwner;
     /**
      * 审核状态（-1待审核，0正常，-2被拒绝）
      */
@@ -22,8 +23,17 @@ public class GroundPersonListQueryModel extends BaseModel {
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
+                ", areaOwner=" + areaOwner +
                 ", state=" + state +
                 '}';
+    }
+
+    public Boolean getAreaOwner() {
+        return areaOwner;
+    }
+
+    public void setAreaOwner(Boolean areaOwner) {
+        this.areaOwner = areaOwner;
     }
 
     public Integer getState() {

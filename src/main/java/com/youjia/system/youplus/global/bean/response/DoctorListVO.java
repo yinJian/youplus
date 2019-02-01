@@ -58,6 +58,31 @@ public class DoctorListVO {
      */
     private String skill;
     private String remark;
+    //////////////////////////////////////////
+    /**
+     * 是否优加医生
+     */
+    private Boolean youplusDoctor;
+    /**
+     * 身份证号
+     */
+    private String paper;
+    /**
+     * 身份证照片
+     */
+    private String paperPics;
+    /**
+     * 执业医师证
+     */
+    private String doctorPic;
+    /**
+     * 银行
+     */
+    private String bank;
+    /**
+     * 银行卡号
+     */
+    private String bankCardNum;
 
     @Override
     public String toString() {
@@ -83,7 +108,61 @@ public class DoctorListVO {
                 ", info='" + info + '\'' +
                 ", skill='" + skill + '\'' +
                 ", remark='" + remark + '\'' +
+                ", youplusDoctor=" + youplusDoctor +
+                ", paper='" + paper + '\'' +
+                ", paperPics='" + paperPics + '\'' +
+                ", doctorPic='" + doctorPic + '\'' +
+                ", bank='" + bank + '\'' +
+                ", bankCardNum='" + bankCardNum + '\'' +
                 '}';
+    }
+
+    public Boolean getYouplusDoctor() {
+        return youplusDoctor;
+    }
+
+    public void setYouplusDoctor(Boolean youplusDoctor) {
+        this.youplusDoctor = youplusDoctor;
+    }
+
+    public String getPaper() {
+        return paper;
+    }
+
+    public void setPaper(String paper) {
+        this.paper = paper;
+    }
+
+    public String getPaperPics() {
+        return paperPics;
+    }
+
+    public void setPaperPics(String paperPics) {
+        this.paperPics = paperPics;
+    }
+
+    public String getDoctorPic() {
+        return doctorPic;
+    }
+
+    public void setDoctorPic(String doctorPic) {
+        this.doctorPic = doctorPic;
+    }
+
+    public String getBank() {
+        return bank;
+    }
+
+    public void setBank(String bank) {
+        this.bank = bank;
+    }
+
+    public String getBankCardNum() {
+        return bankCardNum;
+    }
+
+    public void setBankCardNum(String bankCardNum) {
+        this.bankCardNum = bankCardNum;
     }
 
     public String getDept1Value() {

@@ -40,6 +40,8 @@ public class GroundPersonListVO {
      */
     private Integer state;
 
+
+
     @Override
     public String toString() {
         return "GroundPersonListVO{" +

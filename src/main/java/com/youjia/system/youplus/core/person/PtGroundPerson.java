@@ -89,6 +89,10 @@ public class PtGroundPerson extends BaseDeleteEntity {
      */
     private String paperPics;
     /**
+     * 地区负责人id
+     */
+    private Long areaOwnerId;
+    /**
      * 护士证照
      */
     private String nursePics;
@@ -122,9 +126,18 @@ public class PtGroundPerson extends BaseDeleteEntity {
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", paperPics='" + paperPics + '\'' +
+                ", areaOwnerId=" + areaOwnerId +
                 ", nursePics='" + nursePics + '\'' +
                 ", state=" + state +
                 '}';
+    }
+
+    public Long getAreaOwnerId() {
+        return areaOwnerId;
+    }
+
+    public void setAreaOwnerId(Long areaOwnerId) {
+        this.areaOwnerId = areaOwnerId;
     }
 
     public Integer getState() {
