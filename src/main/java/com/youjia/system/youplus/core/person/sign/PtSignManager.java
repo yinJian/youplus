@@ -17,7 +17,7 @@ public class PtSignManager {
     }
 
     public PtSign findByGroundPersonId(Long personId) {
-        return ptSignRepository.findByGroundPersonId(personId);
+        return ptSignRepository.findFirstByGroundPersonId(personId);
     }
 
     public PtSign find(Long id) {

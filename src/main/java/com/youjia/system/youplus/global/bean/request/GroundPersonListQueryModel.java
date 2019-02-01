@@ -14,6 +14,10 @@ public class GroundPersonListQueryModel extends BaseModel {
      * 审核状态（-1待审核，0正常，-2被拒绝）
      */
     private Integer state;
+    /**
+     * 是否签约
+     */
+    private Boolean sign;
 
     @Override
     public String toString() {
@@ -25,7 +29,16 @@ public class GroundPersonListQueryModel extends BaseModel {
                 ", country='" + country + '\'' +
                 ", areaOwner=" + areaOwner +
                 ", state=" + state +
+                ", sign=" + sign +
                 '}';
+    }
+
+    public Boolean getSign() {
+        return sign;
+    }
+
+    public void setSign(Boolean sign) {
+        this.sign = sign;
     }
 
     public Boolean getAreaOwner() {

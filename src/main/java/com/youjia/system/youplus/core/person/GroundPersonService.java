@@ -20,6 +20,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -101,8 +103,18 @@ public class GroundPersonService {
         Pageable pageable = PageRequest.of(groundPersonListQueryModel.getPage(),
                 groundPersonListQueryModel.getSize(), Sort.Direction.DESC, "id");
         Page<PtGroundPerson> page = ptGroundPersonManager.findAll(criteria, pageable);
+        List<PtGroundPerson> list = new ArrayList<>();
+        //如果是查询已签约的
+        if (groundPersonListQueryModel.getSign() != null && groundPersonListQueryModel.getSign()) {
+            for (PtGroundPerson ptGroundPerson : page.getContent()) {
+                PtSign ptSign = ptSignManager.findByGroundPersonId(ptGroundPerson.getId());
+                if (ptSign != null) {
+                    list.add(ptGroundPerson);
+                }
+            }
+        }
 
-        return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), page.getContent().stream().map
+        return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), list.stream().map
                 (this::parse).collect(Collectors.toList()));
     }
 
@@ -112,6 +124,8 @@ public class GroundPersonService {
         vo.setProvinceValue(areaManager.findName(ptGroundPerson.getProvince()));
         vo.setCityValue(areaManager.findName(ptGroundPerson.getCity()));
         vo.setCountryValue(areaManager.findName(ptGroundPerson.getCountry()));
+        PtSign ptSign = ptSignManager.findByGroundPersonId(ptGroundPerson.getId());
+        vo.setSign(ptSign != null);
         return vo;
     }
 

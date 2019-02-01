@@ -14,6 +14,8 @@ import com.youjia.system.youplus.core.order.PtOrderManager;
 import com.youjia.system.youplus.core.person.GroundPersonService;
 import com.youjia.system.youplus.core.person.PtGroundPerson;
 import com.youjia.system.youplus.core.person.PtGroundPersonManager;
+import com.youjia.system.youplus.core.person.sign.PtSign;
+import com.youjia.system.youplus.core.person.sign.PtSignManager;
 import com.youjia.system.youplus.core.product.PtProductManager;
 import com.youjia.system.youplus.core.product.change.PtChange;
 import com.youjia.system.youplus.core.product.change.PtChangeManager;
@@ -96,6 +98,8 @@ public class ProductOrderService {
     private PtOrderReceiveManager ptOrderReceiveManager;
     @Resource
     private PtOrderManager ptOrderManager;
+    @Resource
+    private PtSignManager ptSignManager;
     @Resource
     private ApplicationEventPublisher applicationEventPublisher;
 
@@ -267,7 +271,14 @@ public class ProductOrderService {
         groundPersonListQueryModel.setState(0);
         groundPersonListQueryModel.setSize(10000);
         SimplePage<GroundPersonListVO> simplePage = groundPersonService.find(groundPersonListQueryModel);
-        List<GroundPersonListVO> list = (List<GroundPersonListVO>) simplePage.getList();
+        List<GroundPersonListVO> tempList = (List<GroundPersonListVO>) simplePage.getList();
+        List<GroundPersonListVO> list = new ArrayList<>();
+        for (GroundPersonListVO groundPersonListVO : tempList) {
+            PtSign ptSign = ptSignManager.findByGroundPersonId(groundPersonListVO.getId());
+            if (ptSign != null) {
+                list.add(groundPersonListVO);
+            }
+        }
 
         int count = 0;
         String personIds = "";

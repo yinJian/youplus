@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface PtSignRepository extends JpaRepository<PtSign, Long>,
         JpaSpecificationExecutor<PtSign> {
-    PtSign findByGroundPersonId(Long id);
+    PtSign findFirstByGroundPersonId(Long id);
 }
