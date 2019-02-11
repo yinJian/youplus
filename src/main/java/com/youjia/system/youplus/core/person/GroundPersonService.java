@@ -112,6 +112,8 @@ public class GroundPersonService {
                     list.add(ptGroundPerson);
                 }
             }
+        } else {
+            list.addAll(page.getContent());
         }
 
         return new SimplePage<>(page.getTotalPages(), page.getTotalElements(), list.stream().map
