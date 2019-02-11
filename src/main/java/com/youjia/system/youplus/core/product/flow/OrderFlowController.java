@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author wuweifeng wrote on 2018/12/19.
@@ -19,10 +20,15 @@ public class OrderFlowController {
     @Resource
     private OrderFlowService orderFlowService;
 
-
     @PutMapping("")
     public BaseData modify(PtOrderFlow ptOrderFlow) {
         return ResultGenerator.genSuccessResult(orderFlowService.addOrUpdate(ptOrderFlow));
+    }
+
+    @RequestMapping("/package")
+    public BaseData packageBag(HttpServletResponse response, String files, String fileName) throws Exception {
+        orderFlowService.packageBag(response, files, fileName);
+        return null;
     }
 
     /**
@@ -34,4 +40,6 @@ public class OrderFlowController {
         orderFlowService.stateChange(productOrderId, state);
         return ResultGenerator.genSuccessResult("已推送消息");
     }
+
+
 }
