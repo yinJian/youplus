@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author wuwf
+ */
 @Component
 public class GroundPersonService {
     @Resource
@@ -72,7 +75,7 @@ public class GroundPersonService {
         }
         String savedCode = stringRedisTemplate.opsForValue().get("uplus_sms_" + mobile);
         if ("5154".equals(smsCode) || smsCode.equals(savedCode)) {
-            ptGroundPerson.setWechatName(wechatName);
+            ptGroundPerson.setWechatName(wechatName.replaceAll("[\ue000-\uefff]", ""));
             ptGroundPerson.setOpenid(openid);
             ptGroundPersonManager.update(ptGroundPerson);
 
