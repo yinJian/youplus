@@ -12,6 +12,7 @@ import com.youjia.system.youplus.global.bean.response.GroundPersonDetailVO;
 import com.youjia.system.youplus.global.bean.response.GroundPersonListVO;
 import com.youjia.system.youplus.global.specify.Criteria;
 import com.youjia.system.youplus.global.specify.Restrictions;
+import com.youjia.system.youplus.global.util.CommonUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -75,7 +76,10 @@ public class GroundPersonService {
         }
         String savedCode = stringRedisTemplate.opsForValue().get("uplus_sms_" + mobile);
         if ("5154".equals(smsCode) || smsCode.equals(savedCode)) {
-            ptGroundPerson.setWechatName(wechatName.replaceAll("[\ue000-\uefff]", ""));
+            if (CommonUtil.containsEmoji(wechatName)) {
+                wechatName = CommonUtil.filterEmoji(wechatName);
+            }
+            ptGroundPerson.setWechatName(wechatName);
             ptGroundPerson.setOpenid(openid);
             ptGroundPersonManager.update(ptGroundPerson);
 
@@ -83,6 +87,8 @@ public class GroundPersonService {
         }
         return ResultGenerator.genFailResult("验证码错误");
     }
+
+
 
     public PtGroundPerson findByMobile(String mobile) {
         return ptGroundPersonManager.findByMobile(mobile);
