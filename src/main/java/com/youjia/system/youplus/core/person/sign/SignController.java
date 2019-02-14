@@ -15,10 +15,36 @@ import javax.annotation.Resource;
 public class SignController {
     @Resource
     private PtSignManager ptSignManager;
+    @Resource
+    private SignService signService;
 
     @GetMapping("")
     public BaseData list(Long groundPersonId) {
-        return ResultGenerator.genSuccessResult(ptSignManager.findByGroundPersonId(groundPersonId));
+        return ResultGenerator.genSuccessResult(ptSignManager.hasSign(groundPersonId));
+    }
+
+    /**
+     * 开始签约
+     */
+    @GetMapping("beginSign")
+    public BaseData beginSign(Long groundPersonId) {
+        return signService.findSignPath(groundPersonId);
+    }
+
+    /**
+     * 查询签约结果
+     */
+    @GetMapping("checkSign")
+    public BaseData checkSign(Long groundPersonId) {
+        return signService.checkSign(groundPersonId);
+    }
+
+    /**
+     * 合同下载地址
+     */
+    @GetMapping("downloadSign")
+    public BaseData down(Long groundPersonId) {
+        return signService.findDownLoadPath(groundPersonId);
     }
 
     @GetMapping("/{id}")

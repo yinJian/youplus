@@ -14,7 +14,6 @@ import com.youjia.system.youplus.core.order.PtOrderManager;
 import com.youjia.system.youplus.core.person.GroundPersonService;
 import com.youjia.system.youplus.core.person.PtGroundPerson;
 import com.youjia.system.youplus.core.person.PtGroundPersonManager;
-import com.youjia.system.youplus.core.person.sign.PtSign;
 import com.youjia.system.youplus.core.person.sign.PtSignManager;
 import com.youjia.system.youplus.core.product.PtProductManager;
 import com.youjia.system.youplus.core.product.change.PtChange;
@@ -274,8 +273,7 @@ public class ProductOrderService {
         List<GroundPersonListVO> tempList = (List<GroundPersonListVO>) simplePage.getList();
         List<GroundPersonListVO> list = new ArrayList<>();
         for (GroundPersonListVO groundPersonListVO : tempList) {
-            PtSign ptSign = ptSignManager.findByGroundPersonId(groundPersonListVO.getId());
-            if (ptSign != null) {
+            if (ptSignManager.hasSign(groundPersonListVO.getId())) {
                 list.add(groundPersonListVO);
             }
         }

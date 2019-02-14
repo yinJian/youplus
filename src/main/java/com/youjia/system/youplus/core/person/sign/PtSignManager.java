@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 
@@ -12,12 +13,21 @@ public class PtSignManager {
     @Resource
     private PtSignRepository ptSignRepository;
 
+
     public Page<PtSign> findAll(Specification<PtSign> var1, Pageable var2) {
         return ptSignRepository.findAll(var1, var2);
     }
 
     public PtSign findByGroundPersonId(Long personId) {
         return ptSignRepository.findFirstByGroundPersonId(personId);
+    }
+
+    public Boolean hasSign(Long personId) {
+        PtSign ptSign = findByGroundPersonId(personId);
+        if (ptSign != null && !StringUtils.isEmpty(ptSign.getDocUrl())) {
+            return true;
+        }
+        return false;
     }
 
     public PtSign find(Long id) {

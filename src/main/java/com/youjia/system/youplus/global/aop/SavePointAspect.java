@@ -32,7 +32,7 @@ public class SavePointAspect {
     public Object around(ProceedingJoinPoint joinPoint, Service service) throws Throwable {
         String className = joinPoint.getSignature().getDeclaringTypeName();
         String method = joinPoint.getSignature().getName();
-        if (method.contains("find") || method.contains("query")) {
+        if (method.contains("find") || method.contains("query") || method.contains("has")) {
             return joinPoint.proceed();
         }
         // 接收到请求，记录请求内容

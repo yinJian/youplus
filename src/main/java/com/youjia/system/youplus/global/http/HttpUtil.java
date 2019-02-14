@@ -44,8 +44,8 @@ public class HttpUtil {
         httpHeaders.add("Content-Type", "application/json; charset=UTF-8");
         httpHeaders.add("X-Tsign-Open-App-Id", appId);
         httpHeaders.add("X-Tsign-Open-App-Secret", appSecret);
-        logger.info(FastJsonUtils.collectToString(map));
-        HttpEntity<String> requestEntity = new HttpEntity<>(FastJsonUtils.collectToString(map), httpHeaders);
+        logger.info(FastJsonUtils.convertObjectToJSON(map));
+        HttpEntity<String> requestEntity = new HttpEntity<>(FastJsonUtils.convertObjectToJSON(map), httpHeaders);
         String sttr = restTemplate.postForEntity(url, requestEntity,
                 String.class)
                 .getBody();

@@ -2,7 +2,6 @@ package com.youjia.system.youplus.core.person;
 
 import com.xiaoleilu.hutool.util.BeanUtil;
 import com.youjia.system.youplus.core.dict.area.AreaManager;
-import com.youjia.system.youplus.core.person.sign.PtSign;
 import com.youjia.system.youplus.core.person.sign.PtSignManager;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
@@ -52,8 +51,7 @@ public class GroundPersonService {
         PtGroundPerson ptGroundPerson = ptGroundPersonManager.find(id);
         GroundPersonDetailVO vo = new GroundPersonDetailVO();
         BeanUtil.copyProperties(ptGroundPerson, vo);
-        PtSign ptSign = ptSignManager.findByGroundPersonId(id);
-        vo.setSign(ptSign != null);
+        vo.setSign(ptSignManager.hasSign(id));
         return vo;
     }
 
@@ -116,8 +114,7 @@ public class GroundPersonService {
         //如果是查询已签约的
         if (groundPersonListQueryModel.getSign() != null && groundPersonListQueryModel.getSign()) {
             for (PtGroundPerson ptGroundPerson : page.getContent()) {
-                PtSign ptSign = ptSignManager.findByGroundPersonId(ptGroundPerson.getId());
-                if (ptSign != null) {
+                if (ptSignManager.hasSign(ptGroundPerson.getId())) {
                     list.add(ptGroundPerson);
                 }
             }
@@ -135,8 +132,7 @@ public class GroundPersonService {
         vo.setProvinceValue(areaManager.findName(ptGroundPerson.getProvince()));
         vo.setCityValue(areaManager.findName(ptGroundPerson.getCity()));
         vo.setCountryValue(areaManager.findName(ptGroundPerson.getCountry()));
-        PtSign ptSign = ptSignManager.findByGroundPersonId(ptGroundPerson.getId());
-        vo.setSign(ptSign != null);
+        vo.setSign(ptSignManager.hasSign(ptGroundPerson.getId()));
         return vo;
     }
 
