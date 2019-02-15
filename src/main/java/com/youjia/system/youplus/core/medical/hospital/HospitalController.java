@@ -29,7 +29,7 @@ public class HospitalController {
 
     @PostMapping("")
     public BaseData add(PtHospital ptHospital) {
-        return ResultGenerator.genSuccessResult(hospitalService.add(ptHospital));
+        return hospitalService.add(ptHospital);
     }
 
     @PutMapping("")

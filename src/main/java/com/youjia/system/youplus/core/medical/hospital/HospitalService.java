@@ -1,5 +1,8 @@
 package com.youjia.system.youplus.core.medical.hospital;
 
+import com.xiaoleilu.hutool.util.CollectionUtil;
+import com.youjia.system.youplus.global.bean.BaseData;
+import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.SimplePage;
 import com.youjia.system.youplus.global.bean.request.HospitalListQueryModel;
 import com.youjia.system.youplus.global.specify.Criteria;
@@ -11,14 +14,20 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Component
 public class HospitalService {
     @Resource
     private PtHospitalManager ptHospitalManager;
 
-    public PtHospital add(PtHospital ptHospital) {
-        return ptHospitalManager.add(ptHospital);
+    public BaseData add(PtHospital ptHospital) {
+        List<PtHospital> temp = ptHospitalManager.findByName(ptHospital.getName());
+        if (CollectionUtil.isNotEmpty(temp)) {
+            return ResultGenerator.genFailResult("已存在同名医院");
+        }
+        
+        return ResultGenerator.genSuccessResult(ptHospitalManager.add(ptHospital));
     }
 
     public PtHospital update(PtHospital ptHospital) {

@@ -17,6 +17,10 @@ public class PtHospitalManager {
         return ptHospitalRepository.findAll(var1, var2);
     }
 
+    public List<PtHospital> findByName(String name) {
+        return ptHospitalRepository.findByName(name);
+    }
+
     public List<PtHospital> findByNameLike(String name) {
         return ptHospitalRepository.findByNameLikeOrOtherNameLike("%" + name + "%", "%" + name + "%");
     }

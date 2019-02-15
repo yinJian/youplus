@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface PtHospitalRepository extends JpaRepository<PtHospital, Long>, JpaSpecificationExecutor<PtHospital> {
     List<PtHospital> findByNameLikeOrOtherNameLike(String name, String otherName);
+
+    List<PtHospital> findByName(String name);
 }
