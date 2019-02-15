@@ -29,7 +29,7 @@ public class GroundPersonController {
 
     @PostMapping("")
     public BaseData add(PtGroundPerson ptGroundPerson) {
-        return ResultGenerator.genSuccessResult(groundPersonService.add(ptGroundPerson));
+        return groundPersonService.add(ptGroundPerson);
     }
 
     @PutMapping("")

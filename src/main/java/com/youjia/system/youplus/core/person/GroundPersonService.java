@@ -38,8 +38,14 @@ public class GroundPersonService {
     @Resource
     private PtSignManager ptSignManager;
 
-    public PtGroundPerson add(PtGroundPerson ptGroundPerson) {
-        return ptGroundPersonManager.add(ptGroundPerson);
+    public BaseData add(PtGroundPerson ptGroundPerson) {
+        PtGroundPerson temp = ptGroundPersonManager.findByMobile(ptGroundPerson.getMobile());
+        if (temp != null) {
+            //该手机号已存在
+            return ResultGenerator.genFailResult("该手机号已被占用");
+        }
+
+        return ResultGenerator.genSuccessResult(ptGroundPersonManager.add(ptGroundPerson));
     }
 
     public PtGroundPerson update(PtGroundPerson ptGroundPerson) {
