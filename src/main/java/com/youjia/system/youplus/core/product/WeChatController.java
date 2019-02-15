@@ -38,6 +38,14 @@ public class WeChatController {
         return smsUtil.send(mobile);
     }
 
+    /**
+     * 验证码判断
+     */
+    @GetMapping("checkCode")
+    public BaseData checkSms(String mobile, String smsCode) {
+        return groundPersonService.checkCode(mobile, smsCode);
+    }
+
     @PostMapping("")
     public BaseData login(String mobile, String smsCode, String openid, String wechatName) {
         return groundPersonService.login(mobile, smsCode, openid, wechatName);

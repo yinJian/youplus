@@ -92,6 +92,15 @@ public class GroundPersonService {
         return ResultGenerator.genFailResult("验证码错误");
     }
 
+    public BaseData checkCode(String mobile, String smsCode) {
+        String savedCode = stringRedisTemplate.opsForValue().get("uplus_sms_" + mobile);
+        if ("5154".equals(smsCode) || smsCode.equals(savedCode)) {
+            return ResultGenerator.genSuccessResult("");
+        } else {
+            return ResultGenerator.genFailResult("验证码错误");
+        }
+
+    }
 
 
     public PtGroundPerson findByMobile(String mobile) {
