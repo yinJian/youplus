@@ -1,6 +1,7 @@
 package com.youjia.system.youplus.core.product;
 
 import com.youjia.system.youplus.core.person.GroundPersonService;
+import com.youjia.system.youplus.core.person.PtGroundPerson;
 import com.youjia.system.youplus.core.product.flow.PtOrderFlow;
 import com.youjia.system.youplus.core.product.order.ProductOrderService;
 import com.youjia.system.youplus.global.bean.BaseData;
@@ -49,6 +50,14 @@ public class WeChatController {
     @PostMapping("")
     public BaseData login(String mobile, String smsCode, String openid, String wechatName) {
         return groundPersonService.login(mobile, smsCode, openid, wechatName);
+    }
+
+    /**
+     * 地勤注册
+     */
+    @PostMapping("/regist")
+    public BaseData add(PtGroundPerson ptGroundPerson) {
+        return groundPersonService.add(ptGroundPerson);
     }
 
     @GetMapping("/orders")
