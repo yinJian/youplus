@@ -81,8 +81,6 @@ public class SignService {
      * 查询签署后的状态
      */
     public BaseData checkSign(Long personId) {
-        PtSign ptSign = ptSignManager.findByGroundPersonId(personId);
-        boolean state = eSignManager.signState(ptSign.getFlowId());
-        return ResultGenerator.genSuccessResult(state);
+        return ResultGenerator.genSuccessResult(ptSignManager.hasSign(personId));
     }
 }

@@ -1,5 +1,6 @@
 package com.youjia.system.youplus.core.person.sign;
 
+import com.youjia.system.youplus.core.person.esign.ESignManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -12,6 +13,8 @@ import javax.annotation.Resource;
 public class PtSignManager {
     @Resource
     private PtSignRepository ptSignRepository;
+    @Resource
+    private ESignManager eSignManager;
 
 
     public Page<PtSign> findAll(Specification<PtSign> var1, Pageable var2) {
@@ -24,10 +27,23 @@ public class PtSignManager {
 
     public Boolean hasSign(Long personId) {
         PtSign ptSign = findByGroundPersonId(personId);
-        if (ptSign != null && !StringUtils.isEmpty(ptSign.getDocUrl())) {
-            return true;
+        if (ptSign == null) {
+            return false;
+        } else {
+           if (!StringUtils.isEmpty(ptSign.getDocUrl())) {
+               return true;
+           } else {
+               boolean state = eSignManager.signState(ptSign.getFlowId());
+               if (state) {
+                   ptSign.setDocUrl("已签约，未下载合同");
+                   update(ptSign);
+                   return true;
+               } else {
+                   return false;
+               }
+           }
         }
-        return false;
+
     }
 
     public PtSign find(Long id) {
