@@ -40,6 +40,8 @@ import com.youjia.system.youplus.global.bean.response.*;
 import com.youjia.system.youplus.global.cache.DictCache;
 import com.youjia.system.youplus.global.specify.Criteria;
 import com.youjia.system.youplus.global.specify.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -101,6 +103,8 @@ public class ProductOrderService {
     private PtSignManager ptSignManager;
     @Resource
     private ApplicationEventPublisher applicationEventPublisher;
+    
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
 
     public BaseData add(ProductOrderAddModel productOrderAddModel) {
@@ -356,6 +360,7 @@ public class ProductOrderService {
         criteria.add(Restrictions.eq("deleteFlag", productOrderListQueryModel.getDeleteFlag(), true));
         //给H5用的功能
         if (userKit.getGroundPersonId() != null) {
+            logger.info("personId是" + userKit.getGroundPersonId());
             //criteria.add(Restrictions.eq("groundPersonId", userKit.getGroundPersonId(), true));
             //查询某人所有接过的单
             criteria.add(Restrictions.in("id", ptChangeManager.findOrderIds(userKit.getGroundPersonId()), true));

@@ -56,6 +56,32 @@ public class ESignManager {
     }
 
     /**
+     * 创建个人合同
+     */
+    public String createAgreement(PtGroundPerson ptGroundPerson) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("templateId", "");
+        map.put("name", ptGroundPerson.getUserName() + "合同");
+
+        Map<String, Object> fieldMap = new HashMap<>();
+        fieldMap.put("", "");
+        map.put("simpleFormFields", fieldMap);
+        String s = httpUtil.buildSign(url + "/doc/createbytemplate", map);
+        JSONObject result = JSON.parseObject(s);
+        int errCode = result.getInteger("errCode");
+        String personAgreementId = "";
+        if (0 != errCode) {
+            return null;
+        } else {
+            String data = result.getString("data");
+            JSONObject obj = JSON.parseObject(data);
+            personAgreementId = obj.getString("docUrl");
+            System.out.println("创建合同" + result);
+        }
+        return personAgreementId;
+    }
+
+    /**
      * 创建签署流程
      */
     public String createSignFlow() {
