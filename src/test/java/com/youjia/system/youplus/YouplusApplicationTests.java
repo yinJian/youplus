@@ -40,6 +40,7 @@ public class YouplusApplicationTests {
         //eSignManager.download("c49be53c7e2347759eaf5f320a84c82d");
         //BaseData baseData = signService.findSignPath(1L);
         //System.out.println(baseData);
+        signService.checkSign(48L);
     }
 
 }

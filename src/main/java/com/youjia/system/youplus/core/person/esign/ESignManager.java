@@ -143,10 +143,21 @@ public class ESignManager {
             String data = result.getString("data");
             JSONObject obj = JSON.parseObject(data);
             int state = obj.getInteger("flowStatus");
+            //已经归档过了
             if (state == 2) {
-                guidang(flowId);
+                return true;
             }
-            return state == 2;
+
+            JSONArray jsonArray = obj.getJSONArray("signDetailList");
+            JSONObject jsonObject = (JSONObject) jsonArray.get(0);
+            //签署状态
+            state = jsonObject.getInteger("signStatus");
+            if (state == 2) {
+                String msg = guidang(flowId);
+                //归档成功
+                return msg != null;
+            }
+            return false;
         }
     }
 
