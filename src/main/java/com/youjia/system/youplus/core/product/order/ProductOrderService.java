@@ -365,7 +365,7 @@ public class ProductOrderService {
             logger.info("personId是" + userKit.getGroundPersonId());
             //criteria.add(Restrictions.eq("groundPersonId", userKit.getGroundPersonId(), true));
             //查询某人所有接过的单
-            criteria.add(Restrictions.in("id", ptChangeManager.findOrderIds(userKit.getGroundPersonId()), true));
+            criteria.add(Restrictions.in("id", ptChangeManager.findOrderIds(userKit.getGroundPersonId()), false));
         }
 
         OrderListQueryModel orderListQueryModel = new OrderListQueryModel();

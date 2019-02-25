@@ -35,7 +35,7 @@ public class PtSignManager {
            } else {
                boolean state = eSignManager.signState(ptSign.getFlowId());
                if (state) {
-                   ptSign.setDocUrl("已签约，未下载合同");
+                   ptSign.setDocUrl("ready, wait download");
                    update(ptSign);
                    return true;
                } else {
