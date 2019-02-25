@@ -28,10 +28,11 @@ public class ProductOrderListQueryModel extends BaseModel {
      */
     private Integer childState;
     private Boolean deleteFlag;
+
     /**
-     * 谁把单派出去的
+     * 为true则是我派的单
      */
-    private Long paidanPersonId;
+    private Boolean myOrder;
 
     @Override
     public String toString() {
@@ -48,16 +49,16 @@ public class ProductOrderListQueryModel extends BaseModel {
                 ", notState=" + notState +
                 ", childState=" + childState +
                 ", deleteFlag=" + deleteFlag +
-                ", paidanPersonId=" + paidanPersonId +
+                ", myOrder=" + myOrder +
                 '}';
     }
 
-    public Long getPaidanPersonId() {
-        return paidanPersonId;
+    public Boolean getMyOrder() {
+        return myOrder;
     }
 
-    public void setPaidanPersonId(Long paidanPersonId) {
-        this.paidanPersonId = paidanPersonId;
+    public void setMyOrder(Boolean myOrder) {
+        this.myOrder = myOrder;
     }
 
     public Boolean getDeleteFlag() {

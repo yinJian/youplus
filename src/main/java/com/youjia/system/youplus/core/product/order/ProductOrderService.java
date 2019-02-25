@@ -357,7 +357,9 @@ public class ProductOrderService {
         criteria.add(Restrictions.eq("id", productOrderListQueryModel.getId(), true));
         criteria.add(Restrictions.eq("state", productOrderListQueryModel.getState(), true));
         criteria.add(Restrictions.ne("state", productOrderListQueryModel.getNotState(), true));
-        criteria.add(Restrictions.ne("paidanPersonId", productOrderListQueryModel.getPaidanPersonId(), true));
+        if (productOrderListQueryModel.getMyOrder() != null && productOrderListQueryModel.getMyOrder()) {
+            criteria.add(Restrictions.eq("paidanPersonId", userKit.getCurrentUserId(), true));
+        }
         criteria.add(Restrictions.eq("childState", productOrderListQueryModel.getChildState(), true));
         criteria.add(Restrictions.eq("deleteFlag", productOrderListQueryModel.getDeleteFlag(), true));
         //给H5用的功能
