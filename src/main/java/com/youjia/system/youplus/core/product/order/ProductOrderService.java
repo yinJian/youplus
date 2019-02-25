@@ -307,6 +307,7 @@ public class ProductOrderService {
         ptProductOrder.setRemark(remark);
         ptProductOrder.setGroundPersonId(personId);
         ptProductOrder.setState("2");
+        ptProductOrder.setPaidanPersonId(userKit.getCurrentUserId());
 
         PtChange ptChange = new PtChange();
         ptChange.setOrderId(id);
@@ -356,6 +357,7 @@ public class ProductOrderService {
         criteria.add(Restrictions.eq("id", productOrderListQueryModel.getId(), true));
         criteria.add(Restrictions.eq("state", productOrderListQueryModel.getState(), true));
         criteria.add(Restrictions.ne("state", productOrderListQueryModel.getNotState(), true));
+        criteria.add(Restrictions.ne("paidanPersonId", productOrderListQueryModel.getPaidanPersonId(), true));
         criteria.add(Restrictions.eq("childState", productOrderListQueryModel.getChildState(), true));
         criteria.add(Restrictions.eq("deleteFlag", productOrderListQueryModel.getDeleteFlag(), true));
         //给H5用的功能

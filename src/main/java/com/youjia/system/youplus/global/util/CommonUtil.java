@@ -188,6 +188,11 @@ public class CommonUtil {
         }
     }
 
+    public static String parseDate(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+        return sdf.format(date);
+    }
+
     /**
      * 将object转为long
      *

@@ -37,7 +37,14 @@ public class SignService {
         if (StringUtils.isEmpty(accountId)) {
             return ResultGenerator.genFailResult(failMsg);
         }
-        String flowId = eSignManager.createSignFlow();
+
+        //合同id
+        String docId = eSignManager.createAgreement(ptGroundPerson);
+        if (StringUtils.isEmpty(docId)) {
+            return ResultGenerator.genFailResult(failMsg);
+        }
+
+        String flowId = eSignManager.createSignFlow(docId);
         if (StringUtils.isEmpty(flowId)) {
             return ResultGenerator.genFailResult(failMsg);
         }

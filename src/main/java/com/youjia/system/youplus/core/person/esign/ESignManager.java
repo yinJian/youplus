@@ -3,12 +3,19 @@ package com.youjia.system.youplus.core.person.esign;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.xiaoleilu.hutool.date.DateField;
+import com.xiaoleilu.hutool.date.DateUtil;
+import com.youjia.system.youplus.core.dict.area.AreaManager;
+import com.youjia.system.youplus.core.medical.hospital.PtHospitalManager;
 import com.youjia.system.youplus.core.person.PtGroundPerson;
 import com.youjia.system.youplus.global.http.HttpUtil;
+import com.youjia.system.youplus.global.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +30,13 @@ public class ESignManager {
     private String url;
     @Value("${sign.docId}")
     private String docId;
+    @Value("${sign.templateId}")
+    private String templateId;
+
+    @Resource
+    private AreaManager areaManager;
+    @Resource
+    private PtHospitalManager ptHospitalManager;
 
     public String createPersonAccountId(PtGroundPerson ptGroundPerson) {
         Map<String, Object> map = new HashMap<>();
@@ -60,11 +74,42 @@ public class ESignManager {
      */
     public String createAgreement(PtGroundPerson ptGroundPerson) {
         Map<String, Object> map = new HashMap<>();
-        map.put("templateId", "");
+        map.put("templateId", templateId);
+        //map.put("templateId", "22c0c3ad60834ced9b167fd381ea06a4");
         map.put("name", ptGroundPerson.getUserName() + "合同");
 
         Map<String, Object> fieldMap = new HashMap<>();
-        fieldMap.put("", "");
+        Date today = new Date();
+        String todayStr = CommonUtil.parseDate(today);
+        Date end = DateUtil.offset(today, DateField.YEAR, 1);
+        fieldMap.put("Text1sigingDate", todayStr);
+        fieldMap.put("Text2signer", ptGroundPerson.getUserName());
+        fieldMap.put("Text3signerAddress", ptGroundPerson.getAddress());
+        fieldMap.put("Text4contact", ptGroundPerson.getMobile());
+        fieldMap.put("fill_1_2area", areaManager.findName(ptGroundPerson.getProvince()) + "-" + areaManager.findName
+                (ptGroundPerson.getCity()));
+        fieldMap.put("fill_1_3serviceFee1", "");
+        fieldMap.put("fill_2serviceFee2", "");
+        fieldMap.put("fill_3signingDate", todayStr);
+        fieldMap.put("fill_4signingDeadline", CommonUtil.parseDate(end));
+        fieldMap.put("Text5signingDate", todayStr);
+        fieldMap.put("Text6signingDate", todayStr);
+        fieldMap.put("fill_1_4signer", ptGroundPerson.getUserName());
+        fieldMap.put("fill_2_2gender", ptGroundPerson.getSex() == 1 ? "男" : "女");
+        fieldMap.put("fill_3_2area", areaManager.findName(ptGroundPerson.getProvince()));
+        String ids = ptGroundPerson.getHospitalIds();
+        if (!StringUtils.isEmpty(ids)) {
+            String[] array = ids.split(",");
+            if (array.length > 0) {
+                fieldMap.put("fill_4_2company", ptHospitalManager.findName(Long.valueOf(array[0])));
+            }
+        }
+        
+        fieldMap.put("fill_5identificationNumber", ptGroundPerson.getPaper());
+        fieldMap.put("fill_6qualificationCertificate", ptGroundPerson.getNurseNum());
+        fieldMap.put("fill_7bankCardNumber", ptGroundPerson.getBankCardNum());
+        fieldMap.put("fill_8bankName", ptGroundPerson.getBank());
+        fieldMap.put("fill_9receiveAddress", ptGroundPerson.getAddress());
         map.put("simpleFormFields", fieldMap);
         String s = httpUtil.buildSign(url + "/doc/createbytemplate", map);
         JSONObject result = JSON.parseObject(s);
@@ -75,8 +120,8 @@ public class ESignManager {
         } else {
             String data = result.getString("data");
             JSONObject obj = JSON.parseObject(data);
-            personAgreementId = obj.getString("docUrl");
-            System.out.println("创建合同" + result);
+            personAgreementId = obj.getString("docId");
+            System.out.println("创建合同:" + personAgreementId);
         }
         return personAgreementId;
     }
@@ -84,7 +129,7 @@ public class ESignManager {
     /**
      * 创建签署流程
      */
-    public String createSignFlow() {
+    public String createSignFlow(String docId) {
         Map<String, Object> map = new HashMap<>();
         map.put("businessScene", "线下兼职人员聘用协议");
         map.put("docId", docId);

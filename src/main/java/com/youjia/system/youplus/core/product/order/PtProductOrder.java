@@ -47,6 +47,11 @@ public class PtProductOrder extends BaseDeleteEntity {
      */
     private String reason;
 
+    /**
+     * 谁操作的派单
+     */
+    private Long paidanPersonId;
+
     @Override
     public String toString() {
         return "PtProductOrder{" +
@@ -59,7 +64,16 @@ public class PtProductOrder extends BaseDeleteEntity {
                 ", changePerson=" + changePerson +
                 ", remark='" + remark + '\'' +
                 ", reason='" + reason + '\'' +
+                ", paidanPersonId=" + paidanPersonId +
                 '}';
+    }
+
+    public Long getPaidanPersonId() {
+        return paidanPersonId;
+    }
+
+    public void setPaidanPersonId(Long paidanPersonId) {
+        this.paidanPersonId = paidanPersonId;
     }
 
     public Boolean getChangePerson() {
