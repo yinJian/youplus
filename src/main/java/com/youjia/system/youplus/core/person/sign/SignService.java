@@ -48,6 +48,12 @@ public class SignService {
         if (StringUtils.isEmpty(flowId)) {
             return ResultGenerator.genFailResult(failMsg);
         }
+
+        String companySign = eSignManager.companySign(flowId);
+        if (StringUtils.isEmpty(companySign)) {
+            return ResultGenerator.genFailResult(failMsg);
+        }
+
         String signUrl = eSignManager.sign(accountId, flowId);
         if (StringUtils.isEmpty(flowId)) {
             return ResultGenerator.genFailResult(failMsg);

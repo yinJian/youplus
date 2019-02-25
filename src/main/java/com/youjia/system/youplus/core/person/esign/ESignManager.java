@@ -163,6 +163,35 @@ public class ESignManager {
     }
 
     /**
+     * 企业自动签署
+     */
+    public String companySign(String flowId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("flowId", flowId);
+
+        Map<String, Object> posMap = new HashMap<>();
+        posMap.put("signType", 2);
+        posMap.put("posPage", 5);
+        posMap.put("posX", 199);
+        posMap.put("posY", 715);
+
+        map.put("posList", Arrays.asList(posMap));
+        String s = httpUtil.buildSign(url + "/sign/contract/platformSignTask", map);
+        //"flowId":"c49be53c7e2347759eaf5f320a84c82d"
+        JSONObject result = JSON.parseObject(s);
+        int errCode = result.getInteger("errCode");
+        
+        if (0 != errCode) {
+            return null;
+        } else {
+            String data = result.getString("data");
+            JSONObject obj = JSON.parseObject(data);
+            flowId = obj.getString("flowId");
+        }
+        return flowId;
+    }
+
+    /**
      * 个人手动签署
      */
     public String sign(String accountId, String flowId) {
@@ -172,9 +201,9 @@ public class ESignManager {
 
         Map<String, Object> posMap = new HashMap<>();
         posMap.put("signType", 2);
-        posMap.put("posPage", 2);
-        posMap.put("posX", 2);
-        posMap.put("posY", 2);
+        posMap.put("posPage", 5);
+        posMap.put("posX", 127);
+        posMap.put("posY", 598);
 
         map.put("posList", Arrays.asList(posMap));
         String s = httpUtil.buildSign(url + "/sign/contract/handPersonSignTask", map);
