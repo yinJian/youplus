@@ -5,9 +5,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.xiaoleilu.hutool.date.DateField;
 import com.xiaoleilu.hutool.date.DateUtil;
+import com.youjia.system.youplus.core.dict.area.AreaEntity;
 import com.youjia.system.youplus.core.dict.area.AreaManager;
 import com.youjia.system.youplus.core.medical.hospital.PtHospitalManager;
 import com.youjia.system.youplus.core.person.PtGroundPerson;
+import com.youjia.system.youplus.core.person.price.PtAreaPrice;
+import com.youjia.system.youplus.core.person.price.PtAreaPriceManager;
 import com.youjia.system.youplus.global.http.HttpUtil;
 import com.youjia.system.youplus.global.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +41,8 @@ public class ESignManager {
     private AreaManager areaManager;
     @Resource
     private PtHospitalManager ptHospitalManager;
+    @Resource
+    private PtAreaPriceManager ptAreaPriceManager;
 
     public String createPersonAccountId(PtGroundPerson ptGroundPerson) {
         Map<String, Object> map = new HashMap<>();
@@ -75,7 +81,6 @@ public class ESignManager {
     public String createAgreement(PtGroundPerson ptGroundPerson) {
         Map<String, Object> map = new HashMap<>();
         map.put("templateId", templateId);
-        //map.put("templateId", "22c0c3ad60834ced9b167fd381ea06a4");
         map.put("name", ptGroundPerson.getUserName() + "合同");
 
         Map<String, Object> fieldMap = new HashMap<>();
@@ -88,8 +93,16 @@ public class ESignManager {
         fieldMap.put("Text4contact", ptGroundPerson.getMobile());
         fieldMap.put("fill_1_2area", areaManager.findName(ptGroundPerson.getProvince()) + "-" + areaManager.findName
                 (ptGroundPerson.getCity()));
-        fieldMap.put("fill_1_3serviceFee1", "");
-        fieldMap.put("fill_2serviceFee2", "");
+
+        AreaEntity areaEntity = areaManager.findByAreaCode(ptGroundPerson.getCity());
+        if (areaEntity != null) {
+            PtAreaPrice ptAreaPrice = ptAreaPriceManager.findByAreaName(areaEntity.getAreaName());
+            if (ptAreaPrice != null) {
+                fieldMap.put("fill_1_3serviceFee1", ptAreaPrice.getThreePrice());
+                fieldMap.put("fill_2serviceFee2", ptAreaPrice.getSinglePrice());
+            }
+        }
+
         fieldMap.put("fill_3signingDate", todayStr);
         fieldMap.put("fill_4signingDeadline", CommonUtil.parseDate(end));
         fieldMap.put("Text5signingDate", todayStr);
@@ -156,7 +169,14 @@ public class ESignManager {
         Map<String, Object> map = new HashMap<>();
         map.put("flowId", flowId);
         map.put("accountId", accountId);
-        map.put("signPlatform", "1");
+
+        Map<String, Object> posMap = new HashMap<>();
+        posMap.put("signType", 2);
+        posMap.put("posPage", 2);
+        posMap.put("posX", 2);
+        posMap.put("posY", 2);
+
+        map.put("posList", Arrays.asList(posMap));
         String s = httpUtil.buildSign(url + "/sign/contract/handPersonSignTask", map);
         //"flowId":"c49be53c7e2347759eaf5f320a84c82d"
         JSONObject result = JSON.parseObject(s);

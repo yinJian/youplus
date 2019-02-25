@@ -20,6 +20,10 @@ public class AreaManager {
         return areaRepository.findByParentId(parentId);
     }
 
+    public AreaEntity findByAreaCode(String areaCode) {
+        return areaRepository.findByAreaCode(areaCode);
+    }
+
     public AreaEntity add(AreaEntity areaEntity) {
         return areaRepository.save(areaEntity);
     }
