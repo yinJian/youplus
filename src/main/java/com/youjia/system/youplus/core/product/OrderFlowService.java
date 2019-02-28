@@ -51,7 +51,7 @@ public class OrderFlowService {
         PtGroundPerson ptGroundPerson = ptGroundPersonManager.find(ptProductOrder.getGroundPersonId());
 
         String statesMsg = "审核通过";
-        if (stateChange / 2 == 0) {
+        if (stateChange % 2 == 0) {
             statesMsg = "审核失败";
         }
         String orderStatus = "";
