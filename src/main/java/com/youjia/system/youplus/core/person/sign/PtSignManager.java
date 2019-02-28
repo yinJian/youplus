@@ -1,6 +1,8 @@
 package com.youjia.system.youplus.core.person.sign;
 
 import com.youjia.system.youplus.core.person.esign.ESignManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -16,6 +18,8 @@ public class PtSignManager {
     @Resource
     private ESignManager eSignManager;
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
 
     public Page<PtSign> findAll(Specification<PtSign> var1, Pageable var2) {
         return ptSignRepository.findAll(var1, var2);
@@ -27,6 +31,7 @@ public class PtSignManager {
 
     public Boolean hasSign(Long personId) {
         PtSign ptSign = findByGroundPersonId(personId);
+        logger.info("ptSign为" + ptSign);
         if (ptSign == null) {
             return false;
         } else {
