@@ -1,5 +1,6 @@
 package com.youjia.system.youplus;
 
+import com.youjia.system.youplus.core.person.GroundPersonService;
 import com.youjia.system.youplus.core.person.esign.ESignManager;
 import com.youjia.system.youplus.core.person.sign.PtSignManager;
 import com.youjia.system.youplus.core.person.sign.SignService;
@@ -25,6 +26,8 @@ public class YouplusApplicationTests {
     private PtSignManager ptSignManager;
     @Resource
     private SignService signService;
+    @Resource
+    private GroundPersonService groundPersonService;
 
     @Test
     public void contextLoads() {
@@ -41,6 +44,7 @@ public class YouplusApplicationTests {
         //BaseData baseData = signService.findSignPath(1L);
         //System.out.println(baseData);
         //signService.findSignPath(48L);
+        //groundPersonService.findDetail(48L);
     }
 
 }

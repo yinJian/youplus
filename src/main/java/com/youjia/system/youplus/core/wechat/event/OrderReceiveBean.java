@@ -15,27 +15,42 @@ public class OrderReceiveBean {
     private String serviceName;
     //客户电话
     private String userPhone;
+    /**
+     * 护士id
+     */
+    private String personId;
 
     public OrderReceiveBean() {
     }
 
-    public OrderReceiveBean(String orderNumber, String openId, String userName, String serviceName, String userPhone) {
+    public OrderReceiveBean(String orderNumber, String openId, String userName, String serviceName, String userPhone,
+                            String personId) {
         this.orderNumber = orderNumber;
         this.openId = openId;
         this.userName = userName;
         this.serviceName = serviceName;
         this.userPhone = userPhone;
+        this.personId = personId;
     }
 
     @Override
     public String toString() {
-        return "NewOrderBean{" +
+        return "OrderReceiveBean{" +
                 "orderNumber='" + orderNumber + '\'' +
                 ", openId='" + openId + '\'' +
                 ", userName='" + userName + '\'' +
                 ", serviceName='" + serviceName + '\'' +
                 ", userPhone='" + userPhone + '\'' +
+                ", personId='" + personId + '\'' +
                 '}';
+    }
+
+    public String getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(String personId) {
+        this.personId = personId;
     }
 
     public String getOrderNumber() {

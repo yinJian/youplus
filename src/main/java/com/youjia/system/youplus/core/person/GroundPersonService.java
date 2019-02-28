@@ -80,10 +80,10 @@ public class GroundPersonService {
         }
         String savedCode = stringRedisTemplate.opsForValue().get("uplus_sms_" + mobile);
         if ("5154".equals(smsCode) || smsCode.equals(savedCode)) {
-            if (CommonUtil.containsEmoji(wechatName)) {
+            if (wechatName != null && CommonUtil.containsEmoji(wechatName)) {
                 wechatName = CommonUtil.filterEmoji(wechatName);
+                ptGroundPerson.setWechatName(wechatName);
             }
-            ptGroundPerson.setWechatName(wechatName);
             ptGroundPerson.setOpenid(openid);
             ptGroundPersonManager.update(ptGroundPerson);
 

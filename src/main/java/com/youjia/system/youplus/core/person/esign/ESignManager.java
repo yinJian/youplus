@@ -32,8 +32,6 @@ public class ESignManager {
     private HttpUtil httpUtil;
     @Value("${sign.url}")
     private String url;
-    @Value("${sign.docId}")
-    private String docId;
     @Value("${sign.templateId}")
     private String templateId;
 
@@ -63,16 +61,6 @@ public class ESignManager {
             System.out.println("创建个人账户成功！" + result);
         }
         return personAccountid;
-    }
-
-    public void upload() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("fileKey", "$79fee77f-8786-4967-b0bc-2ea714efaf94$566994283");
-        String s = httpUtil.buildSign(url + "/doc/createbyfilekey", map);
-        System.out.println(s);
-        //"data":{"docId":"0e1c106c2cb445c5a58557fb9a35f498","docUrl":"https://esignoss.oss-cn-hangzhou.aliyuncs
-        // .com/4438758707/7d556253-4f65-42fc-a4c7-366a3ce9e857/%E6%B5%8B%E8%AF%95%E5%90%88%E5%90%8C_test
-        // .pdf?Expires=1550130530&OSSAccessKeyId=LTAIdvHfiVrzDKbE&Signature=Soz9kDaGzlKtZ%2BIn6vy75UDZkTM%3D"}}
     }
 
     /**

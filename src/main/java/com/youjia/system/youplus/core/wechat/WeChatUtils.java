@@ -31,9 +31,13 @@ public class WeChatUtils {
         map.put("userName", newOrderBean.getUserName());
         map.put("serviceName", newOrderBean.getServiceName());
         map.put("userPhone", newOrderBean.getUserPhone());
+
         httpUtil.build(TemplateUrl.NEW_ORDER, map);
     }
 
+    /**
+     * 订单状态变更
+     */
     @Async
     @EventListener(ChangeStateEvent.class)
     public void newOrder(ChangeStateEvent changeStateEvent) {
@@ -49,11 +53,12 @@ public class WeChatUtils {
      * 开始抢单
      */
     @Async
-    @EventListener(ChangeStateEvent.class)
+    @EventListener(OrderReceiveEvent.class)
     public void beginQiangDan(OrderReceiveEvent orderReceiveEvent) {
         OrderReceiveBean changeStateBean = (OrderReceiveBean) orderReceiveEvent.getSource();
         Map<String, Object> map = new HashMap<>();
         map.put("openId", changeStateBean.getOpenId());
+        map.put("personId", changeStateBean.getPersonId());
         httpUtil.build(TemplateUrl.CHANGE_STATE, map);
     }
 }

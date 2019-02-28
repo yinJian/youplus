@@ -6,8 +6,7 @@ eureka:
 #######e签宝
 sign:
   url: https://o.tsign.cn/opentreaty-service
-  appId: 4438758707
-  appSecret: 3af57b9b79b617d6058839029184a981
-  docId: 0e1c106c2cb445c5a58557fb9a35f498
-  templateId: 1df9304f174a4c6a8f5ef29a5cc61362
+  appId: 5111568195
+  appSecret: 9725f41f6baba75fad3aed50a1f93e0e
+  templateId: 2243dbdcd67343f9bdc1ca133f17c8ea
   
