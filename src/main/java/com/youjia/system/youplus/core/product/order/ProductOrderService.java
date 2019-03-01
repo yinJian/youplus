@@ -287,7 +287,9 @@ public class ProductOrderService {
         for (GroundPersonListVO vo : list) {
             if (!StringUtils.isEmpty(vo.getOpenId())) {
                 //通知
-                applicationEventPublisher.publishEvent(new OrderReceiveEvent(new OrderReceiveBean()));
+                applicationEventPublisher.publishEvent(new OrderReceiveEvent(new OrderReceiveBean(id + "",
+                        vo.getOpenId(), "", "押金垫付" ,"",
+                        vo.getId() + "")));
                 count++;
                 personIds += vo.getId() + ",";
             }

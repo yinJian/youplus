@@ -45,6 +45,8 @@ public class YouplusApplicationTests {
         //System.out.println(baseData);
         //signService.findSignPath(48L);
         //groundPersonService.findDetail(48L);
+        //weChatUtils.beginQiangDan(new OrderReceiveEvent(new OrderReceiveBean("64", "omPxS0S8qB-BrG9binXzWWCZmVJw",
+        //        "", "服务名", "", "48")));
     }
 
 }

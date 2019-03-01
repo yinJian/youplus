@@ -55,10 +55,12 @@ public class WeChatUtils {
     @Async
     @EventListener(OrderReceiveEvent.class)
     public void beginQiangDan(OrderReceiveEvent orderReceiveEvent) {
-        OrderReceiveBean changeStateBean = (OrderReceiveBean) orderReceiveEvent.getSource();
+        OrderReceiveBean orderReceiveBean = (OrderReceiveBean) orderReceiveEvent.getSource();
         Map<String, Object> map = new HashMap<>();
-        map.put("openId", changeStateBean.getOpenId());
-        map.put("personId", changeStateBean.getPersonId());
-        httpUtil.build(TemplateUrl.CHANGE_STATE, map);
+        map.put("openId", orderReceiveBean.getOpenId());
+        map.put("personId", orderReceiveBean.getPersonId());
+        map.put("orderNumber", orderReceiveBean.getOrderNumber());
+        map.put("serviceName", orderReceiveBean.getServiceName());
+        httpUtil.build(TemplateUrl.RECEIVE_ORDER, map);
     }
 }
