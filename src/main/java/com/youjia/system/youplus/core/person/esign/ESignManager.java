@@ -190,8 +190,8 @@ public class ESignManager {
         Map<String, Object> posMap = new HashMap<>();
         posMap.put("signType", 2);
         posMap.put("posPage", 5);
-        posMap.put("posX", 127);
-        posMap.put("posY", 598);
+        posMap.put("posX", 155);
+        posMap.put("posY", 606);
 
         map.put("posList", Arrays.asList(posMap));
         String s = httpUtil.buildSign(url + "/sign/contract/handPersonSignTask", map);
