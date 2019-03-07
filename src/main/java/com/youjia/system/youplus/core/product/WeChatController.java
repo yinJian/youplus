@@ -53,6 +53,14 @@ public class WeChatController {
     }
 
     /**
+     * 查看人员状态
+     */
+    @GetMapping("/personState")
+    public BaseData get() {
+        return groundPersonService.checkState();
+    }
+
+    /**
      * 地勤注册
      */
     @PostMapping("/regist")

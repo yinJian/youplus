@@ -3,6 +3,7 @@ package com.youjia.system.youplus.core.person;
 import com.xiaoleilu.hutool.util.BeanUtil;
 import com.youjia.system.youplus.core.dict.area.AreaManager;
 import com.youjia.system.youplus.core.person.sign.PtSignManager;
+import com.youjia.system.youplus.global.UserKit;
 import com.youjia.system.youplus.global.bean.BaseData;
 import com.youjia.system.youplus.global.bean.ResultGenerator;
 import com.youjia.system.youplus.global.bean.SimplePage;
@@ -37,6 +38,8 @@ public class GroundPersonService {
     private StringRedisTemplate stringRedisTemplate;
     @Resource
     private PtSignManager ptSignManager;
+    @Resource
+    private UserKit userKit;
 
     public BaseData add(PtGroundPerson ptGroundPerson) {
         PtGroundPerson temp = ptGroundPersonManager.findByMobile(ptGroundPerson.getMobile());
@@ -75,7 +78,7 @@ public class GroundPersonService {
 
     public BaseData login(String mobile, String smsCode, String openid, String wechatName) {
         PtGroundPerson ptGroundPerson = findByMobile(mobile);
-        if (ptGroundPerson == null) {
+        if (ptGroundPerson == null || ptGroundPerson.isDeleteFlag()) {
             return ResultGenerator.genFailResult("用户不存在");
         }
         String savedCode = stringRedisTemplate.opsForValue().get("uplus_sms_" + mobile);
@@ -156,5 +159,18 @@ public class GroundPersonService {
             return null;
         }
         return parse(find(id));
+    }
+
+    /**
+     * 查询地勤的状态，如是否被删除了
+     */
+    public BaseData checkState() {
+        Long personId = userKit.getGroundPersonId();
+        PtGroundPerson ptGroundPerson = find(personId);
+        if (ptGroundPerson != null && !ptGroundPerson.isDeleteFlag()) {
+            return ResultGenerator.genSuccessResult(true);
+        } else {
+            return ResultGenerator.genFailResult("用户不存在");
+        }
     }
 }
