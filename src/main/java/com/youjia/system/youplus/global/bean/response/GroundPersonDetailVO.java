@@ -103,6 +103,7 @@ public class GroundPersonDetailVO {
      * 是否签约
      */
     private Boolean sign;
+    private Boolean deleteFlag;
 
     @Override
     public String toString() {
@@ -136,6 +137,14 @@ public class GroundPersonDetailVO {
                 ", state=" + state +
                 ", sign=" + sign +
                 '}';
+    }
+
+    public Boolean getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     public Long getId() {
