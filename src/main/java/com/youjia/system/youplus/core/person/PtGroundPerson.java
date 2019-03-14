@@ -33,6 +33,10 @@ public class PtGroundPerson extends BaseDeleteEntity {
      */
     private String hospitalIds;
     /**
+     * 单独输入的医院名字
+     */
+    private String hospitalName;
+    /**
      * 证件号码
      */
     private String paper;
@@ -135,6 +139,14 @@ public class PtGroundPerson extends BaseDeleteEntity {
                 ", nursePics='" + nursePics + '\'' +
                 ", state=" + state +
                 '}';
+    }
+
+    public String getHospitalName() {
+        return hospitalName;
+    }
+
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
     }
 
     public String getNurseNum() {

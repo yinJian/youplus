@@ -24,6 +24,10 @@ public class GroundPersonListVO {
     private String remark;
     private String workTimes;
     /**
+     * 单独输入的医院名字
+     */
+    private String hospitalName;
+    /**
      * 微信昵称
      */
     private String wechatName;
@@ -65,6 +69,14 @@ public class GroundPersonListVO {
                 ", state=" + state +
                 ", sign=" + sign +
                 '}';
+    }
+
+    public String getHospitalName() {
+        return hospitalName;
+    }
+
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
     }
 
     public Boolean getSign() {
