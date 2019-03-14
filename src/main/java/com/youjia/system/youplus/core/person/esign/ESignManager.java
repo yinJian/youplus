@@ -104,6 +104,8 @@ public class ESignManager {
             if (array.length > 0) {
                 fieldMap.put("fill_4_2company", ptHospitalManager.findName(Long.valueOf(array[0])));
             }
+        } else {
+            fieldMap.put("fill_4_2company", ptGroundPerson.getHospitalName());
         }
         
         fieldMap.put("fill_5identificationNumber", ptGroundPerson.getPaper());
