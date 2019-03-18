@@ -14,7 +14,7 @@ public class PtAreaPriceManager {
 
 
     public PtAreaPrice findByAreaName(String areaName) {
-        return ptAreaPriceRepository.findByAreaName(areaName);
+        return ptAreaPriceRepository.findFirstByAreaName(areaName);
     }
 
 

@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface PtAreaPriceRepository extends JpaRepository<PtAreaPrice, Long>,
         JpaSpecificationExecutor<PtAreaPrice> {
-    PtAreaPrice findByAreaName(String areaName);
+    PtAreaPrice findFirstByAreaName(String areaName);
 }
