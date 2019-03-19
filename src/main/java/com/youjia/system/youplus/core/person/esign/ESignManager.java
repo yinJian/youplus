@@ -165,6 +165,8 @@ public class ESignManager {
         posMap.put("posX", 199);
         posMap.put("posY", 715);
 
+        posMap.put("sealId", "a344d4f6-9eb7-4b13-9a98-764d2931a415");
+
         map.put("posList", Arrays.asList(posMap));
         String s = httpUtil.buildSign(url + "/sign/contract/platformSignTask", map);
         //"flowId":"c49be53c7e2347759eaf5f320a84c82d"

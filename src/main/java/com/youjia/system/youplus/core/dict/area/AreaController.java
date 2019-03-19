@@ -20,6 +20,11 @@ public class AreaController {
         return ResultGenerator.genSuccessResult(areaManager.findByParentId(parentId));
     }
 
+    @GetMapping("list")
+    public BaseData list(Long parentId) {
+        return ResultGenerator.genSuccessResult(areaManager.findByParentId(parentId));
+    }
+
     @PostMapping
     public BaseData add(AreaEntity areaEntity) {
         return ResultGenerator.genSuccessResult(areaManager.add(areaEntity));
