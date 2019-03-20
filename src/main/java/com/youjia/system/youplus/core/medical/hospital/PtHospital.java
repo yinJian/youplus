@@ -50,6 +50,19 @@ public class PtHospital extends BaseDeleteEntity {
      */
     private Boolean publicTrans;
     /**
+     * 注册
+     */
+    private Boolean register;
+    /**
+     * 认证
+     */
+    private Boolean authentication;
+    /**
+     * 优选
+     */
+    private Boolean choose;
+
+    /**
      * 结算周期。1月结，2七天结，3出院结
      */
     private Integer zhouqi;
@@ -80,10 +93,37 @@ public class PtHospital extends BaseDeleteEntity {
                 ", zhifu=" + zhifu +
                 ", mianya=" + mianya +
                 ", publicTrans=" + publicTrans +
+                ", register=" + register +
+                ", authentication=" + authentication +
+                ", choose=" + choose +
                 ", zhouqi=" + zhouqi +
                 ", bank='" + bank + '\'' +
                 ", bankCardNum='" + bankCardNum + '\'' +
                 '}';
+    }
+
+    public Boolean getRegister() {
+        return register;
+    }
+
+    public void setRegister(Boolean register) {
+        this.register = register;
+    }
+
+    public Boolean getAuthentication() {
+        return authentication;
+    }
+
+    public void setAuthentication(Boolean authentication) {
+        this.authentication = authentication;
+    }
+
+    public Boolean getChoose() {
+        return choose;
+    }
+
+    public void setChoose(Boolean choose) {
+        this.choose = choose;
     }
 
     public Boolean getZhifu() {

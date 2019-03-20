@@ -72,6 +72,19 @@ public class PtDoctor extends BaseDeleteEntity {
      * 银行卡号
      */
     private String bankCardNum;
+    //***************1.2新增*************//
+    /**
+     * 注册
+     */
+    private Boolean register;
+    /**
+     * 认证
+     */
+    private Boolean authentication;
+    /**
+     * 优选
+     */
+    private Boolean choose;
 
     @Override
     public String toString() {
@@ -96,7 +109,34 @@ public class PtDoctor extends BaseDeleteEntity {
                 ", doctorPic='" + doctorPic + '\'' +
                 ", bank='" + bank + '\'' +
                 ", bankCardNum='" + bankCardNum + '\'' +
+                ", register=" + register +
+                ", authentication=" + authentication +
+                ", choose=" + choose +
                 '}';
+    }
+
+    public Boolean getRegister() {
+        return register;
+    }
+
+    public void setRegister(Boolean register) {
+        this.register = register;
+    }
+
+    public Boolean getAuthentication() {
+        return authentication;
+    }
+
+    public void setAuthentication(Boolean authentication) {
+        this.authentication = authentication;
+    }
+
+    public Boolean getChoose() {
+        return choose;
+    }
+
+    public void setChoose(Boolean choose) {
+        this.choose = choose;
     }
 
     public Boolean getYouplusDoctor() {

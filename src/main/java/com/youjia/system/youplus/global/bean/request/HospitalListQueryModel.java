@@ -7,6 +7,19 @@ public class HospitalListQueryModel extends BaseModel {
     private String city;
     private String country;
 
+    /**
+     * 注册
+     */
+    private Boolean register;
+    /**
+     * 认证
+     */
+    private Boolean authentication;
+    /**
+     * 优选
+     */
+    private Boolean choose;
+
     @Override
     public String toString() {
         return "HospitalListQueryModel{" +
@@ -15,7 +28,34 @@ public class HospitalListQueryModel extends BaseModel {
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
+                ", register=" + register +
+                ", authentication=" + authentication +
+                ", choose=" + choose +
                 '}';
+    }
+
+    public Boolean getRegister() {
+        return register;
+    }
+
+    public void setRegister(Boolean register) {
+        this.register = register;
+    }
+
+    public Boolean getAuthentication() {
+        return authentication;
+    }
+
+    public void setAuthentication(Boolean authentication) {
+        this.authentication = authentication;
+    }
+
+    public Boolean getChoose() {
+        return choose;
+    }
+
+    public void setChoose(Boolean choose) {
+        this.choose = choose;
     }
 
     public String getName() {
