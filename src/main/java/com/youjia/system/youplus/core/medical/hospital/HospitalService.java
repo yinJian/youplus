@@ -64,6 +64,10 @@ public class HospitalService {
         criteria.add(Restrictions.eq("province", hospitalListQueryModel.getProvince(), true));
         criteria.add(Restrictions.eq("city", hospitalListQueryModel.getCity(), true));
         criteria.add(Restrictions.eq("country", hospitalListQueryModel.getCountry(), true));
+
+        criteria.add(Restrictions.eq("register", hospitalListQueryModel.getRegister(), true));
+        criteria.add(Restrictions.eq("authentication", hospitalListQueryModel.getAuthentication(), true));
+        criteria.add(Restrictions.eq("choose", hospitalListQueryModel.getChoose(), true));
         criteria.add(Restrictions.eq("deleteFlag", false, true));
 
         return criteria;

@@ -64,6 +64,9 @@ public class DoctorService {
         criteria.add(Restrictions.eq("city", doctorListQueryModel.getCity(), true));
         criteria.add(Restrictions.eq("country", doctorListQueryModel.getCountry(), true));
         criteria.add(Restrictions.like("paper", doctorListQueryModel.getPaper(), true));
+        criteria.add(Restrictions.eq("register", doctorListQueryModel.getRegister(), true));
+        criteria.add(Restrictions.eq("authentication", doctorListQueryModel.getAuthentication(), true));
+        criteria.add(Restrictions.eq("choose", doctorListQueryModel.getChoose(), true));
         criteria.add(Restrictions.eq("deleteFlag", false, true));
         if (StrUtil.isNotEmpty(doctorListQueryModel.getHospitalName())) {
             List<PtHospital> hospitals = ptHospitalManager.findByNameLike(doctorListQueryModel.getHospitalName());
