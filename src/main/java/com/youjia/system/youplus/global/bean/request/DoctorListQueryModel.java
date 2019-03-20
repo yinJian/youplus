@@ -13,6 +13,8 @@ public class DoctorListQueryModel extends BaseModel {
     private String dept1;
     private String dept2;
 
+    private String paper;
+
     private String hospitalName;
 
     @Override
@@ -26,8 +28,17 @@ public class DoctorListQueryModel extends BaseModel {
                 ", country='" + country + '\'' +
                 ", dept1='" + dept1 + '\'' +
                 ", dept2='" + dept2 + '\'' +
+                ", paper='" + paper + '\'' +
                 ", hospitalName='" + hospitalName + '\'' +
                 '}';
+    }
+
+    public String getPaper() {
+        return paper;
+    }
+
+    public void setPaper(String paper) {
+        this.paper = paper;
     }
 
     public String getName() {

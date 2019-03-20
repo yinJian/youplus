@@ -119,7 +119,7 @@ public class OrderService {
                 OrderAddUpdateModel model = parseCsv(line, goodsId, companyId);
                 if (model != null) {
                     models.add(model);
-                    add(model, true);
+                    add(model, false);
                 }
 
             }
