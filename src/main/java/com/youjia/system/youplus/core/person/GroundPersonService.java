@@ -88,7 +88,12 @@ public class GroundPersonService {
                 ptGroundPerson.setWechatName(wechatName);
             }
             ptGroundPerson.setOpenid(openid);
-            ptGroundPersonManager.update(ptGroundPerson);
+            try {
+                ptGroundPersonManager.update(ptGroundPerson);
+            } catch (Exception e) {
+                ptGroundPerson.setWechatName("特殊字符");
+                ptGroundPersonManager.update(ptGroundPerson);
+            }
 
             return ResultGenerator.genSuccessResult(findDetail(ptGroundPerson.getId()));
         }
