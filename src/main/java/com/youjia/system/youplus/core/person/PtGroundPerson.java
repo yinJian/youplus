@@ -27,7 +27,7 @@ public class PtGroundPerson extends BaseDeleteEntity {
     /**
      * 地区负责人
      */
-    private boolean areaOwner;
+    private Boolean areaOwner;
     /**
      * 医院id集合，逗号分隔
      */
@@ -289,11 +289,11 @@ public class PtGroundPerson extends BaseDeleteEntity {
         this.country = country;
     }
 
-    public boolean isAreaOwner() {
+    public Boolean isAreaOwner() {
         return areaOwner;
     }
 
-    public void setAreaOwner(boolean areaOwner) {
+    public void setAreaOwner(Boolean areaOwner) {
         this.areaOwner = areaOwner;
     }
 
