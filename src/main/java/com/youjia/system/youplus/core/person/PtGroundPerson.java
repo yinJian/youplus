@@ -289,7 +289,7 @@ public class PtGroundPerson extends BaseDeleteEntity {
         this.country = country;
     }
 
-    public Boolean isAreaOwner() {
+    public Boolean getAreaOwner() {
         return areaOwner;
     }
 
