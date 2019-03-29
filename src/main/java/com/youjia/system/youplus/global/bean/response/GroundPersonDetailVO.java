@@ -21,7 +21,7 @@ public class GroundPersonDetailVO {
     /**
      * 地区负责人
      */
-    private boolean areaOwner;
+    private Boolean areaOwner;
     /**
      * 医院id集合，逗号分隔
      */
@@ -303,11 +303,11 @@ public class GroundPersonDetailVO {
         this.country = country;
     }
 
-    public boolean isAreaOwner() {
+    public Boolean getAreaOwner() {
         return areaOwner;
     }
 
-    public void setAreaOwner(boolean areaOwner) {
+    public void setAreaOwner(Boolean areaOwner) {
         this.areaOwner = areaOwner;
     }
 
