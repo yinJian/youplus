@@ -27,7 +27,7 @@ public class PtGroundPerson extends BaseDeleteEntity {
     /**
      * 地区负责人
      */
-    private Boolean areaOwner;
+    private Boolean areaOwner = false;
     /**
      * 医院id集合，逗号分隔
      */
